@@ -20,10 +20,20 @@ for i in $(seq 1 30); do curl -sf "http://localhost:$PORT/api/health" >/dev/null
 curl -sf "http://localhost:$PORT/api/health" >/dev/null || { echo "서버 시작 실패 (.run/server.log 확인)"; exit 1; }
 echo "server: http://localhost:$PORT"
 
-nohup "$CLOUDFLARED" tunnel --no-autoupdate --url "http://localhost:$PORT" > .run/tunnel.log 2>&1 &
-echo $! > .run/tunnel.pid
 URL=""
-for i in $(seq 1 60); do URL=$(grep -oE 'https://[a-z0-9-]+\.trycloudflare\.com' .run/tunnel.log | head -1 || true); [ -n "$URL" ] && break; sleep 1; done
+# 계정 없는 임시 터널은 생성 요청이 429로 거절될 수 있어 대기 후 재시도
+for wait in 0 30 60 120 180 300; do
+  [ "$wait" -gt 0 ] && { echo "터널 생성 거절됨($(tail -1 .run/tunnel.log)) — ${wait}초 후 재시도"; sleep "$wait"; }
+  nohup "$CLOUDFLARED" tunnel --no-autoupdate --url "http://localhost:$PORT" > .run/tunnel.log 2>&1 &
+  echo $! > .run/tunnel.pid
+  for i in $(seq 1 45); do
+    URL=$(grep -oE 'https://[a-z0-9-]+\.trycloudflare\.com' .run/tunnel.log | head -1 || true)
+    [ -n "$URL" ] && break 2
+    grep -q 'failed' .run/tunnel.log && break
+    sleep 1
+  done
+  stop tunnel
+done
 [ -n "$URL" ] || { echo "터널 주소를 못 받음 (.run/tunnel.log 확인)"; exit 1; }
 echo "$URL" > .run/tunnel.url
 echo "tunnel: $URL"
