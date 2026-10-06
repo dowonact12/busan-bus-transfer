@@ -1,0 +1,19 @@
+# Render Blueprint — 무료 웹 서비스 1개가 API 프록시와 화면(dist)을 함께 제공
+services:
+  - type: web
+    name: busan-bus-transfer
+    runtime: node
+    plan: free
+    region: singapore
+    branch: main
+    autoDeploy: true
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: BUSAN_BIMS_SERVICE_KEY
+        sync: false # Render 대시보드에서 직접 입력 (저장소에 넣지 않음)
+      - key: NODE_VERSION
+        value: 20.19.2
+      - key: ALLOWED_ORIGINS
+        value: https://dowonact12.github.io

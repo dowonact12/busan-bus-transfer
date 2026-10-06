@@ -11,6 +11,7 @@ const root = path.resolve(import.meta.dirname, '..');
 loadEnv(root);
 const KEY = process.env.BUSAN_BIMS_SERVICE_KEY || undefined;
 const PORT = Number(process.env.PORT || 5179);
+const HOST = process.env.HOST || '0.0.0.0'; // Render 등 컨테이너에서 외부 접속 허용
 const gen: CandidatesPayload & { routeStops: Record<string, unknown[]> } = JSON.parse(fs.readFileSync(path.join(root, 'shared/candidates.generated.json'), 'utf8'));
 const mapPath = path.join(root, 'data/bstopid-map.json');
 const bstopMap = fs.existsSync(mapPath) ? JSON.parse(fs.readFileSync(mapPath, 'utf8')) : {};
@@ -52,7 +53,7 @@ const server = http.createServer(async (req, res) => {
       return send(res, 200, JSON.stringify({ serverTime: Math.floor(Date.now() / 1000), routes: out }));
     }
     if (url.pathname === '/api/routes') return send(res, 200, JSON.stringify(gen.routeStops ?? {}));
-    if (url.pathname === '/api/health') return send(res, 200, JSON.stringify({ ok: true, keyConfigured: !!KEY }));
+    if (url.pathname === '/api/health') return send(res, 200, JSON.stringify({ ok: true, keyConfigured: !!KEY, bimsTransport: client?.transport() ?? 'none', uptimeSec: Math.round(process.uptime()) }));
     // 정적 파일
     let p = path.normalize(path.join(dist, decodeURIComponent(url.pathname)));
     if (!p.startsWith(dist)) return send(res, 403, 'forbidden', 'text/plain');
@@ -67,4 +68,4 @@ const server = http.createServer(async (req, res) => {
     send(res, 500, JSON.stringify({ error: '서버 오류' }));
   }
 });
-server.listen(PORT, () => console.log(`busan-bus-transfer listening on http://localhost:${PORT} · realtime ${KEY ? 'key configured (value hidden)' : 'NOT configured → 예시 모드'}`));
+server.listen(PORT, HOST, () => console.log(`busan-bus-transfer listening on http://${HOST}:${PORT} · realtime ${KEY ? 'key configured (value hidden)' : 'NOT configured → 예시 모드'} · CORS ${[...ALLOWED_ORIGINS].join(',')}`));

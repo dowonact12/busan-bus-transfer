@@ -189,3 +189,11 @@ button { font: inherit; color: inherit; }
 .offline-card { padding: 1.4rem; text-align: center; }
 .offline-card p { word-break: keep-all; }
 .pill-off { background: #e9e5f2; color: #6b6286; }
+
+.wake-bus { display: inline-block; animation: wake 2.4s ease-in-out infinite; }
+@keyframes wake { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-6px) rotate(2deg); } }
+.wake-dots { display: flex; justify-content: center; gap: 8px; margin: 0.6rem 0 0.2rem; }
+.wake-dots span { width: 10px; height: 10px; border-radius: 50%; background: #b9a3ea; animation: dot 1.2s ease-in-out infinite; }
+.wake-dots span:nth-child(2) { animation-delay: 0.2s; background: #f6a6b9; }
+.wake-dots span:nth-child(3) { animation-delay: 0.4s; background: #7cc6a4; }
+@keyframes dot { 0%, 100% { transform: scale(0.6); opacity: 0.5; } 50% { transform: scale(1); opacity: 1; } }

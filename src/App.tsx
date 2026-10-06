@@ -17,7 +17,7 @@ const PHASES: { key: JourneyState['phase']; label: string }[] = [
 ];
 
 export function App() {
-  const { cands, routeStops, snap: liveSnap, netError, loading, refresh, offset, connection, demo, setDemo } = useData();
+  const { cands, routeStops, snap: liveSnap, netError, loading, refresh, offset, connection, wakeElapsed, demo, setDemo } = useData();
   const now = useNow(offset);
   // 연결 끊김 + 사용자가 '예시 화면'을 고른 경우에만 클라이언트 예시 데이터 (실시간처럼 보이지 않게)
   const snap = demo && cands ? clientSampleSnapshot(cands, now) : liveSnap;
@@ -48,7 +48,7 @@ export function App() {
   const vehicles = useVehicles(visibleRoutes.slice(0, 6), !!liveSnap && connection === 'ok', demo, Object.fromEntries(Object.entries(routeStops).map(([k, v]) => [k, v.length])));
   const sample = snap?.mode === 'sample';
   const oldestAge = boards.length ? Math.max(...boards.filter((b) => b.fetchedAt).map((b) => now - (b.fetchedAt ?? now))) : null;
-  const statusPill = demo ? { cls: 'pill-sample', text: '예시 모드' } : connection === 'lost' ? { cls: 'pill-off', text: '실시간 연결 끊김' } : !snap ? { cls: 'pill-wait', text: '불러오는 중' } : sample ? { cls: 'pill-sample', text: '예시 모드' } : oldestAge != null && oldestAge > 120 ? { cls: 'pill-stale', text: '갱신 필요' } : snap.mode === 'live_degraded' ? { cls: 'pill-stale', text: '일부만 실시간' } : { cls: 'pill-live', text: '실시간' };
+  const statusPill = demo ? { cls: 'pill-sample', text: '예시 모드' } : connection === 'waking' ? { cls: 'pill-wait', text: '서버 깨우는 중' } : connection === 'lost' ? { cls: 'pill-off', text: '실시간 연결 끊김' } : !snap ? { cls: 'pill-wait', text: '불러오는 중' } : sample ? { cls: 'pill-sample', text: '예시 모드' } : oldestAge != null && oldestAge > 120 ? { cls: 'pill-stale', text: '갱신 필요' } : snap.mode === 'live_degraded' ? { cls: 'pill-stale', text: '일부만 실시간' } : { cls: 'pill-live', text: '실시간' };
   const mood = !rec ? 'sleepy' : rec.recommendedIsTight || !rec.recommended ? 'worried' : 'happy';
 
   return (
@@ -62,26 +62,35 @@ export function App() {
             <span>{snap ? `${hhmmss(Math.max(...boards.map((b) => b.fetchedAt ?? 0), 0) || snap.serverTime)} 수신` : ''}</span>
           </div>
         </div>
-        <button className="icon-btn" onClick={() => refresh()} aria-label="새로고침" disabled={loading}><span className={loading ? 'spin' : ''}>↻</span></button>
+        <button className="icon-btn" onClick={() => refresh(true)} aria-label="새로고침" disabled={loading}><span className={loading ? 'spin' : ''}>↻</span></button>
         <button className="icon-btn" onClick={() => setSheet('settings')} aria-label="설정">⚙︎</button>
       </header>
 
       <main className="main">
-        {demo && <div className="banner banner-sample">🧸 실시간 연결이 끊겨서 <b>예시 화면</b>을 보여드려요. 시각은 실제가 아니에요. <button className="btn tiny" onClick={() => { setDemo(false); refresh(); }}>다시 연결</button></div>}
+        {demo && <div className="banner banner-sample">🧸 실시간 연결이 끊겨서 <b>예시 화면</b>을 보여드려요. 시각은 실제가 아니에요. <button className="btn tiny" onClick={() => { setDemo(false); refresh(true); }}>다시 연결</button></div>}
         {sample && !demo && <div className="banner banner-sample">🧸 지금은 <b>예시 모드</b>예요. 아래 버스 시각은 실제가 아니에요.{snap?.providerMessage ? ` (${snap.providerMessage})` : ''}</div>}
+        {connection === 'waking' && liveSnap && !demo && <div className="banner banner-sample" role="status">☕ 버스 서버 깨우는 중… ({wakeElapsed}초) 아래 정보는 마지막으로 받은 값이라 곧 ‘갱신 필요’로 바뀔 수 있어요.</div>}
         {netError && !demo && liveSnap && <div className="banner banner-warn" role="alert">📡 {netError}</div>}
         {snap?.providerMessage && !sample && !demo && <div className="banner banner-warn" role="status">{snap.providerMessage}</div>}
         {rec?.notices.map((n) => <div key={n} className="banner banner-warn" role="status">{n}</div>)}
 
         {journey.phase !== 'before' && <JourneyBar journey={journey} setJourney={setJourney} now={now} cand={journey.candidateId ? candById(journey.candidateId) : undefined} ev={rec?.all.find((e) => e.candidateId === journey.candidateId) ?? null} />}
 
-        {connection === 'lost' && !liveSnap && !demo ? (
+        {connection === 'waking' && !liveSnap && !demo ? (
+          <div className="card offline-card" role="status" aria-live="polite">
+            <span className="wake-bus"><BusBuddy size={76} mood="sleepy" label="일어나는 버스" /></span>
+            <p className="hero-action">버스 서버 깨우는 중… ☕</p>
+            <p className="muted">무료 서버라 한동안 안 쓰면 잠들어요. 깨어나는 데 30~60초쯤 걸려요. 잠깐만 기다려 주세요!</p>
+            <div className="wake-dots" aria-hidden><span /><span /><span /></div>
+            <p className="fine">{wakeElapsed > 0 ? `${wakeElapsed}초째 깨우는 중 · 5초마다 다시 불러요` : '연결 중'}</p>
+          </div>
+        ) : connection === 'lost' && !liveSnap && !demo ? (
           <div className="card offline-card" role="alert">
             <BusBuddy size={72} mood="sleepy" label="잠든 버스" />
             <p className="hero-action">실시간 연결이 끊겼어요 💤</p>
             <p className="muted">버스 정보를 받아오는 서버에 지금 닿지 않아요. 그래서 버스 시각을 보여드릴 수 없어요.</p>
             <div className="detail-actions" style={{ justifyContent: 'center' }}>
-              <button className="btn primary" onClick={() => refresh()}>다시 연결해 보기</button>
+              <button className="btn primary" onClick={() => refresh(true)}>다시 깨워 보기</button>
               <button className="btn soft" onClick={() => setDemo(true)}>예시 화면 보기</button>
             </div>
             <p className="fine">예시 화면의 시각은 실제가 아니에요.</p>

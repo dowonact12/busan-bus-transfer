@@ -14,10 +14,10 @@ export function apiBase(): Promise<string> {
   }
   return apiBasePromise;
 }
-async function api<T>(path: string): Promise<T> {
+async function api<T>(path: string, timeoutMs = 25000): Promise<T> {
   const base = await apiBase();
   const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), 15000);
+  const t = setTimeout(() => ctrl.abort(), timeoutMs);
   try {
     const r = await fetch(`${base}${path}`, { cache: 'no-store', signal: ctrl.signal });
     if (!r.ok) throw new Error(String(r.status));
@@ -41,6 +41,8 @@ export function clientSampleSnapshot(cands: CandidatesPayload, now: number): Sna
 export { sampleVehicles };
 
 const nowSec = () => Math.floor(Date.now() / 1000);
+const WAKE_WINDOW_MS = 120_000; // 깨우기 대기 최대 2분
+const WAKE_RETRY_MS = 5_000;
 
 export function useVisible(): boolean {
   const [v, setV] = useState(typeof document === 'undefined' ? true : document.visibilityState === 'visible');
@@ -67,7 +69,11 @@ export function useData() {
   const [routeStops, setRouteStops] = useState<Record<string, RouteStop[]>>({});
   const [snap, setSnap] = useState<Snapshot | null>(null);
   const [netError, setNetError] = useState<string | null>(null);
-  const [connection, setConnection] = useState<'connecting' | 'ok' | 'lost'>('connecting');
+  // 무료 서버는 쉬다가 깨는 데 30~60초 걸릴 수 있어 바로 '끊김'이라 하지 않고 '깨우는 중'으로 재시도
+  const [connection, setConnection] = useState<'connecting' | 'waking' | 'ok' | 'lost'>('connecting');
+  const failSince = useRef<number | null>(null);
+  const retryTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [wakeElapsed, setWakeElapsed] = useState(0);
   const [demo, setDemo] = useState(false);
   const [loading, setLoading] = useState(false);
   const offset = useRef(0);
@@ -87,7 +93,9 @@ export function useData() {
     api<Record<string, RouteStop[]>>('/api/routes').then(setRouteStops).catch(() => setRouteStops(bundledPayload.routeStops));
   }, []);
 
-  const refresh = useCallback(async () => {
+  const refresh = useCallback(async (manual = false) => {
+    if (retryTimer.current) { clearTimeout(retryTimer.current); retryTimer.current = null; }
+    if (manual && failSince.current != null && Date.now() - failSince.current > WAKE_WINDOW_MS) failSince.current = Date.now(); // 다시 깨우기
     setLoading(true);
     try {
       const s = await api<Snapshot>('/api/snapshot');
@@ -95,24 +103,38 @@ export function useData() {
       setSnap(s);
       setNetError(null);
       setConnection('ok');
+      failSince.current = null;
+      setWakeElapsed(0);
       setDemo(false);
     } catch {
-      setConnection('lost');
-      setNetError('실시간 연결이 끊겼어요. 받은 정보는 시간이 지나면 ‘갱신 필요’로 바뀌어요.');
+      if (failSince.current == null) failSince.current = Date.now();
+      const elapsed = Date.now() - failSince.current;
+      setWakeElapsed(Math.round(elapsed / 1000));
+      if (elapsed < WAKE_WINDOW_MS) {
+        setConnection('waking');
+        setNetError(null);
+        retryTimer.current = setTimeout(() => refreshRef.current(), WAKE_RETRY_MS);
+      } else {
+        setConnection('lost');
+        setNetError('실시간 연결이 끊겼어요. 받은 정보는 시간이 지나면 ‘갱신 필요’로 바뀌어요.');
+      }
     } finally {
       setLoading(false);
     }
   }, []);
+  const refreshRef = useRef(refresh);
+  refreshRef.current = refresh;
+  useEffect(() => () => { if (retryTimer.current) clearTimeout(retryTimer.current); }, []);
 
   useEffect(() => {
     if (!visible || !online) return; // 화면이 숨겨지면 폴링 중단, 복귀 시 즉시 갱신
     refresh();
-    const id = setInterval(refresh, Math.max(30, snap?.ttlSec ?? 30) * 1000);
+    const id = setInterval(() => { if (!retryTimer.current) refresh(); }, Math.max(30, snap?.ttlSec ?? 30) * 1000);
     return () => clearInterval(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible, online, refresh]);
 
-  return { cands, routeStops, snap, netError: online ? netError : '오프라인이에요. 연결되면 다시 불러올게요.', loading, refresh, offset, connection: online ? connection : 'lost', demo, setDemo };
+  return { cands, routeStops, snap, netError: online ? netError : '오프라인이에요. 연결되면 다시 불러올게요.', loading, refresh, offset, connection: online ? connection : 'lost', wakeElapsed, demo, setDemo };
 }
 
 export function useVehicles(routes: string[], enabled: boolean, demo = false, routeLens: Record<string, number> = {}) {

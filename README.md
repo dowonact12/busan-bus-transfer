@@ -17,6 +17,16 @@ scripts/deploy-pages.sh      # 화면을 GitHub Pages에 배포
 ```
 후보 경로 재생성: 공식 자료를 `data/raw/`에 받은 뒤 `node scripts/build-candidates.mjs`.
 
+## Render 무료 배포 (API + 화면 한 번에)
+`render.yaml` 블루프린트 포함 — 싱가포르 리전, 무료 플랜.
+- Build: `npm ci --include=dev && npm run build`
+- Start: `npm start` (= `node --import tsx server/index.ts`, `0.0.0.0:$PORT`)
+- Health check: `/api/health`
+- 환경변수: `BUSAN_BIMS_SERVICE_KEY` (Render 대시보드에서 입력, `sync: false`), `NODE_VERSION=20.19.2`, `ALLOWED_ORIGINS=https://dowonact12.github.io`
+- Render 주소만으로도 화면이 열린다. GitHub Pages 화면은 `config.json`의 `apiBase`를 Render 주소로 바꾸면 그 API를 쓴다.
+- 무료 인스턴스는 15분쯤 안 쓰면 잠들고 깨는 데 30~60초 걸린다 → 화면은 ‘버스 서버 깨우는 중…’을 보여주며 5초마다 최대 2분 재시도.
+- BIMS 호출은 HTTPS 우선, 연결/TLS 실패 시에만 HTTP 폴백(30분마다 HTTPS 재시도). `/api/health`의 `bimsTransport`로 확인.
+
 ## 부산 버스 실시간 키 받는 법 (무료)
 1. [공공데이터포털](https://www.data.go.kr) 로그인(없으면 회원가입).
 2. [부산광역시_부산버스정보시스템](https://www.data.go.kr/data/15092750/openapi.do) 페이지에서 **활용신청** → 활용 목적 간단히 입력 → 신청 (개발계정 자동승인, 무료, 하루 10,000회).
