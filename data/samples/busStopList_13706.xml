@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+
+<response>
+<header>
+<resultCode>00</resultCode>
+<resultMsg>NORMAL SERVICE</resultMsg>
+</header>
+<body>
+<items>
+<item>
+<bstopid>505960000</bstopid>
+<bstopnm>연산역.연제초교</bstopnm>
+<arsno>13706</arsno>
+<gpsx>129.080056485897</gpsx>
+<gpsy>35.18393910799</gpsy>
+<stoptype>일반</stoptype>
+</item>
+</items>
+<numOfRows>100</numOfRows>
+<pageNo>1</pageNo>
+<totalCount>1</totalCount>
+</body>
+</response>

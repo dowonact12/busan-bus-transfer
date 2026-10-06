@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+
+<response>
+<header>
+<resultCode>00</resultCode>
+<resultMsg>NORMAL SERVICE</resultMsg>
+</header>
+<body>
+<items>
+<item>
+<bstopid>193420201</bstopid>
+<bstopnm>연산역</bstopnm>
+<arsno>13051</arsno>
+<gpsx>129.080472643964</gpsx>
+<gpsy>35.186292126321</gpsy>
+<stoptype>일반</stoptype>
+</item>
+</items>
+<numOfRows>100</numOfRows>
+<pageNo>1</pageNo>
+<totalCount>1</totalCount>
+</body>
+</response>

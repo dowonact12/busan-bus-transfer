@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+
+<response>
+<header>
+<resultCode>00</resultCode>
+<resultMsg>NORMAL SERVICE</resultMsg>
+</header>
+<body>
+<items>
+<item>
+<bstopid>187960101</bstopid>
+<bstopnm>왕자맨션</bstopnm>
+<arsno>09195</arsno>
+<gpsx>129.118469409773</gpsx>
+<gpsy>35.195023776831</gpsy>
+<stoptype>일반</stoptype>
+</item>
+</items>
+<numOfRows>100</numOfRows>
+<pageNo>1</pageNo>
+<totalCount>1</totalCount>
+</body>
+</response>

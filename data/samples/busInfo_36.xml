@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+
+<response>
+<header>
+<resultCode>00</resultCode>
+<resultMsg>NORMAL SERVICE</resultMsg>
+</header>
+<body>
+<items>
+<item>
+<lineid>5200036000</lineid>
+<buslinenum>36</buslinenum>
+<bustype>일반버스</bustype>
+<startpoint>청강리공영차고지</startpoint>
+<endpoint>거제역</endpoint>
+<companyid>일광</companyid>
+<headway>9-10</headway>
+<firsttime>05:00</firsttime>
+<endtime>21:40</endtime>
+<headwaypeak>20</headwaypeak>
+<headwaynorm>21</headwaynorm>
+<headwayholi>23</headwayholi>
+</item>
+</items>
+</body>
+</response>

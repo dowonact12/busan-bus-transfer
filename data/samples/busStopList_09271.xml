@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+
+<response>
+<header>
+<resultCode>00</resultCode>
+<resultMsg>NORMAL SERVICE</resultMsg>
+</header>
+<body>
+<items>
+<item>
+<bstopid>184710101</bstopid>
+<bstopnm>무정리길</bstopnm>
+<arsno>09271</arsno>
+<gpsx>129.123701642409</gpsx>
+<gpsy>35.2015456743</gpsy>
+<stoptype>일반</stoptype>
+</item>
+</items>
+<numOfRows>100</numOfRows>
+<pageNo>1</pageNo>
+<totalCount>1</totalCount>
+</body>
+</response>

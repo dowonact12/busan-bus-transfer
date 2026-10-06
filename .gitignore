@@ -1,0 +1,8 @@
+.env
+.env.*
+!.env.example
+node_modules
+dist
+.run
+server.log
+data/raw/*.html

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+
+<response>
+<header>
+<resultCode>00</resultCode>
+<resultMsg>NORMAL SERVICE</resultMsg>
+</header>
+<body>
+<items>
+<item>
+<bstopid>193420201</bstopid>
+<lineno>36</lineno>
+<nodenm>연산역</nodenm>
+<bstopidx>75</bstopidx>
+<carno1>4402</carno1>
+<min1>7</min1>
+<station1>2</station1>
+<lowplate1>0</lowplate1>
+<seat1>-1</seat1>
+<carno2>4408</carno2>
+<min2>23</min2>
+<station2>13</station2>
+<lowplate2>0</lowplate2>
+<seat2>-1</seat2>
+<gpsx>129.080472643964</gpsx>
+<gpsy>35.186292126321</gpsy>
+<bustype>일반버스</bustype>
+<lineid>5200036000</lineid>
+</item>
+</items>
+</body>
+</response>

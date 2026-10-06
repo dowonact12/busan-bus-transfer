@@ -1,0 +1,212 @@
+{
+ "13051": {
+  "bstopid": "193420201",
+  "apiName": "연산역",
+  "officialName": "연산역",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T09:11:45.922Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "13056": {
+  "bstopid": "193360101",
+  "apiName": "연산교차로",
+  "officialName": "연산교차로",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T09:11:45.922Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "13057": {
+  "bstopid": "193750101",
+  "apiName": "웰니스병원.연산농협",
+  "officialName": "웰니스병원.연산농협",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T09:11:45.922Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "13162": {
+  "bstopid": "193730201",
+  "apiName": "연산교차로",
+  "officialName": "연산교차로",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T09:11:45.922Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "13706": {
+  "bstopid": "505960000",
+  "apiName": "연산역.연제초교",
+  "officialName": "연산역.연제초교",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T09:11:45.922Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "09273": {
+  "bstopid": "185040101",
+  "apiName": "무정초등학교",
+  "officialName": "무정초등학교",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T09:11:45.922Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "06164": {
+  "bstopid": "166450101",
+  "apiName": "우성아파트",
+  "officialName": "우성아파트",
+  "distanceM": 9,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T09:11:45.922Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "06706": {
+  "bstopid": "166880201",
+  "apiName": "동래한전",
+  "officialName": "동래한전",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T09:11:45.922Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "09199": {
+  "bstopid": "184950102",
+  "apiName": "한화꿈에그린아파트",
+  "officialName": "한화꿈에그린아파트",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T09:11:45.922Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "06702": {
+  "bstopid": "165440103",
+  "apiName": "부산원동역",
+  "officialName": "부산원동역",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T09:11:45.922Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "06712": {
+  "bstopid": "502470000",
+  "apiName": "동래시장",
+  "officialName": "동래시장",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T09:11:45.922Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "09275": {
+  "bstopid": "187970101",
+  "apiName": "왕자맨션",
+  "officialName": "왕자맨션",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T09:11:45.922Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "09195": {
+  "bstopid": "187960101",
+  "apiName": "왕자맨션",
+  "officialName": "왕자맨션",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T09:11:45.922Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "06161": {
+  "bstopid": "166590203",
+  "apiName": "낙민역.동래고등학교",
+  "officialName": "낙민역.동래고등학교",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T09:11:45.922Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "06710": {
+  "bstopid": "502450000",
+  "apiName": "낙민역.동래고등학교",
+  "officialName": "낙민역.동래고등학교",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T09:11:45.922Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "06158": {
+  "bstopid": "165600202",
+  "apiName": "낙민역.동래고등학교",
+  "officialName": "낙민역.동래고등학교",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T09:11:45.922Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "06711": {
+  "bstopid": "502460000",
+  "apiName": "동래시장",
+  "officialName": "동래시장",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T09:11:45.922Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "09702": {
+  "bstopid": "184220202",
+  "apiName": "원동IC교차로",
+  "officialName": "원동IC교차로",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T09:11:45.922Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "06173": {
+  "bstopid": "166400101",
+  "apiName": "안락동우체국.동해선안락역",
+  "officialName": "안락동우체국.동해선안락역",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T09:11:45.922Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "06708": {
+  "bstopid": "166400102",
+  "apiName": "안락동우체국.동해선안락역",
+  "officialName": "안락동우체국.동해선안락역",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T09:11:45.922Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "09271": {
+  "bstopid": "184710101",
+  "apiName": "무정리길",
+  "officialName": "무정리길",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T09:11:45.922Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ }
+}

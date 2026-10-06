@@ -1,0 +1,14 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { loadEnv } from '../server/env';
+import { BimsClient } from '../server/bimsClient';
+const root = path.resolve(import.meta.dirname, '..');
+loadEnv(root);
+const c = new BimsClient(process.env.BUSAN_BIMS_SERVICE_KEY);
+const ts = Math.floor(Date.now() / 1000);
+const r = await c.call('busInfoByRouteId', { lineid: process.argv[2] ?? '5200036000', numOfRows: '300' });
+fs.writeFileSync(path.join(root, 'data/samples', `busInfoByRouteId_${process.argv[2] ?? '5200036000'}_${ts}.xml`), r.rawRedacted);
+console.log(r.resultCode, r.items.length);
+const keys = new Set<string>(); r.items.forEach((i) => Object.keys(i).forEach((k) => keys.add(k)));
+console.log([...keys].join(','));
+for (const i of r.items) if (i.carno || Number(i.bstopidx) >= 70 && Number(i.bstopidx) <= 90) console.log(JSON.stringify(i));

@@ -1,0 +1,23 @@
+import { chromium } from 'playwright-core';
+const url = process.argv[2] ?? 'http://localhost:5179/';
+const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome', args: ['--no-sandbox'] });
+const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, locale: 'ko-KR', timezoneId: 'Asia/Seoul' });
+await page.goto(url, { waitUntil: 'networkidle' });
+await page.waitForSelector('.card.hero .eta-clock, .empty-card', { timeout: 30000 });
+await page.waitForTimeout(800);
+await page.screenshot({ path: 'screenshot-mobile.png' });
+const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
+console.log('horizontal overflow:', overflow);
+await page.click('.card.hero .card-tap');
+await page.waitForSelector('.strip-wrap', { timeout: 10000 });
+await page.waitForTimeout(2500);
+await page.locator('.card.hero .details').scrollIntoViewIfNeeded();
+await page.screenshot({ path: 'screenshot-mobile-details.png' });
+await page.screenshot({ path: 'screenshot-mobile-full.png', fullPage: true });
+// 글자 확대(접근성) 확인
+await page.addStyleTag({ content: 'html{font-size:125%}' });
+await page.waitForTimeout(300);
+console.log('overflow @125% text:', await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth));
+const small = await page.evaluate(() => [...document.querySelectorAll('button, a')].filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && (r.height < 32 || r.width < 32); }).map((e) => e.textContent?.trim().slice(0, 20)));
+console.log('small targets:', small);
+await browser.close();
