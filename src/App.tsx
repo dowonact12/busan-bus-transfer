@@ -111,7 +111,7 @@ function TripApp({ trip, setTrip }: { trip: TripId; setTrip: (t: TripId) => void
         {connection === 'waking' && liveSnap && !demo && <div className="banner banner-sample" role="status">☕ 버스 서버 깨우는 중… ({wakeElapsed}초) 아래 정보는 마지막으로 받은 값이라 곧 ‘갱신 필요’로 바뀔 수 있어요.</div>}
         {netError && !demo && liveSnap && <div className="banner banner-warn" role="alert">📡 {netError}</div>}
         {snap?.providerMessage && !sample && !demo && <div className="banner banner-warn" role="status">{snap.providerMessage}</div>}
-        {rec?.notices.map((n) => <div key={n} className="banner banner-warn" role="status">{n}</div>)}
+        {!tripUnsupported && rec?.notices.map((n) => <div key={n} className="banner banner-warn" role="status">{n}</div>)}
 
         {journey.phase !== 'before' && <JourneyBar journey={journey} setJourney={setJourney} now={now} cand={journey.candidateId ? candById(journey.candidateId) : undefined} ev={rec?.all.find((e) => e.candidateId === journey.candidateId) ?? null} />}
 
