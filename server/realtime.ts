@@ -60,9 +60,9 @@ export class RealtimeService {
     return this.callsToday >= (this.opts.dailySoftLimit ?? 8000) ? Math.max(base, 120) : base;
   }
   /** 조회가 필요한 (정류소, 노선) 쌍 — 첫 승차, 첫 노선 하류(환승 하차), 환승 승차 */
-  neededPairs(): { ars: string; routeNo: string; seq: number | null }[] {
+  neededPairs(cands: CandidateRoute[] = this.getCandidates()): { ars: string; routeNo: string; seq: number | null }[] {
     const m = new Map<string, { ars: string; routeNo: string; seq: number | null }>();
-    for (const c of this.getCandidates()) {
+    for (const c of cands) {
       const l1 = c.legs[0], l2 = c.legs[1];
       const add = (ars: string, routeNo: string, seq?: number) => m.set(`${ars}|${routeNo}`, { ars, routeNo, seq: seq ?? null });
       add(l1.board.ars, l1.routeNo, l1.board.routeStopSequence);
@@ -159,8 +159,9 @@ export class RealtimeService {
     return p;
   }
 
-  async snapshot(): Promise<Snapshot> {
-    const pairs = this.neededPairs();
+  /** cands: 이 방향(가는 길/오는 길)의 후보만 조회. 생략하면 전체 */
+  async snapshot(cands?: CandidateRoute[]): Promise<Snapshot> {
+    const pairs = this.neededPairs(cands ?? this.getCandidates());
     const client = this.opts.client;
     const t0 = this.now();
     if (!client || !client.hasKey()) {

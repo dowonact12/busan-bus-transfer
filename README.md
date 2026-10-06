@@ -33,6 +33,15 @@ scripts/deploy-pages.sh      # 화면을 GitHub Pages에 배포
 3. **마이페이지 → 데이터활용 → Open API → 활용신청 현황**에서 이 API를 눌러 **일반 인증키(Decoding)** 를 복사.
 4. 서버의 `.env.local`에 `BUSAN_BIMS_SERVICE_KEY=복사한키` 저장 후 서버 재시작. (발급 직후 최대 1시간 정도 ‘등록되지 않은 키’로 나올 수 있음)
 
+## 가는 길 / 오는 길 · 버스 위치 도식 · 지도
+- 맨 위 토글로 **가는 길**(중앙대로 1067 → 반여로 67)과 **오는 길**(반여로 67 → 중앙대로 1067)을 고르고, 기기에 기억해요. 건물 나가는 시간·진행 상태도 방향마다 따로 저장해요.
+- 오는 길 후보: `node scripts/build-candidates.mjs reverse` (공식 노선별 정류소 자료). 실시간 대조: `node --import tsx scripts/verify-live.ts` (두 방향 후보의 모든 정류장 매핑).
+- 경로를 펼치면 맨 위에 **출발 — 환승 — 도착** 3점 도식. `busInfoByRouteId` 차량 위치(정류소 순번)로 ‘출발 정류장 n정류장 전 / 출발~환승 사이 / 환승~도착 사이 / 지남’에 버스(노선 · 번호판 끝 4자리 · GPS n분 전)를 놓고, GPS가 5분 넘게 멈춘 버스는 흐리게.
+- 그 아래 간단한 지도(Leaflet + OpenStreetMap 기본 타일을 옅게 보정, 출처 표기). CARTO Positron은 이제 API 키(가입)가 필요해서 쓰지 않아요. 정류장 연결선, 출발/환승/도착 핀, 건물(대략) 표시, 실시간 버스만.
+- 서버 API: `/api/candidates?trip=forward|reverse`, `/api/snapshot?trip=…` (그 방향 정류장만 조회), `/api/routes`(두 방향 노선), `/api/vehicles?routes=…`. `trip`이 없으면 가는 길 — 옛 화면과 호환.
+- 화면은 옛 서버(방향 미지원)에서도 동작: 가는 길은 그대로, 오는 길은 ‘실시간 준비 중’으로 표시하고 다른 방향 실시간 값을 섞지 않아요.
+- Pages 배포: `scripts/deploy-pages.sh` 는 지금 배포된 `config.json` 의 apiBase(기본 Render 주소)를 그대로 유지. 바꿀 때만 `API_BASE=https://… scripts/deploy-pages.sh`.
+
 ## 데이터 정직성
 - 첫 버스·환승 버스 도착은 BIMS 실시간 예측(분 단위). 버스 주행시간은 정류장 간 거리 ÷ 평균 15km/h **추정**(같은 차량의 하류 정류장 예측이 맞물리면 실시간 예측 사용). 보행은 직선거리×1.3÷1.2m/s **추정**.
 - 출발·도착 좌표는 도로명 번호로 잡은 **대략 위치**이며 건물 출입구는 미확인.

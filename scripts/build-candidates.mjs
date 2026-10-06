@@ -7,12 +7,18 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const csvPath = path.join(root, 'data/raw/route_stops.csv');
-const outPath = path.join(root, 'shared/candidates.generated.json');
+// 사용: node scripts/build-candidates.mjs [forward|reverse]
+//  forward = 중앙대로 1067 → 반여로 67 (가는 길), reverse = 반여로 67 → 중앙대로 1067 (오는 길)
+const TRIP = process.argv[2] === 'reverse' ? 'reverse' : 'forward';
+const outPath = path.join(root, TRIP === 'reverse' ? 'shared/candidates.reverse.generated.json' : 'shared/candidates.generated.json');
 
 // 위치 근사값: 건물 단위 지오코딩이 무료·무키로 확인되지 않아, OSM 도로 구간과
 // 도로명주소 기초번호(약 10m 간격) 규칙으로 잡은 '대략 위치'이다. 출입구 좌표가 아니다.
-const ORIGIN = { lat: 35.1830, lon: 129.0795, label: '중앙대로 1067 · 3층', approx: true };
-const DEST = { lat: 35.1982, lon: 129.1208, label: '반여로 67', approx: true };
+const YEONJE = { lat: 35.1830, lon: 129.0795, label: '중앙대로 1067 · 3층', approx: true };
+const BANYEO = { lat: 35.1982, lon: 129.1208, label: '반여로 67', approx: true };
+const ORIGIN = TRIP === 'reverse' ? BANYEO : YEONJE;
+// 오는 길 도착지에는 '3층' 이동 시간을 넣지 않으므로 라벨도 주소만
+const DEST = TRIP === 'reverse' ? { ...YEONJE, label: '중앙대로 1067' } : BANYEO;
 
 const P = {
   accessRadiusM: 700, // 처음·마지막 보행 탐색 반경(직선) ≈ 도보 10분 내외
@@ -136,7 +142,8 @@ for (const o of originNear) {
 // - 환승 후보 선택 점수에만 고정 5분 가산(대기시간 미지). 표시값에는 쓰지 않음
 // - 두 번째 노선별·첫 노선별 조합 수 제한으로 다양성 확보
 // - 문서 5장의 조사 후보(36 직통, 36→43, 29→43, 주변 첫 버스→36)는 생성되면 반드시 포함
-const SEED_SIGS = ['36', '36>43', '29>43'];
+// 오는 길은 같은 노선의 반대 방향(문서 5장 후보의 역방향)
+const SEED_SIGS = TRIP === 'reverse' ? ['36', '43>36', '43>29'] : ['36', '36>43', '29>43'];
 const bySig = new Map();
 for (const c of candidates) {
   const sig = c.routes.join('>');
@@ -190,6 +197,7 @@ for (const c of kept) for (const l of c.legs) {
   l.board.nextStopName = list[i + 1]?.name ?? null;
 }
 const out = {
+  trip: TRIP,
   routeStops,
   generatedAt: new Date().toISOString(),
   source: {

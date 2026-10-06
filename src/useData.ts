@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import type { CandidatesPayload, RouteStop, RouteVehicles, Snapshot } from '../shared/api';
-import bundled from '../shared/candidates.generated.json';
+import type { CandidatesPayload, RouteStop, RouteVehicles, Snapshot, TripId } from '../shared/api';
+
 import { sampleBoards, sampleVehicles } from '../shared/sample';
 
 /** 런타임 설정: GitHub Pages에서는 config.json 의 apiBase(터널 주소)만 바꿔 재배포 */
@@ -26,7 +26,10 @@ async function api<T>(path: string, timeoutMs = 25000): Promise<T> {
     clearTimeout(t);
   }
 }
-const bundledPayload = bundled as unknown as CandidatesPayload & { routeStops: Record<string, RouteStop[]> };
+type Bundled = CandidatesPayload & { routeStops: Record<string, RouteStop[]> };
+// 앱에 든 공식 정적 후보(서버에 닿지 않거나 옛 서버일 때). 첫 화면을 무겁게 하지 않게 따로 불러옴
+const bundledTrip = (t: TripId): Promise<Bundled> => (t === 'forward' ? import('../shared/candidates.generated.json') : import('../shared/candidates.reverse.generated.json')).then((m) => (m.default ?? m) as unknown as Bundled);
+const bundledRouteStops = (): Promise<Record<string, RouteStop[]>> => Promise.all([bundledTrip('reverse'), bundledTrip('forward')]).then(([r, f]) => ({ ...r.routeStops, ...f.routeStops }));
 
 /** API에 닿지 않을 때 사용자가 고르는 '예시 화면' — origin='sample' 로만 생성 */
 export function clientSampleSnapshot(cands: CandidatesPayload, now: number): Snapshot {
@@ -56,15 +59,17 @@ export function useVisible(): boolean {
 
 /** 서버 시계 보정된 현재 시각(초). 5초마다 갱신 — 분 단위 데이터라 초 단위 카운트다운 안 함 */
 export function useNow(offsetRef: React.MutableRefObject<number>): number {
-  const [t, setT] = useState(nowSec());
+  const [, setT] = useState(nowSec());
   useEffect(() => {
     const id = setInterval(() => setT(nowSec()), 5000);
     return () => clearInterval(id);
   }, []);
-  return t + offsetRef.current;
+  // 렌더 시점의 실제 시각을 사용(타이머 값은 다시 그리기용). 새로 받은 자료보다 '현재'가 과거로 보여
+  // 나이가 음수(=시간 기준 오류 → 오래됨)로 잘못 판정되던 문제 방지
+  return nowSec() + offsetRef.current;
 }
 
-export function useData() {
+export function useData(trip: TripId = 'forward') {
   const [cands, setCands] = useState<CandidatesPayload | null>(null);
   const [routeStops, setRouteStops] = useState<Record<string, RouteStop[]>>({});
   const [snap, setSnap] = useState<Snapshot | null>(null);
@@ -78,6 +83,8 @@ export function useData() {
   const [loading, setLoading] = useState(false);
   const offset = useRef(0);
   const visible = useVisible();
+  // 옛 서버(방향 미지원)는 ?trip 을 무시하고 가는 길 스냅샷을 준다 → 오는 길 실시간은 '서버 업데이트 필요'로 정직하게 표시
+  const [tripUnsupported, setTripUnsupported] = useState(false);
   const [online, setOnline] = useState(typeof navigator === 'undefined' ? true : navigator.onLine);
 
   useEffect(() => {
@@ -89,17 +96,24 @@ export function useData() {
   useEffect(() => {
     // 후보 경로·노선 정류소는 한 번만 (매 갱신마다 길찾기 재호출 안 함)
     // API에 닿지 않으면 앱에 포함된 공식 정적 후보(같은 자료)를 사용
-    api<CandidatesPayload>('/api/candidates').then(setCands).catch(() => setCands(bundledPayload));
-    api<Record<string, RouteStop[]>>('/api/routes').then(setRouteStops).catch(() => setRouteStops(bundledPayload.routeStops));
-  }, []);
+    api<CandidatesPayload>(`/api/candidates?trip=${trip}`)
+      .then(async (c) => setCands((c.trip ?? 'forward') === trip ? c : await bundledTrip(trip)))
+      .catch(async () => setCands(await bundledTrip(trip)));
+    // 노선 정류소 목록은 노선 전체 값이라 앱에 든 공식 자료와 합침(옛 서버엔 오는 길 전용 노선이 없을 수 있음)
+    Promise.all([api<Record<string, RouteStop[]>>('/api/routes').catch(() => ({})), bundledRouteStops()]).then(([r, b]) => setRouteStops({ ...b, ...r }));
+  }, [trip]);
 
   const refresh = useCallback(async (manual = false) => {
     if (retryTimer.current) { clearTimeout(retryTimer.current); retryTimer.current = null; }
     if (manual && failSince.current != null && Date.now() - failSince.current > WAKE_WINDOW_MS) failSince.current = Date.now(); // 다시 깨우기
     setLoading(true);
     try {
-      const s = await api<Snapshot>('/api/snapshot');
-      offset.current = s.serverTime - nowSec();
+      const raw = await api<Snapshot>(`/api/snapshot?trip=${trip}`);
+      offset.current = raw.serverTime - nowSec();
+      const unsupported = (raw.trip ?? 'forward') !== trip;
+      setTripUnsupported(unsupported);
+      // 다른 방향의 실시간 값을 이 방향 정류장에 섞지 않음: 도착 정보는 비우고 상태만 유지
+      const s: Snapshot = unsupported ? { ...raw, trip, boards: [], verification: [], mode: raw.mode === 'sample' ? 'sample' : 'live_degraded', providerMessage: null } : raw;
       setSnap(s);
       setNetError(null);
       setConnection('ok');
@@ -121,7 +135,7 @@ export function useData() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [trip]);
   const refreshRef = useRef(refresh);
   refreshRef.current = refresh;
   useEffect(() => () => { if (retryTimer.current) clearTimeout(retryTimer.current); }, []);
@@ -134,7 +148,7 @@ export function useData() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible, online, refresh]);
 
-  return { cands, routeStops, snap, netError: online ? netError : '오프라인이에요. 연결되면 다시 불러올게요.', loading, refresh, offset, connection: online ? connection : 'lost', wakeElapsed, demo, setDemo };
+  return { tripUnsupported, cands, routeStops, snap, netError: online ? netError : '오프라인이에요. 연결되면 다시 불러올게요.', loading, refresh, offset, connection: online ? connection : 'lost', wakeElapsed, demo, setDemo };
 }
 
 export function useVehicles(routes: string[], enabled: boolean, demo = false, routeLens: Record<string, number> = {}) {

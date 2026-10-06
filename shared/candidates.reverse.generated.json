@@ -1,5 +1,5 @@
 {
- "trip": "forward",
+ "trip": "reverse",
  "routeStops": {
   "29": [
    {
@@ -3656,6 +3656,484 @@
     "lon": 129.180251273852
    }
   ],
+  "115": [
+   {
+    "seq": 1,
+    "name": "삼성여객(종점)",
+    "ars": "",
+    "lat": 35.188114564705,
+    "lon": 129.109009695526
+   },
+   {
+    "seq": 2,
+    "name": "토곡사거리",
+    "ars": "13080",
+    "lat": 35.186878825578,
+    "lon": 129.106968137757
+   },
+   {
+    "seq": 3,
+    "name": "부산소방본부.교통정보서비스센터",
+    "ars": "13158",
+    "lat": 35.184388440898,
+    "lon": 129.108104262843
+   },
+   {
+    "seq": 4,
+    "name": "수영강푸르지오아파트",
+    "ars": "13159",
+    "lat": 35.184348034573,
+    "lon": 129.112007420597
+   },
+   {
+    "seq": 5,
+    "name": "월륜교차로",
+    "ars": "13180",
+    "lat": 35.183599773471,
+    "lon": 129.114082940859
+   },
+   {
+    "seq": 6,
+    "name": "수영강변3차e편한세상",
+    "ars": "14008",
+    "lat": 35.180643118767,
+    "lon": 129.116123922415
+   },
+   {
+    "seq": 7,
+    "name": "수영강변1차e편한세상",
+    "ars": "14084",
+    "lat": 35.179186286291,
+    "lon": 129.116964756219
+   },
+   {
+    "seq": 8,
+    "name": "성지기업",
+    "ars": "14085",
+    "lat": 35.177127746221,
+    "lon": 129.117646033479
+   },
+   {
+    "seq": 9,
+    "name": "수영성당",
+    "ars": "14114",
+    "lat": 35.174927235974,
+    "lon": 129.118614668486
+   },
+   {
+    "seq": 10,
+    "name": "센텀파크앞 교차로",
+    "ars": "09374",
+    "lat": 35.177435653294,
+    "lon": 129.124108555495
+   },
+   {
+    "seq": 11,
+    "name": "센텀파크",
+    "ars": "09299",
+    "lat": 35.179070506501,
+    "lon": 129.122820580954
+   },
+   {
+    "seq": 12,
+    "name": "센텀초등학교",
+    "ars": "09277",
+    "lat": 35.18066830833,
+    "lon": 129.12168243667
+   },
+   {
+    "seq": 13,
+    "name": "동해선센텀역",
+    "ars": "09372",
+    "lat": 35.17986897767,
+    "lon": 129.123354186059
+   },
+   {
+    "seq": 14,
+    "name": "더샵센텀스타아파트",
+    "ars": "09373",
+    "lat": 35.177574253153,
+    "lon": 129.125226179168
+   },
+   {
+    "seq": 15,
+    "name": "디지털엣지코리아",
+    "ars": "09318",
+    "lat": 35.175103492411,
+    "lon": 129.127539615915
+   },
+   {
+    "seq": 16,
+    "name": "부산디자인진흥원",
+    "ars": "09319",
+    "lat": 35.173957852064,
+    "lon": 129.129952645323
+   },
+   {
+    "seq": 17,
+    "name": "시청자미디어센터.KNN방송국",
+    "ars": "09282",
+    "lat": 35.172023188352,
+    "lon": 129.129904925168
+   },
+   {
+    "seq": 18,
+    "name": "롯데백화점센텀시티점",
+    "ars": "09283",
+    "lat": 35.169673237343,
+    "lon": 129.131784305782
+   },
+   {
+    "seq": 19,
+    "name": "센텀시티역.벡스코",
+    "ars": "09136",
+    "lat": 35.169517403775,
+    "lon": 129.133255322926
+   },
+   {
+    "seq": 20,
+    "name": "동해선벡스코역",
+    "ars": "09715",
+    "lat": 35.171664655398,
+    "lon": 129.134082572524
+   },
+   {
+    "seq": 21,
+    "name": "센텀센시빌",
+    "ars": "09713",
+    "lat": 35.174837728568,
+    "lon": 129.13146564278
+   },
+   {
+    "seq": 22,
+    "name": "센텀고등학교",
+    "ars": "09711",
+    "lat": 35.177044828135,
+    "lon": 129.128944063557
+   },
+   {
+    "seq": 23,
+    "name": "유창맨션",
+    "ars": "09150",
+    "lat": 35.180163317454,
+    "lon": 129.126958290481
+   },
+   {
+    "seq": 24,
+    "name": "재송초등학교",
+    "ars": "09151",
+    "lat": 35.183878267854,
+    "lon": 129.126467949933
+   },
+   {
+    "seq": 25,
+    "name": "재송농협",
+    "ars": "09168",
+    "lat": 35.185561772877,
+    "lon": 129.125908629367
+   },
+   {
+    "seq": 26,
+    "name": "동부지청",
+    "ars": "09169",
+    "lat": 35.188847167339,
+    "lon": 129.126775482408
+   },
+   {
+    "seq": 27,
+    "name": "재송그린아파트",
+    "ars": "09173",
+    "lat": 35.191949237019,
+    "lon": 129.128343348285
+   },
+   {
+    "seq": 28,
+    "name": "반산초등학교",
+    "ars": "09175",
+    "lat": 35.194079193572,
+    "lon": 129.130600302656
+   },
+   {
+    "seq": 29,
+    "name": "반여2동",
+    "ars": "09179",
+    "lat": 35.195747037936,
+    "lon": 129.130893149919
+   },
+   {
+    "seq": 30,
+    "name": "수협장산지점",
+    "ars": "09180",
+    "lat": 35.198277182622,
+    "lon": 129.131330172136
+   },
+   {
+    "seq": 31,
+    "name": "반여3동",
+    "ars": "09182",
+    "lat": 35.199751381288,
+    "lon": 129.131576995532
+   },
+   {
+    "seq": 32,
+    "name": "인지중학교",
+    "ars": "09109",
+    "lat": 35.204253362729,
+    "lon": 129.125023492784
+   },
+   {
+    "seq": 33,
+    "name": "무정리길",
+    "ars": "09270",
+    "lat": 35.201624720127,
+    "lon": 129.123484562841
+   },
+   {
+    "seq": 34,
+    "name": "무정초등학교",
+    "ars": "09272",
+    "lat": 35.19801097831,
+    "lon": 129.122712587292
+   },
+   {
+    "seq": 35,
+    "name": "무정삼거리",
+    "ars": "09301",
+    "lat": 35.196044242492,
+    "lon": 129.12129323866
+   },
+   {
+    "seq": 36,
+    "name": "왕자맨션",
+    "ars": "09274",
+    "lat": 35.19470456235,
+    "lon": 129.119304257054
+   },
+   {
+    "seq": 37,
+    "name": "왕자맨션",
+    "ars": "09275",
+    "lat": 35.194684198982,
+    "lon": 129.119705852408
+   },
+   {
+    "seq": 38,
+    "name": "무정삼거리",
+    "ars": "09302",
+    "lat": 35.195746953105,
+    "lon": 129.121295481441
+   },
+   {
+    "seq": 39,
+    "name": "무정초등학교",
+    "ars": "09273",
+    "lat": 35.197999988582,
+    "lon": 129.122959311441
+   },
+   {
+    "seq": 40,
+    "name": "무정리길",
+    "ars": "09271",
+    "lat": 35.2015456743,
+    "lon": 129.123701642409
+   },
+   {
+    "seq": 41,
+    "name": "인지중학교",
+    "ars": "09287",
+    "lat": 35.204149629385,
+    "lon": 129.125187572249
+   },
+   {
+    "seq": 42,
+    "name": "반여초등학교",
+    "ars": "09321",
+    "lat": 35.203540520446,
+    "lon": 129.127675426058
+   },
+   {
+    "seq": 43,
+    "name": "반여3동",
+    "ars": "09183",
+    "lat": 35.199863133057,
+    "lon": 129.131343825562
+   },
+   {
+    "seq": 44,
+    "name": "수협장산지점",
+    "ars": "09181",
+    "lat": 35.198042960609,
+    "lon": 129.131035306269
+   },
+   {
+    "seq": 45,
+    "name": "반여2동",
+    "ars": "09178",
+    "lat": 35.195628166827,
+    "lon": 129.130620330066
+   },
+   {
+    "seq": 46,
+    "name": "반산초등학교",
+    "ars": "09176",
+    "lat": 35.194213838318,
+    "lon": 129.130380477962
+   },
+   {
+    "seq": 47,
+    "name": "재송중학교",
+    "ars": "09174",
+    "lat": 35.193403432033,
+    "lon": 129.129552002689
+   },
+   {
+    "seq": 48,
+    "name": "재송그린아파트",
+    "ars": "09172",
+    "lat": 35.191938833574,
+    "lon": 129.128093999083
+   },
+   {
+    "seq": 49,
+    "name": "동부지청",
+    "ars": "09170",
+    "lat": 35.189307308377,
+    "lon": 129.126509174107
+   },
+   {
+    "seq": 50,
+    "name": "재송농협",
+    "ars": "09166",
+    "lat": 35.185261088528,
+    "lon": 129.124996060424
+   },
+   {
+    "seq": 51,
+    "name": "센텀동부센트레빌",
+    "ars": "09157",
+    "lat": 35.183367814014,
+    "lon": 129.122488978875
+   },
+   {
+    "seq": 52,
+    "name": "동해선센텀역",
+    "ars": "09710",
+    "lat": 35.180173209792,
+    "lon": 129.124503608446
+   },
+   {
+    "seq": 53,
+    "name": "센텀고등학교",
+    "ars": "09712",
+    "lat": 35.176999656662,
+    "lon": 129.128438014796
+   },
+   {
+    "seq": 54,
+    "name": "센텀센시빌",
+    "ars": "09714",
+    "lat": 35.17525576848,
+    "lon": 129.131010112811
+   },
+   {
+    "seq": 55,
+    "name": "동해선벡스코역",
+    "ars": "09143",
+    "lat": 35.172086093499,
+    "lon": 129.1329935582
+   },
+   {
+    "seq": 56,
+    "name": "센텀시티역.벡스코",
+    "ars": "09259",
+    "lat": 35.169742383607,
+    "lon": 129.132774068402
+   },
+   {
+    "seq": 57,
+    "name": "시청자미디어센터.KNN방송국",
+    "ars": "09281",
+    "lat": 35.172192564971,
+    "lon": 129.130266019
+   },
+   {
+    "seq": 58,
+    "name": "SK텔레콤",
+    "ars": "09280",
+    "lat": 35.174161492762,
+    "lon": 129.127523970379
+   },
+   {
+    "seq": 59,
+    "name": "센텀중학교",
+    "ars": "09316",
+    "lat": 35.176019580062,
+    "lon": 129.12522562775
+   },
+   {
+    "seq": 60,
+    "name": "수영성당",
+    "ars": "14115",
+    "lat": 35.175130486208,
+    "lon": 129.118941657043
+   },
+   {
+    "seq": 61,
+    "name": "수영강변1차e편한세상",
+    "ars": "14116",
+    "lat": 35.179214129774,
+    "lon": 129.117374443132
+   },
+   {
+    "seq": 62,
+    "name": "수영강변e-편한세상",
+    "ars": "14105",
+    "lat": 35.181225279869,
+    "lon": 129.116161334653
+   },
+   {
+    "seq": 63,
+    "name": "월륜교차로",
+    "ars": "13181",
+    "lat": 35.183614723451,
+    "lon": 129.114516894856
+   },
+   {
+    "seq": 64,
+    "name": "수영강푸르지오아파트",
+    "ars": "13161",
+    "lat": 35.18460068576,
+    "lon": 129.111911288328
+   },
+   {
+    "seq": 65,
+    "name": "연제예식장",
+    "ars": "13163",
+    "lat": 35.184607439323,
+    "lon": 129.109445203549
+   },
+   {
+    "seq": 66,
+    "name": "부산소방본부.교통정보서비스센터",
+    "ars": "13082",
+    "lat": 35.184902544807,
+    "lon": 129.107296120472
+   },
+   {
+    "seq": 67,
+    "name": "토곡사거리",
+    "ars": "13081",
+    "lat": 35.186754782339,
+    "lon": 129.107313613095
+   },
+   {
+    "seq": 68,
+    "name": "삼성여객(종점)",
+    "ars": "",
+    "lat": 35.188114564705,
+    "lon": 129.109009695526
+   }
+  ],
   "155": [
    {
     "seq": 1,
@@ -6437,22 +6915,22 @@
    }
   ]
  },
- "generatedAt": "2026-10-06T14:20:08.685Z",
+ "generatedAt": "2026-10-06T14:22:42.942Z",
  "source": {
   "name": "부산광역시 대중교통정보 노선별 정류소 다운로드 (bus.busan.go.kr/busanBIMS/StationInfo.asp)",
   "note": "다운로드 문서 내 표기: 2026-10-06 기준. CP949 인코딩. 정류소ID는 API bstopid와 같은 체계로 가정하지 않음.",
   "fetchedAt": "2026-10-06T09:05:44.209Z"
  },
  "origin": {
-  "lat": 35.183,
-  "lon": 129.0795,
-  "label": "중앙대로 1067 · 3층",
-  "approx": true
- },
- "destination": {
   "lat": 35.1982,
   "lon": 129.1208,
   "label": "반여로 67",
+  "approx": true
+ },
+ "destination": {
+  "lat": 35.183,
+  "lon": 129.0795,
+  "label": "중앙대로 1067",
   "approx": true
  },
  "params": {
@@ -6472,12 +6950,12 @@
   {
    "kind": "transfer",
    "routes": [
-    "106",
-    "36"
+    "36",
+    "106"
    ],
    "firstWalk": {
-    "meters": 116,
-    "sec": 126
+    "meters": 175,
+    "sec": 190
    },
    "transferWalk": {
     "meters": 0,
@@ -6486,77 +6964,77 @@
     "sameNameDifferentArs": false
    },
    "finalWalk": {
-    "meters": 197,
-    "sec": 214
+    "meters": 170,
+    "sec": 184
    },
    "legs": [
+    {
+     "routeNo": "36",
+     "board": {
+      "ars": "09272",
+      "name": "무정초등학교",
+      "lat": 35.19801097831,
+      "lon": 129.122712587292,
+      "routeStopSequence": 59,
+      "officialStopId": "21090571056",
+      "nextStopName": "무정삼거리"
+     },
+     "alight": {
+      "ars": "06163",
+      "name": "우성아파트",
+      "lat": 35.194967922788,
+      "lon": 129.092445456227,
+      "routeStopSequence": 68,
+      "officialStopId": "21060511010"
+     },
+     "ride": {
+      "pathM": 3438,
+      "nominalSec": 825,
+      "lowSec": 619,
+      "highSec": 1125,
+      "hops": 9
+     }
+    },
     {
      "routeNo": "106",
      "board": {
-      "ars": "13706",
-      "name": "연산역.연제초교",
-      "lat": 35.18393910799,
-      "lon": 129.080056485897,
-      "routeStopSequence": 64,
-      "officialStopId": "50000002611",
+      "ars": "06163",
+      "name": "우성아파트",
+      "lat": 35.194967922788,
+      "lon": 129.092445456227,
+      "routeStopSequence": 44,
+      "officialStopId": "21060511010",
       "nextStopName": "연산교차로"
      },
      "alight": {
-      "ars": "13056",
-      "name": "연산교차로",
-      "lat": 35.186897805904,
-      "lon": 129.082931424653,
-      "routeStopSequence": 65,
-      "officialStopId": "21130581009"
+      "ars": "13707",
+      "name": "연산역.연제초교",
+      "lat": 35.184418658297,
+      "lon": 129.08020591722,
+      "routeStopSequence": 46,
+      "officialStopId": "50000002610"
      },
      "ride": {
-      "pathM": 462,
-      "nominalSec": 111,
-      "lowSec": 83,
-      "highSec": 151,
-      "hops": 1
-     }
-    },
-    {
-     "routeNo": "36",
-     "board": {
-      "ars": "13056",
-      "name": "연산교차로",
-      "lat": 35.186897805904,
-      "lon": 129.082931424653,
-      "routeStopSequence": 76,
-      "officialStopId": "21130581009",
-      "nextStopName": "웰니스병원.연산농협"
-     },
-     "alight": {
-      "ars": "09273",
-      "name": "무정초등학교",
-      "lat": 35.197999988582,
-      "lon": 129.122959311441,
-      "routeStopSequence": 87,
-      "officialStopId": "21090571057"
-     },
-     "ride": {
-      "pathM": 4777,
-      "nominalSec": 1146,
-      "lowSec": 860,
-      "highSec": 1563,
-      "hops": 11
+      "pathM": 1781,
+      "nominalSec": 427,
+      "lowSec": 321,
+      "highSec": 583,
+      "hops": 2
      }
     }
    ],
-   "staticTotalSec": 1657,
-   "id": "T-106-13706-13056-36-13056-09273"
+   "staticTotalSec": 1686,
+   "id": "T-36-09272-06163-106-06163-13707"
   },
   {
    "kind": "transfer",
    "routes": [
-    "106",
-    "36"
+    "36",
+    "106(심야)"
    ],
    "firstWalk": {
-    "meters": 116,
-    "sec": 126
+    "meters": 175,
+    "sec": 190
    },
    "transferWalk": {
     "meters": 0,
@@ -6565,77 +7043,156 @@
     "sameNameDifferentArs": false
    },
    "finalWalk": {
-    "meters": 197,
-    "sec": 214
+    "meters": 170,
+    "sec": 184
    },
    "legs": [
+    {
+     "routeNo": "36",
+     "board": {
+      "ars": "09272",
+      "name": "무정초등학교",
+      "lat": 35.19801097831,
+      "lon": 129.122712587292,
+      "routeStopSequence": 59,
+      "officialStopId": "21090571056",
+      "nextStopName": "무정삼거리"
+     },
+     "alight": {
+      "ars": "06163",
+      "name": "우성아파트",
+      "lat": 35.194967922788,
+      "lon": 129.092445456227,
+      "routeStopSequence": 68,
+      "officialStopId": "21060511010"
+     },
+     "ride": {
+      "pathM": 3438,
+      "nominalSec": 825,
+      "lowSec": 619,
+      "highSec": 1125,
+      "hops": 9
+     }
+    },
+    {
+     "routeNo": "106(심야)",
+     "board": {
+      "ars": "06163",
+      "name": "우성아파트",
+      "lat": 35.194967922788,
+      "lon": 129.092445456227,
+      "routeStopSequence": 43,
+      "officialStopId": "21060511010",
+      "nextStopName": "연산교차로"
+     },
+     "alight": {
+      "ars": "13707",
+      "name": "연산역.연제초교",
+      "lat": 35.184418658297,
+      "lon": 129.08020591722,
+      "routeStopSequence": 45,
+      "officialStopId": "50000002610"
+     },
+     "ride": {
+      "pathM": 1781,
+      "nominalSec": 427,
+      "lowSec": 321,
+      "highSec": 583,
+      "hops": 2
+     }
+    }
+   ],
+   "staticTotalSec": 1686,
+   "id": "T-36-09272-06163-106(심야)-06163-13707"
+  },
+  {
+   "kind": "transfer",
+   "routes": [
+    "36",
+    "106"
+   ],
+   "firstWalk": {
+    "meters": 175,
+    "sec": 190
+   },
+   "transferWalk": {
+    "meters": 0,
+    "sec": 60,
+    "sameStop": true,
+    "sameNameDifferentArs": false
+   },
+   "finalWalk": {
+    "meters": 170,
+    "sec": 184
+   },
+   "legs": [
+    {
+     "routeNo": "36",
+     "board": {
+      "ars": "09272",
+      "name": "무정초등학교",
+      "lat": 35.19801097831,
+      "lon": 129.122712587292,
+      "routeStopSequence": 59,
+      "officialStopId": "21090571056",
+      "nextStopName": "무정삼거리"
+     },
+     "alight": {
+      "ars": "06162",
+      "name": "동래봉생병원",
+      "lat": 35.197480834341,
+      "lon": 129.095391558573,
+      "routeStopSequence": 67,
+      "officialStopId": "21060511009"
+     },
+     "ride": {
+      "pathM": 3012,
+      "nominalSec": 723,
+      "lowSec": 542,
+      "highSec": 986,
+      "hops": 8
+     }
+    },
     {
      "routeNo": "106",
      "board": {
-      "ars": "13706",
+      "ars": "06162",
+      "name": "동래봉생병원",
+      "lat": 35.197480834341,
+      "lon": 129.095391558573,
+      "routeStopSequence": 43,
+      "officialStopId": "21060511009",
+      "nextStopName": "우성아파트"
+     },
+     "alight": {
+      "ars": "13707",
       "name": "연산역.연제초교",
-      "lat": 35.18393910799,
-      "lon": 129.080056485897,
-      "routeStopSequence": 64,
-      "officialStopId": "50000002611",
-      "nextStopName": "연산교차로"
-     },
-     "alight": {
-      "ars": "06164",
-      "name": "우성아파트",
-      "lat": 35.194974857404,
-      "lon": 129.092834281734,
-      "routeStopSequence": 66,
-      "officialStopId": "21060511006"
+      "lat": 35.184418658297,
+      "lon": 129.08020591722,
+      "routeStopSequence": 46,
+      "officialStopId": "50000002610"
      },
      "ride": {
-      "pathM": 1861,
-      "nominalSec": 447,
-      "lowSec": 335,
-      "highSec": 609,
-      "hops": 2
-     }
-    },
-    {
-     "routeNo": "36",
-     "board": {
-      "ars": "06164",
-      "name": "우성아파트",
-      "lat": 35.194974857404,
-      "lon": 129.092834281734,
-      "routeStopSequence": 80,
-      "officialStopId": "21060511006",
-      "nextStopName": "동래봉생병원"
-     },
-     "alight": {
-      "ars": "09273",
-      "name": "무정초등학교",
-      "lat": 35.197999988582,
-      "lon": 129.122959311441,
-      "routeStopSequence": 87,
-      "officialStopId": "21090571057"
-     },
-     "ride": {
-      "pathM": 3377,
-      "nominalSec": 810,
-      "lowSec": 608,
-      "highSec": 1105,
-      "hops": 7
+      "pathM": 2206,
+      "nominalSec": 530,
+      "lowSec": 397,
+      "highSec": 722,
+      "hops": 3
      }
     }
    ],
-   "staticTotalSec": 1657,
-   "id": "T-106-13706-06164-36-06164-09273"
+   "staticTotalSec": 1687,
+   "id": "T-36-09272-06162-106-06162-13707"
   },
   {
    "kind": "transfer",
    "routes": [
-    "106(심야)",
-    "36"
+    "36",
+    "106(심야)"
    ],
    "firstWalk": {
-    "meters": 116,
-    "sec": 126
+    "meters": 175,
+    "sec": 190
    },
    "transferWalk": {
     "meters": 0,
@@ -6644,304 +7201,67 @@
     "sameNameDifferentArs": false
    },
    "finalWalk": {
-    "meters": 197,
-    "sec": 214
+    "meters": 170,
+    "sec": 184
    },
    "legs": [
+    {
+     "routeNo": "36",
+     "board": {
+      "ars": "09272",
+      "name": "무정초등학교",
+      "lat": 35.19801097831,
+      "lon": 129.122712587292,
+      "routeStopSequence": 59,
+      "officialStopId": "21090571056",
+      "nextStopName": "무정삼거리"
+     },
+     "alight": {
+      "ars": "06162",
+      "name": "동래봉생병원",
+      "lat": 35.197480834341,
+      "lon": 129.095391558573,
+      "routeStopSequence": 67,
+      "officialStopId": "21060511009"
+     },
+     "ride": {
+      "pathM": 3012,
+      "nominalSec": 723,
+      "lowSec": 542,
+      "highSec": 986,
+      "hops": 8
+     }
+    },
     {
      "routeNo": "106(심야)",
      "board": {
-      "ars": "13706",
+      "ars": "06162",
+      "name": "동래봉생병원",
+      "lat": 35.197480834341,
+      "lon": 129.095391558573,
+      "routeStopSequence": 42,
+      "officialStopId": "21060511009",
+      "nextStopName": "우성아파트"
+     },
+     "alight": {
+      "ars": "13707",
       "name": "연산역.연제초교",
-      "lat": 35.18393910799,
-      "lon": 129.080056485897,
-      "routeStopSequence": 63,
-      "officialStopId": "50000002611",
-      "nextStopName": "연산교차로"
-     },
-     "alight": {
-      "ars": "13056",
-      "name": "연산교차로",
-      "lat": 35.186897805904,
-      "lon": 129.082931424653,
-      "routeStopSequence": 64,
-      "officialStopId": "21130581009"
+      "lat": 35.184418658297,
+      "lon": 129.08020591722,
+      "routeStopSequence": 45,
+      "officialStopId": "50000002610"
      },
      "ride": {
-      "pathM": 462,
-      "nominalSec": 111,
-      "lowSec": 83,
-      "highSec": 151,
-      "hops": 1
-     }
-    },
-    {
-     "routeNo": "36",
-     "board": {
-      "ars": "13056",
-      "name": "연산교차로",
-      "lat": 35.186897805904,
-      "lon": 129.082931424653,
-      "routeStopSequence": 76,
-      "officialStopId": "21130581009",
-      "nextStopName": "웰니스병원.연산농협"
-     },
-     "alight": {
-      "ars": "09273",
-      "name": "무정초등학교",
-      "lat": 35.197999988582,
-      "lon": 129.122959311441,
-      "routeStopSequence": 87,
-      "officialStopId": "21090571057"
-     },
-     "ride": {
-      "pathM": 4777,
-      "nominalSec": 1146,
-      "lowSec": 860,
-      "highSec": 1563,
-      "hops": 11
+      "pathM": 2206,
+      "nominalSec": 530,
+      "lowSec": 397,
+      "highSec": 722,
+      "hops": 3
      }
     }
    ],
-   "staticTotalSec": 1657,
-   "id": "T-106(심야)-13706-13056-36-13056-09273"
-  },
-  {
-   "kind": "transfer",
-   "routes": [
-    "106(심야)",
-    "36"
-   ],
-   "firstWalk": {
-    "meters": 116,
-    "sec": 126
-   },
-   "transferWalk": {
-    "meters": 0,
-    "sec": 60,
-    "sameStop": true,
-    "sameNameDifferentArs": false
-   },
-   "finalWalk": {
-    "meters": 197,
-    "sec": 214
-   },
-   "legs": [
-    {
-     "routeNo": "106(심야)",
-     "board": {
-      "ars": "13706",
-      "name": "연산역.연제초교",
-      "lat": 35.18393910799,
-      "lon": 129.080056485897,
-      "routeStopSequence": 63,
-      "officialStopId": "50000002611",
-      "nextStopName": "연산교차로"
-     },
-     "alight": {
-      "ars": "06164",
-      "name": "우성아파트",
-      "lat": 35.194974857404,
-      "lon": 129.092834281734,
-      "routeStopSequence": 65,
-      "officialStopId": "21060511006"
-     },
-     "ride": {
-      "pathM": 1861,
-      "nominalSec": 447,
-      "lowSec": 335,
-      "highSec": 609,
-      "hops": 2
-     }
-    },
-    {
-     "routeNo": "36",
-     "board": {
-      "ars": "06164",
-      "name": "우성아파트",
-      "lat": 35.194974857404,
-      "lon": 129.092834281734,
-      "routeStopSequence": 80,
-      "officialStopId": "21060511006",
-      "nextStopName": "동래봉생병원"
-     },
-     "alight": {
-      "ars": "09273",
-      "name": "무정초등학교",
-      "lat": 35.197999988582,
-      "lon": 129.122959311441,
-      "routeStopSequence": 87,
-      "officialStopId": "21090571057"
-     },
-     "ride": {
-      "pathM": 3377,
-      "nominalSec": 810,
-      "lowSec": 608,
-      "highSec": 1105,
-      "hops": 7
-     }
-    }
-   ],
-   "staticTotalSec": 1657,
-   "id": "T-106(심야)-13706-06164-36-06164-09273"
-  },
-  {
-   "kind": "transfer",
-   "routes": [
-    "110-1",
-    "36"
-   ],
-   "firstWalk": {
-    "meters": 116,
-    "sec": 126
-   },
-   "transferWalk": {
-    "meters": 0,
-    "sec": 60,
-    "sameStop": true,
-    "sameNameDifferentArs": false
-   },
-   "finalWalk": {
-    "meters": 197,
-    "sec": 214
-   },
-   "legs": [
-    {
-     "routeNo": "110-1",
-     "board": {
-      "ars": "13706",
-      "name": "연산역.연제초교",
-      "lat": 35.18393910799,
-      "lon": 129.080056485897,
-      "routeStopSequence": 18,
-      "officialStopId": "50000002611",
-      "nextStopName": "연산교차로"
-     },
-     "alight": {
-      "ars": "13056",
-      "name": "연산교차로",
-      "lat": 35.186897805904,
-      "lon": 129.082931424653,
-      "routeStopSequence": 19,
-      "officialStopId": "21130581009"
-     },
-     "ride": {
-      "pathM": 462,
-      "nominalSec": 111,
-      "lowSec": 83,
-      "highSec": 151,
-      "hops": 1
-     }
-    },
-    {
-     "routeNo": "36",
-     "board": {
-      "ars": "13056",
-      "name": "연산교차로",
-      "lat": 35.186897805904,
-      "lon": 129.082931424653,
-      "routeStopSequence": 76,
-      "officialStopId": "21130581009",
-      "nextStopName": "웰니스병원.연산농협"
-     },
-     "alight": {
-      "ars": "09273",
-      "name": "무정초등학교",
-      "lat": 35.197999988582,
-      "lon": 129.122959311441,
-      "routeStopSequence": 87,
-      "officialStopId": "21090571057"
-     },
-     "ride": {
-      "pathM": 4777,
-      "nominalSec": 1146,
-      "lowSec": 860,
-      "highSec": 1563,
-      "hops": 11
-     }
-    }
-   ],
-   "staticTotalSec": 1657,
-   "id": "T-110-1-13706-13056-36-13056-09273"
-  },
-  {
-   "kind": "transfer",
-   "routes": [
-    "110-1",
-    "36"
-   ],
-   "firstWalk": {
-    "meters": 116,
-    "sec": 126
-   },
-   "transferWalk": {
-    "meters": 0,
-    "sec": 60,
-    "sameStop": true,
-    "sameNameDifferentArs": false
-   },
-   "finalWalk": {
-    "meters": 197,
-    "sec": 214
-   },
-   "legs": [
-    {
-     "routeNo": "110-1",
-     "board": {
-      "ars": "13706",
-      "name": "연산역.연제초교",
-      "lat": 35.18393910799,
-      "lon": 129.080056485897,
-      "routeStopSequence": 18,
-      "officialStopId": "50000002611",
-      "nextStopName": "연산교차로"
-     },
-     "alight": {
-      "ars": "13057",
-      "name": "웰니스병원.연산농협",
-      "lat": 35.188781914895,
-      "lon": 129.08534103771,
-      "routeStopSequence": 20,
-      "officialStopId": "21130551003"
-     },
-     "ride": {
-      "pathM": 795,
-      "nominalSec": 191,
-      "lowSec": 143,
-      "highSec": 260,
-      "hops": 2
-     }
-    },
-    {
-     "routeNo": "36",
-     "board": {
-      "ars": "13057",
-      "name": "웰니스병원.연산농협",
-      "lat": 35.188781914895,
-      "lon": 129.08534103771,
-      "routeStopSequence": 77,
-      "officialStopId": "21130551003",
-      "nextStopName": "경찰전직지원센터"
-     },
-     "alight": {
-      "ars": "09273",
-      "name": "무정초등학교",
-      "lat": 35.197999988582,
-      "lon": 129.122959311441,
-      "routeStopSequence": 87,
-      "officialStopId": "21090571057"
-     },
-     "ride": {
-      "pathM": 4443,
-      "nominalSec": 1066,
-      "lowSec": 800,
-      "highSec": 1454,
-      "hops": 10
-     }
-    }
-   ],
-   "staticTotalSec": 1657,
-   "id": "T-110-1-13706-13057-36-13057-09273"
+   "staticTotalSec": 1687,
+   "id": "T-36-09272-06162-106(심야)-06162-13707"
   },
   {
    "kind": "direct",
@@ -6949,721 +7269,800 @@
     "36"
    ],
    "firstWalk": {
-    "meters": 377,
-    "sec": 408
+    "meters": 175,
+    "sec": 190
    },
    "finalWalk": {
-    "meters": 197,
-    "sec": 214
+    "meters": 406,
+    "sec": 439
    },
    "legs": [
     {
      "routeNo": "36",
      "board": {
-      "ars": "13051",
-      "name": "연산역",
-      "lat": 35.186292126321,
-      "lon": 129.080472643964,
-      "routeStopSequence": 75,
-      "officialStopId": "21130591008",
-      "nextStopName": "연산교차로"
+      "ars": "09272",
+      "name": "무정초등학교",
+      "lat": 35.19801097831,
+      "lon": 129.122712587292,
+      "routeStopSequence": 59,
+      "officialStopId": "21090571056",
+      "nextStopName": "무정삼거리"
      },
      "alight": {
-      "ars": "09273",
-      "name": "무정초등학교",
-      "lat": 35.197999988582,
-      "lon": 129.122959311441,
-      "routeStopSequence": 87,
-      "officialStopId": "21090571057"
+      "ars": "13151",
+      "name": "연산역",
+      "lat": 35.18654069021,
+      "lon": 129.080571059527,
+      "routeStopSequence": 72,
+      "officialStopId": "21130581013"
      },
      "ride": {
-      "pathM": 5033,
-      "nominalSec": 1208,
-      "lowSec": 906,
-      "highSec": 1647,
+      "pathM": 5030,
+      "nominalSec": 1207,
+      "lowSec": 905,
+      "highSec": 1646,
+      "hops": 13
+     }
+    }
+   ],
+   "staticTotalSec": 1836,
+   "id": "D-36-09272-13151"
+  },
+  {
+   "kind": "direct",
+   "routes": [
+    "36"
+   ],
+   "firstWalk": {
+    "meters": 244,
+    "sec": 264
+   },
+   "finalWalk": {
+    "meters": 406,
+    "sec": 439
+   },
+   "legs": [
+    {
+     "routeNo": "36",
+     "board": {
+      "ars": "09301",
+      "name": "무정삼거리",
+      "lat": 35.196044242492,
+      "lon": 129.12129323866,
+      "routeStopSequence": 60,
+      "officialStopId": "21090571062",
+      "nextStopName": "왕자맨션"
+     },
+     "alight": {
+      "ars": "13151",
+      "name": "연산역",
+      "lat": 35.18654069021,
+      "lon": 129.080571059527,
+      "routeStopSequence": 72,
+      "officialStopId": "21130581013"
+     },
+     "ride": {
+      "pathM": 4750,
+      "nominalSec": 1140,
+      "lowSec": 855,
+      "highSec": 1555,
       "hops": 12
      }
     }
    ],
-   "staticTotalSec": 1830,
-   "id": "D-36-13051-09273"
+   "staticTotalSec": 1843,
+   "id": "D-36-09301-13151"
   },
   {
    "kind": "transfer",
    "routes": [
-    "36",
-    "43"
-   ],
-   "firstWalk": {
-    "meters": 377,
-    "sec": 408
-   },
-   "transferWalk": {
-    "meters": 0,
-    "sec": 60,
-    "sameStop": true,
-    "sameNameDifferentArs": false
-   },
-   "finalWalk": {
-    "meters": 215,
-    "sec": 233
-   },
-   "legs": [
-    {
-     "routeNo": "36",
-     "board": {
-      "ars": "13051",
-      "name": "연산역",
-      "lat": 35.186292126321,
-      "lon": 129.080472643964,
-      "routeStopSequence": 75,
-      "officialStopId": "21130591008",
-      "nextStopName": "연산교차로"
-     },
-     "alight": {
-      "ars": "06706",
-      "name": "동래한전",
-      "lat": 35.196481877855,
-      "lon": 129.104492578356,
-      "routeStopSequence": 83,
-      "officialStopId": "50000002027"
-     },
-     "ride": {
-      "pathM": 2942,
-      "nominalSec": 706,
-      "lowSec": 530,
-      "highSec": 963,
-      "hops": 8
-     }
-    },
-    {
-     "routeNo": "43",
-     "board": {
-      "ars": "06706",
-      "name": "동래한전",
-      "lat": 35.196481877855,
-      "lon": 129.104492578356,
-      "routeStopSequence": 107,
-      "officialStopId": "50000002027",
-      "nextStopName": "부산원동역"
-     },
-     "alight": {
-      "ars": "09199",
-      "name": "한화꿈에그린아파트",
-      "lat": 35.198459347174,
-      "lon": 129.118450769013,
-      "routeStopSequence": 111,
-      "officialStopId": "21090571023"
-     },
-     "ride": {
-      "pathM": 1867,
-      "nominalSec": 448,
-      "lowSec": 336,
-      "highSec": 611,
-      "hops": 4
-     }
-    }
-   ],
-   "staticTotalSec": 1855,
-   "id": "T-36-13051-06706-43-06706-09199"
-  },
-  {
-   "kind": "transfer",
-   "routes": [
-    "36",
-    "43"
-   ],
-   "firstWalk": {
-    "meters": 377,
-    "sec": 408
-   },
-   "transferWalk": {
-    "meters": 0,
-    "sec": 60,
-    "sameStop": true,
-    "sameNameDifferentArs": false
-   },
-   "finalWalk": {
-    "meters": 215,
-    "sec": 233
-   },
-   "legs": [
-    {
-     "routeNo": "36",
-     "board": {
-      "ars": "13051",
-      "name": "연산역",
-      "lat": 35.186292126321,
-      "lon": 129.080472643964,
-      "routeStopSequence": 75,
-      "officialStopId": "21130591008",
-      "nextStopName": "연산교차로"
-     },
-     "alight": {
-      "ars": "06702",
-      "name": "부산원동역",
-      "lat": 35.194371059228,
-      "lon": 129.112117112139,
-      "routeStopSequence": 84,
-      "officialStopId": "50000002030"
-     },
-     "ride": {
-      "pathM": 3747,
-      "nominalSec": 899,
-      "lowSec": 674,
-      "highSec": 1226,
-      "hops": 9
-     }
-    },
-    {
-     "routeNo": "43",
-     "board": {
-      "ars": "06702",
-      "name": "부산원동역",
-      "lat": 35.194371059228,
-      "lon": 129.112117112139,
-      "routeStopSequence": 108,
-      "officialStopId": "50000002030",
-      "nextStopName": "왕자맨션"
-     },
-     "alight": {
-      "ars": "09199",
-      "name": "한화꿈에그린아파트",
-      "lat": 35.198459347174,
-      "lon": 129.118450769013,
-      "routeStopSequence": 111,
-      "officialStopId": "21090571023"
-     },
-     "ride": {
-      "pathM": 1062,
-      "nominalSec": 255,
-      "lowSec": 191,
-      "highSec": 348,
-      "hops": 3
-     }
-    }
-   ],
-   "staticTotalSec": 1855,
-   "id": "T-36-13051-06702-43-06702-09199"
-  },
-  {
-   "kind": "transfer",
-   "routes": [
-    "36",
-    "155"
-   ],
-   "firstWalk": {
-    "meters": 377,
-    "sec": 408
-   },
-   "transferWalk": {
-    "meters": 0,
-    "sec": 60,
-    "sameStop": true,
-    "sameNameDifferentArs": false
-   },
-   "finalWalk": {
-    "meters": 215,
-    "sec": 233
-   },
-   "legs": [
-    {
-     "routeNo": "36",
-     "board": {
-      "ars": "13051",
-      "name": "연산역",
-      "lat": 35.186292126321,
-      "lon": 129.080472643964,
-      "routeStopSequence": 75,
-      "officialStopId": "21130591008",
-      "nextStopName": "연산교차로"
-     },
-     "alight": {
-      "ars": "06702",
-      "name": "부산원동역",
-      "lat": 35.194371059228,
-      "lon": 129.112117112139,
-      "routeStopSequence": 84,
-      "officialStopId": "50000002030"
-     },
-     "ride": {
-      "pathM": 3747,
-      "nominalSec": 899,
-      "lowSec": 674,
-      "highSec": 1226,
-      "hops": 9
-     }
-    },
-    {
-     "routeNo": "155",
-     "board": {
-      "ars": "06702",
-      "name": "부산원동역",
-      "lat": 35.194371059228,
-      "lon": 129.112117112139,
-      "routeStopSequence": 18,
-      "officialStopId": "50000002030",
-      "nextStopName": "왕자맨션"
-     },
-     "alight": {
-      "ars": "09199",
-      "name": "한화꿈에그린아파트",
-      "lat": 35.198459347174,
-      "lon": 129.118450769013,
-      "routeStopSequence": 21,
-      "officialStopId": "21090571023"
-     },
-     "ride": {
-      "pathM": 1062,
-      "nominalSec": 255,
-      "lowSec": 191,
-      "highSec": 348,
-      "hops": 3
-     }
-    }
-   ],
-   "staticTotalSec": 1855,
-   "id": "T-36-13051-06702-155-06702-09199"
-  },
-  {
-   "kind": "transfer",
-   "routes": [
-    "29",
-    "43"
-   ],
-   "firstWalk": {
-    "meters": 116,
-    "sec": 126
-   },
-   "transferWalk": {
-    "meters": 0,
-    "sec": 60,
-    "sameStop": true,
-    "sameNameDifferentArs": false
-   },
-   "finalWalk": {
-    "meters": 215,
-    "sec": 233
-   },
-   "legs": [
-    {
-     "routeNo": "29",
-     "board": {
-      "ars": "13706",
-      "name": "연산역.연제초교",
-      "lat": 35.18393910799,
-      "lon": 129.080056485897,
-      "routeStopSequence": 91,
-      "officialStopId": "50000002611",
-      "nextStopName": "연산역.연산교차로"
-     },
-     "alight": {
-      "ars": "06712",
-      "name": "동래시장",
-      "lat": 35.201035143966,
-      "lon": 129.087175802605,
-      "routeStopSequence": 97,
-      "officialStopId": "50000002294"
-     },
-     "ride": {
-      "pathM": 2567,
-      "nominalSec": 616,
-      "lowSec": 462,
-      "highSec": 840,
-      "hops": 6
-     }
-    },
-    {
-     "routeNo": "43",
-     "board": {
-      "ars": "06712",
-      "name": "동래시장",
-      "lat": 35.201035143966,
-      "lon": 129.087175802605,
-      "routeStopSequence": 104,
-      "officialStopId": "50000002294",
-      "nextStopName": "낙민역.동래고등학교"
-     },
-     "alight": {
-      "ars": "09199",
-      "name": "한화꿈에그린아파트",
-      "lat": 35.198459347174,
-      "lon": 129.118450769013,
-      "routeStopSequence": 111,
-      "officialStopId": "21090571023"
-     },
-     "ride": {
-      "pathM": 3688,
-      "nominalSec": 885,
-      "lowSec": 664,
-      "highSec": 1207,
-      "hops": 7
-     }
-    }
-   ],
-   "staticTotalSec": 1920,
-   "id": "T-29-13706-06712-43-06712-09199"
-  },
-  {
-   "kind": "direct",
-   "routes": [
+    "115",
     "36"
    ],
    "firstWalk": {
-    "meters": 534,
-    "sec": 578
+    "meters": 175,
+    "sec": 190
+   },
+   "transferWalk": {
+    "meters": 0,
+    "sec": 60,
+    "sameStop": true,
+    "sameNameDifferentArs": false
    },
    "finalWalk": {
-    "meters": 197,
-    "sec": 214
+    "meters": 406,
+    "sec": 439
    },
    "legs": [
     {
-     "routeNo": "36",
+     "routeNo": "115",
      "board": {
-      "ars": "13056",
-      "name": "연산교차로",
-      "lat": 35.186897805904,
-      "lon": 129.082931424653,
-      "routeStopSequence": 76,
-      "officialStopId": "21130581009",
-      "nextStopName": "웰니스병원.연산농협"
+      "ars": "09272",
+      "name": "무정초등학교",
+      "lat": 35.19801097831,
+      "lon": 129.122712587292,
+      "routeStopSequence": 34,
+      "officialStopId": "21090571056",
+      "nextStopName": "무정삼거리"
      },
      "alight": {
-      "ars": "09273",
-      "name": "무정초등학교",
-      "lat": 35.197999988582,
-      "lon": 129.122959311441,
-      "routeStopSequence": 87,
-      "officialStopId": "21090571057"
+      "ars": "09301",
+      "name": "무정삼거리",
+      "lat": 35.196044242492,
+      "lon": 129.12129323866,
+      "routeStopSequence": 35,
+      "officialStopId": "21090571062"
      },
      "ride": {
-      "pathM": 4777,
-      "nominalSec": 1146,
-      "lowSec": 860,
-      "highSec": 1563,
+      "pathM": 279,
+      "nominalSec": 67,
+      "lowSec": 50,
+      "highSec": 91,
+      "hops": 1
+     }
+    },
+    {
+     "routeNo": "36",
+     "board": {
+      "ars": "09301",
+      "name": "무정삼거리",
+      "lat": 35.196044242492,
+      "lon": 129.12129323866,
+      "routeStopSequence": 60,
+      "officialStopId": "21090571062",
+      "nextStopName": "왕자맨션"
+     },
+     "alight": {
+      "ars": "13151",
+      "name": "연산역",
+      "lat": 35.18654069021,
+      "lon": 129.080571059527,
+      "routeStopSequence": 72,
+      "officialStopId": "21130581013"
+     },
+     "ride": {
+      "pathM": 4750,
+      "nominalSec": 1140,
+      "lowSec": 855,
+      "highSec": 1555,
+      "hops": 12
+     }
+    }
+   ],
+   "staticTotalSec": 1896,
+   "id": "T-115-09272-09301-36-09301-13151"
+  },
+  {
+   "kind": "transfer",
+   "routes": [
+    "115",
+    "36"
+   ],
+   "firstWalk": {
+    "meters": 175,
+    "sec": 190
+   },
+   "transferWalk": {
+    "meters": 0,
+    "sec": 60,
+    "sameStop": true,
+    "sameNameDifferentArs": false
+   },
+   "finalWalk": {
+    "meters": 406,
+    "sec": 439
+   },
+   "legs": [
+    {
+     "routeNo": "115",
+     "board": {
+      "ars": "09272",
+      "name": "무정초등학교",
+      "lat": 35.19801097831,
+      "lon": 129.122712587292,
+      "routeStopSequence": 34,
+      "officialStopId": "21090571056",
+      "nextStopName": "무정삼거리"
+     },
+     "alight": {
+      "ars": "09274",
+      "name": "왕자맨션",
+      "lat": 35.19470456235,
+      "lon": 129.119304257054,
+      "routeStopSequence": 36,
+      "officialStopId": "21090571054"
+     },
+     "ride": {
+      "pathM": 537,
+      "nominalSec": 129,
+      "lowSec": 97,
+      "highSec": 176,
+      "hops": 2
+     }
+    },
+    {
+     "routeNo": "36",
+     "board": {
+      "ars": "09274",
+      "name": "왕자맨션",
+      "lat": 35.19470456235,
+      "lon": 129.119304257054,
+      "routeStopSequence": 61,
+      "officialStopId": "21090571054",
+      "nextStopName": "원동IC교차로"
+     },
+     "alight": {
+      "ars": "13151",
+      "name": "연산역",
+      "lat": 35.18654069021,
+      "lon": 129.080571059527,
+      "routeStopSequence": 72,
+      "officialStopId": "21130581013"
+     },
+     "ride": {
+      "pathM": 4493,
+      "nominalSec": 1078,
+      "lowSec": 809,
+      "highSec": 1470,
       "hops": 11
      }
     }
    ],
-   "staticTotalSec": 1938,
-   "id": "D-36-13056-09273"
+   "staticTotalSec": 1896,
+   "id": "T-115-09272-09274-36-09274-13151"
   },
   {
    "kind": "transfer",
    "routes": [
-    "36",
-    "155"
+    "155",
+    "36"
    ],
    "firstWalk": {
-    "meters": 377,
-    "sec": 408
+    "meters": 230,
+    "sec": 249
    },
    "transferWalk": {
-    "meters": 119,
-    "sec": 128,
-    "sameStop": false,
-    "sameNameDifferentArs": true
+    "meters": 0,
+    "sec": 60,
+    "sameStop": true,
+    "sameNameDifferentArs": false
    },
    "finalWalk": {
-    "meters": 215,
-    "sec": 233
+    "meters": 406,
+    "sec": 439
    },
    "legs": [
-    {
-     "routeNo": "36",
-     "board": {
-      "ars": "13051",
-      "name": "연산역",
-      "lat": 35.186292126321,
-      "lon": 129.080472643964,
-      "routeStopSequence": 75,
-      "officialStopId": "21130591008",
-      "nextStopName": "연산교차로"
-     },
-     "alight": {
-      "ars": "09275",
-      "name": "왕자맨션",
-      "lat": 35.194684198982,
-      "lon": 129.119705852408,
-      "routeStopSequence": 85,
-      "officialStopId": "21090571055"
-     },
-     "ride": {
-      "pathM": 4506,
-      "nominalSec": 1081,
-      "lowSec": 811,
-      "highSec": 1475,
-      "hops": 10
-     }
-    },
     {
      "routeNo": "155",
      "board": {
-      "ars": "09195",
-      "name": "왕자맨션",
-      "lat": 35.195023776831,
-      "lon": 129.118469409773,
-      "routeStopSequence": 19,
-      "officialStopId": "21090571018",
+      "ars": "09198",
+      "name": "한화꿈에그린아파트",
+      "lat": 35.19870005406,
+      "lon": 129.118341739604,
+      "routeStopSequence": 102,
+      "officialStopId": "21090571015",
       "nextStopName": "반여동부산은행"
      },
      "alight": {
-      "ars": "09199",
-      "name": "한화꿈에그린아파트",
-      "lat": 35.198459347174,
-      "lon": 129.118450769013,
-      "routeStopSequence": 21,
-      "officialStopId": "21090571023"
+      "ars": "09192",
+      "name": "원동IC교차로",
+      "lat": 35.193800032681,
+      "lon": 129.117094912101,
+      "routeStopSequence": 104,
+      "officialStopId": "21090571016"
      },
      "ride": {
-      "pathM": 422,
-      "nominalSec": 101,
-      "lowSec": 76,
-      "highSec": 138,
+      "pathM": 626,
+      "nominalSec": 150,
+      "lowSec": 113,
+      "highSec": 205,
       "hops": 2
-     }
-    }
-   ],
-   "staticTotalSec": 1951,
-   "id": "T-36-13051-09275-155-09195-09199"
-  },
-  {
-   "kind": "transfer",
-   "routes": [
-    "110-1",
-    "43"
-   ],
-   "firstWalk": {
-    "meters": 116,
-    "sec": 126
-   },
-   "transferWalk": {
-    "meters": 241,
-    "sec": 261,
-    "sameStop": false,
-    "sameNameDifferentArs": true
-   },
-   "finalWalk": {
-    "meters": 215,
-    "sec": 233
-   },
-   "legs": [
-    {
-     "routeNo": "110-1",
-     "board": {
-      "ars": "13706",
-      "name": "연산역.연제초교",
-      "lat": 35.18393910799,
-      "lon": 129.080056485897,
-      "routeStopSequence": 18,
-      "officialStopId": "50000002611",
-      "nextStopName": "연산교차로"
-     },
-     "alight": {
-      "ars": "06161",
-      "name": "낙민역.동래고등학교",
-      "lat": 35.199031906519,
-      "lon": 129.09462507372,
-      "routeStopSequence": 25,
-      "officialStopId": "21060611020"
-     },
-     "ride": {
-      "pathM": 2477,
-      "nominalSec": 595,
-      "lowSec": 446,
-      "highSec": 811,
-      "hops": 7
      }
     },
     {
-     "routeNo": "43",
+     "routeNo": "36",
      "board": {
-      "ars": "06710",
-      "name": "낙민역.동래고등학교",
-      "lat": 35.199675041531,
-      "lon": 129.092097827991,
-      "routeStopSequence": 105,
-      "officialStopId": "50000002296",
-      "nextStopName": "안락동우체국.동해선안락역"
+      "ars": "09192",
+      "name": "원동IC교차로",
+      "lat": 35.193800032681,
+      "lon": 129.117094912101,
+      "routeStopSequence": 62,
+      "officialStopId": "21090571016",
+      "nextStopName": "부산원동역"
      },
      "alight": {
-      "ars": "09199",
-      "name": "한화꿈에그린아파트",
-      "lat": 35.198459347174,
-      "lon": 129.118450769013,
-      "routeStopSequence": 111,
-      "officialStopId": "21090571023"
+      "ars": "13151",
+      "name": "연산역",
+      "lat": 35.18654069021,
+      "lon": 129.080571059527,
+      "routeStopSequence": 72,
+      "officialStopId": "21130581013"
      },
      "ride": {
-      "pathM": 3169,
-      "nominalSec": 761,
-      "lowSec": 570,
-      "highSec": 1037,
-      "hops": 6
+      "pathM": 4246,
+      "nominalSec": 1019,
+      "lowSec": 764,
+      "highSec": 1390,
+      "hops": 10
      }
     }
    ],
-   "staticTotalSec": 1976,
-   "id": "T-110-1-13706-06161-43-06710-09199"
+   "staticTotalSec": 1917,
+   "id": "T-155-09198-09192-36-09192-13151"
   },
   {
    "kind": "transfer",
    "routes": [
-    "29",
-    "43"
+    "155",
+    "36"
    ],
    "firstWalk": {
-    "meters": 116,
-    "sec": 126
+    "meters": 230,
+    "sec": 249
    },
    "transferWalk": {
-    "meters": 16,
+    "meters": 0,
+    "sec": 60,
+    "sameStop": true,
+    "sameNameDifferentArs": false
+   },
+   "finalWalk": {
+    "meters": 406,
+    "sec": 439
+   },
+   "legs": [
+    {
+     "routeNo": "155",
+     "board": {
+      "ars": "09198",
+      "name": "한화꿈에그린아파트",
+      "lat": 35.19870005406,
+      "lon": 129.118341739604,
+      "routeStopSequence": 102,
+      "officialStopId": "21090571015",
+      "nextStopName": "반여동부산은행"
+     },
+     "alight": {
+      "ars": "06703",
+      "name": "안락뜨란채삼거리",
+      "lat": 35.195055178839,
+      "lon": 129.109834952742,
+      "routeStopSequence": 106,
+      "officialStopId": "50000002029"
+     },
+     "ride": {
+      "pathM": 1368,
+      "nominalSec": 328,
+      "lowSec": 246,
+      "highSec": 448,
+      "hops": 4
+     }
+    },
+    {
+     "routeNo": "36",
+     "board": {
+      "ars": "06703",
+      "name": "안락뜨란채삼거리",
+      "lat": 35.195055178839,
+      "lon": 129.109834952742,
+      "routeStopSequence": 64,
+      "officialStopId": "50000002029",
+      "nextStopName": "동래한전"
+     },
+     "alight": {
+      "ars": "13151",
+      "name": "연산역",
+      "lat": 35.18654069021,
+      "lon": 129.080571059527,
+      "routeStopSequence": 72,
+      "officialStopId": "21130581013"
+     },
+     "ride": {
+      "pathM": 3504,
+      "nominalSec": 841,
+      "lowSec": 631,
+      "highSec": 1147,
+      "hops": 8
+     }
+    }
+   ],
+   "staticTotalSec": 1917,
+   "id": "T-155-09198-06703-36-06703-13151"
+  },
+  {
+   "kind": "transfer",
+   "routes": [
+    "43",
+    "36"
+   ],
+   "firstWalk": {
+    "meters": 230,
+    "sec": 249
+   },
+   "transferWalk": {
+    "meters": 0,
+    "sec": 60,
+    "sameStop": true,
+    "sameNameDifferentArs": false
+   },
+   "finalWalk": {
+    "meters": 406,
+    "sec": 439
+   },
+   "legs": [
+    {
+     "routeNo": "43",
+     "board": {
+      "ars": "09198",
+      "name": "한화꿈에그린아파트",
+      "lat": 35.19870005406,
+      "lon": 129.118341739604,
+      "routeStopSequence": 16,
+      "officialStopId": "21090571015",
+      "nextStopName": "반여동부산은행"
+     },
+     "alight": {
+      "ars": "09192",
+      "name": "원동IC교차로",
+      "lat": 35.193800032681,
+      "lon": 129.117094912101,
+      "routeStopSequence": 18,
+      "officialStopId": "21090571016"
+     },
+     "ride": {
+      "pathM": 626,
+      "nominalSec": 150,
+      "lowSec": 113,
+      "highSec": 205,
+      "hops": 2
+     }
+    },
+    {
+     "routeNo": "36",
+     "board": {
+      "ars": "09192",
+      "name": "원동IC교차로",
+      "lat": 35.193800032681,
+      "lon": 129.117094912101,
+      "routeStopSequence": 62,
+      "officialStopId": "21090571016",
+      "nextStopName": "부산원동역"
+     },
+     "alight": {
+      "ars": "13151",
+      "name": "연산역",
+      "lat": 35.18654069021,
+      "lon": 129.080571059527,
+      "routeStopSequence": 72,
+      "officialStopId": "21130581013"
+     },
+     "ride": {
+      "pathM": 4246,
+      "nominalSec": 1019,
+      "lowSec": 764,
+      "highSec": 1390,
+      "hops": 10
+     }
+    }
+   ],
+   "staticTotalSec": 1917,
+   "id": "T-43-09198-09192-36-09192-13151"
+  },
+  {
+   "kind": "transfer",
+   "routes": [
+    "43",
+    "36"
+   ],
+   "firstWalk": {
+    "meters": 230,
+    "sec": 249
+   },
+   "transferWalk": {
+    "meters": 0,
+    "sec": 60,
+    "sameStop": true,
+    "sameNameDifferentArs": false
+   },
+   "finalWalk": {
+    "meters": 406,
+    "sec": 439
+   },
+   "legs": [
+    {
+     "routeNo": "43",
+     "board": {
+      "ars": "09198",
+      "name": "한화꿈에그린아파트",
+      "lat": 35.19870005406,
+      "lon": 129.118341739604,
+      "routeStopSequence": 16,
+      "officialStopId": "21090571015",
+      "nextStopName": "반여동부산은행"
+     },
+     "alight": {
+      "ars": "06703",
+      "name": "안락뜨란채삼거리",
+      "lat": 35.195055178839,
+      "lon": 129.109834952742,
+      "routeStopSequence": 20,
+      "officialStopId": "50000002029"
+     },
+     "ride": {
+      "pathM": 1368,
+      "nominalSec": 328,
+      "lowSec": 246,
+      "highSec": 448,
+      "hops": 4
+     }
+    },
+    {
+     "routeNo": "36",
+     "board": {
+      "ars": "06703",
+      "name": "안락뜨란채삼거리",
+      "lat": 35.195055178839,
+      "lon": 129.109834952742,
+      "routeStopSequence": 64,
+      "officialStopId": "50000002029",
+      "nextStopName": "동래한전"
+     },
+     "alight": {
+      "ars": "13151",
+      "name": "연산역",
+      "lat": 35.18654069021,
+      "lon": 129.080571059527,
+      "routeStopSequence": 72,
+      "officialStopId": "21130581013"
+     },
+     "ride": {
+      "pathM": 3504,
+      "nominalSec": 841,
+      "lowSec": 631,
+      "highSec": 1147,
+      "hops": 8
+     }
+    }
+   ],
+   "staticTotalSec": 1917,
+   "id": "T-43-09198-06703-36-06703-13151"
+  },
+  {
+   "kind": "transfer",
+   "routes": [
+    "43",
+    "110-1"
+   ],
+   "firstWalk": {
+    "meters": 230,
+    "sec": 249
+   },
+   "transferWalk": {
+    "meters": 45,
     "sec": 120,
     "sameStop": false,
     "sameNameDifferentArs": true
    },
    "finalWalk": {
-    "meters": 215,
-    "sec": 233
+    "meters": 170,
+    "sec": 184
    },
    "legs": [
     {
-     "routeNo": "29",
+     "routeNo": "43",
      "board": {
-      "ars": "13706",
-      "name": "연산역.연제초교",
-      "lat": 35.18393910799,
-      "lon": 129.080056485897,
-      "routeStopSequence": 91,
-      "officialStopId": "50000002611",
-      "nextStopName": "연산역.연산교차로"
+      "ars": "09198",
+      "name": "한화꿈에그린아파트",
+      "lat": 35.19870005406,
+      "lon": 129.118341739604,
+      "routeStopSequence": 16,
+      "officialStopId": "21090571015",
+      "nextStopName": "반여동부산은행"
      },
      "alight": {
+      "ars": "06709",
+      "name": "낙민역.동래고등학교",
+      "lat": 35.199633176642,
+      "lon": 129.092695086731,
+      "routeStopSequence": 23,
+      "officialStopId": "50000002295"
+     },
+     "ride": {
+      "pathM": 3177,
+      "nominalSec": 762,
+      "lowSec": 572,
+      "highSec": 1040,
+      "hops": 7
+     }
+    },
+    {
+     "routeNo": "110-1",
+     "board": {
       "ars": "06158",
       "name": "낙민역.동래고등학교",
       "lat": 35.199566572852,
       "lon": 129.092210979191,
-      "routeStopSequence": 98,
-      "officialStopId": "21060511031"
-     },
-     "ride": {
-      "pathM": 3102,
-      "nominalSec": 744,
-      "lowSec": 558,
-      "highSec": 1015,
-      "hops": 7
-     }
-    },
-    {
-     "routeNo": "43",
-     "board": {
-      "ars": "06710",
-      "name": "낙민역.동래고등학교",
-      "lat": 35.199675041531,
-      "lon": 129.092097827991,
-      "routeStopSequence": 105,
-      "officialStopId": "50000002296",
-      "nextStopName": "안락동우체국.동해선안락역"
+      "routeStopSequence": 50,
+      "officialStopId": "21060511031",
+      "nextStopName": "동래봉생병원"
      },
      "alight": {
-      "ars": "09199",
-      "name": "한화꿈에그린아파트",
-      "lat": 35.198459347174,
-      "lon": 129.118450769013,
-      "routeStopSequence": 111,
-      "officialStopId": "21090571023"
+      "ars": "13707",
+      "name": "연산역.연제초교",
+      "lat": 35.184418658297,
+      "lon": 129.08020591722,
+      "routeStopSequence": 56,
+      "officialStopId": "50000002610"
      },
      "ride": {
-      "pathM": 3169,
-      "nominalSec": 761,
-      "lowSec": 570,
-      "highSec": 1037,
+      "pathM": 2614,
+      "nominalSec": 627,
+      "lowSec": 471,
+      "highSec": 856,
       "hops": 6
      }
     }
    ],
-   "staticTotalSec": 1984,
-   "id": "T-29-13706-06158-43-06710-09199"
+   "staticTotalSec": 1942,
+   "id": "T-43-09198-06709-110-1-06158-13707"
   },
   {
    "kind": "transfer",
    "routes": [
-    "110-1",
-    "43"
+    "43",
+    "29"
    ],
    "firstWalk": {
-    "meters": 116,
-    "sec": 126
+    "meters": 230,
+    "sec": 249
    },
    "transferWalk": {
-    "meters": 78,
-    "sec": 120,
-    "sameStop": false,
-    "sameNameDifferentArs": true
+    "meters": 0,
+    "sec": 60,
+    "sameStop": true,
+    "sameNameDifferentArs": false
    },
    "finalWalk": {
-    "meters": 215,
-    "sec": 233
+    "meters": 170,
+    "sec": 184
    },
    "legs": [
     {
-     "routeNo": "110-1",
+     "routeNo": "43",
      "board": {
-      "ars": "13706",
-      "name": "연산역.연제초교",
-      "lat": 35.18393910799,
-      "lon": 129.080056485897,
-      "routeStopSequence": 18,
-      "officialStopId": "50000002611",
-      "nextStopName": "연산교차로"
+      "ars": "09198",
+      "name": "한화꿈에그린아파트",
+      "lat": 35.19870005406,
+      "lon": 129.118341739604,
+      "routeStopSequence": 16,
+      "officialStopId": "21090571015",
+      "nextStopName": "반여동부산은행"
      },
      "alight": {
-      "ars": "06711",
-      "name": "동래시장",
-      "lat": 35.20101587704,
-      "lon": 129.088031654304,
-      "routeStopSequence": 26,
-      "officialStopId": "50000002293"
+      "ars": "06707",
+      "name": "안락동우체국.동해선안락역",
+      "lat": 35.196937311031,
+      "lon": 129.102138529325,
+      "routeStopSequence": 22,
+      "officialStopId": "50000002025"
      },
      "ride": {
-      "pathM": 3180,
-      "nominalSec": 763,
-      "lowSec": 572,
-      "highSec": 1041,
-      "hops": 8
+      "pathM": 2177,
+      "nominalSec": 522,
+      "lowSec": 392,
+      "highSec": 712,
+      "hops": 6
      }
     },
     {
-     "routeNo": "43",
+     "routeNo": "29",
      "board": {
-      "ars": "06712",
-      "name": "동래시장",
-      "lat": 35.201035143966,
-      "lon": 129.087175802605,
-      "routeStopSequence": 104,
-      "officialStopId": "50000002294",
+      "ars": "06707",
+      "name": "안락동우체국.동해선안락역",
+      "lat": 35.196937311031,
+      "lon": 129.102138529325,
+      "routeStopSequence": 49,
+      "officialStopId": "50000002025",
       "nextStopName": "낙민역.동래고등학교"
      },
      "alight": {
-      "ars": "09199",
-      "name": "한화꿈에그린아파트",
-      "lat": 35.198459347174,
-      "lon": 129.118450769013,
-      "routeStopSequence": 111,
-      "officialStopId": "21090571023"
+      "ars": "13707",
+      "name": "연산역.연제초교",
+      "lat": 35.184418658297,
+      "lon": 129.08020591722,
+      "routeStopSequence": 56,
+      "officialStopId": "50000002610"
      },
      "ride": {
-      "pathM": 3688,
-      "nominalSec": 885,
-      "lowSec": 664,
-      "highSec": 1207,
+      "pathM": 3976,
+      "nominalSec": 954,
+      "lowSec": 716,
+      "highSec": 1301,
       "hops": 7
      }
     }
    ],
-   "staticTotalSec": 2127,
-   "id": "T-110-1-13706-06711-43-06712-09199"
+   "staticTotalSec": 1969,
+   "id": "T-43-09198-06707-29-06707-13707"
+  },
+  {
+   "kind": "transfer",
+   "routes": [
+    "43",
+    "29"
+   ],
+   "firstWalk": {
+    "meters": 230,
+    "sec": 249
+   },
+   "transferWalk": {
+    "meters": 0,
+    "sec": 60,
+    "sameStop": true,
+    "sameNameDifferentArs": false
+   },
+   "finalWalk": {
+    "meters": 170,
+    "sec": 184
+   },
+   "legs": [
+    {
+     "routeNo": "43",
+     "board": {
+      "ars": "09198",
+      "name": "한화꿈에그린아파트",
+      "lat": 35.19870005406,
+      "lon": 129.118341739604,
+      "routeStopSequence": 16,
+      "officialStopId": "21090571015",
+      "nextStopName": "반여동부산은행"
+     },
+     "alight": {
+      "ars": "06709",
+      "name": "낙민역.동래고등학교",
+      "lat": 35.199633176642,
+      "lon": 129.092695086731,
+      "routeStopSequence": 23,
+      "officialStopId": "50000002295"
+     },
+     "ride": {
+      "pathM": 3177,
+      "nominalSec": 762,
+      "lowSec": 572,
+      "highSec": 1040,
+      "hops": 7
+     }
+    },
+    {
+     "routeNo": "29",
+     "board": {
+      "ars": "06709",
+      "name": "낙민역.동래고등학교",
+      "lat": 35.199633176642,
+      "lon": 129.092695086731,
+      "routeStopSequence": 50,
+      "officialStopId": "50000002295",
+      "nextStopName": "동래시장"
+     },
+     "alight": {
+      "ars": "13707",
+      "name": "연산역.연제초교",
+      "lat": 35.184418658297,
+      "lon": 129.08020591722,
+      "routeStopSequence": 56,
+      "officialStopId": "50000002610"
+     },
+     "ride": {
+      "pathM": 2977,
+      "nominalSec": 714,
+      "lowSec": 536,
+      "highSec": 974,
+      "hops": 6
+     }
+    }
+   ],
+   "staticTotalSec": 1969,
+   "id": "T-43-09198-06709-29-06709-13707"
   },
   {
    "kind": "direct",
@@ -7671,89 +8070,44 @@
     "189-1"
    ],
    "firstWalk": {
-    "meters": 474,
-    "sec": 514
+    "meters": 585,
+    "sec": 633
    },
    "finalWalk": {
-    "meters": 618,
-    "sec": 670
+    "meters": 474,
+    "sec": 514
    },
    "legs": [
     {
      "routeNo": "189-1",
      "board": {
+      "ars": "09701",
+      "name": "원동IC교차로",
+      "lat": 35.193357689208,
+      "lon": 129.118293262751,
+      "routeStopSequence": 36,
+      "officialStopId": "50000001983",
+      "nextStopName": "부산원동역"
+     },
+     "alight": {
       "ars": "13162",
       "name": "연산교차로",
       "lat": 35.185956091593,
       "lon": 129.083258572269,
       "routeStopSequence": 49,
-      "officialStopId": "21130581014",
-      "nextStopName": "연산교차로"
-     },
-     "alight": {
-      "ars": "09702",
-      "name": "원동IC교차로",
-      "lat": 35.193466479821,
-      "lon": 129.117225763113,
-      "routeStopSequence": 61,
-      "officialStopId": "50000001984"
+      "officialStopId": "21130581014"
      },
      "ride": {
-      "pathM": 4392,
-      "nominalSec": 1054,
-      "lowSec": 791,
-      "highSec": 1437,
-      "hops": 12
+      "pathM": 4372,
+      "nominalSec": 1049,
+      "lowSec": 787,
+      "highSec": 1431,
+      "hops": 13
      }
     }
    ],
-   "staticTotalSec": 2238,
-   "id": "D-189-1-13162-09702"
-  },
-  {
-   "kind": "direct",
-   "routes": [
-    "189-1"
-   ],
-   "firstWalk": {
-    "meters": 534,
-    "sec": 578
-   },
-   "finalWalk": {
-    "meters": 618,
-    "sec": 670
-   },
-   "legs": [
-    {
-     "routeNo": "189-1",
-     "board": {
-      "ars": "13056",
-      "name": "연산교차로",
-      "lat": 35.186897805904,
-      "lon": 129.082931424653,
-      "routeStopSequence": 50,
-      "officialStopId": "21130581009",
-      "nextStopName": "웰니스병원.연산농협"
-     },
-     "alight": {
-      "ars": "09702",
-      "name": "원동IC교차로",
-      "lat": 35.193466479821,
-      "lon": 129.117225763113,
-      "routeStopSequence": 61,
-      "officialStopId": "50000001984"
-     },
-     "ride": {
-      "pathM": 4272,
-      "nominalSec": 1025,
-      "lowSec": 769,
-      "highSec": 1398,
-      "hops": 11
-     }
-    }
-   ],
-   "staticTotalSec": 2273,
-   "id": "D-189-1-13056-09702"
+   "staticTotalSec": 2196,
+   "id": "D-189-1-09701-13162"
   }
  ]
 }

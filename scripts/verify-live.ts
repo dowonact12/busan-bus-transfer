@@ -8,9 +8,12 @@ import { normalizeBimsArrivalItem } from '../shared/normalizer';
 const root = path.resolve(import.meta.dirname, '..');
 loadEnv(root);
 const client = new BimsClient(process.env.BUSAN_BIMS_SERVICE_KEY);
-const gen = JSON.parse(fs.readFileSync(path.join(root, 'shared/candidates.generated.json'), 'utf8'));
 const stops = new Map<string, any>();
-for (const c of gen.candidates) for (const l of c.legs) for (const s of [l.board, l.alight]) stops.set(s.ars, s);
+for (const f of ['shared/candidates.generated.json', 'shared/candidates.reverse.generated.json']) {
+  if (!fs.existsSync(path.join(root, f))) continue;
+  const gen = JSON.parse(fs.readFileSync(path.join(root, f), 'utf8'));
+  for (const c of gen.candidates) for (const l of c.legs) for (const s of [l.board, l.alight]) stops.set(s.ars, s);
+}
 const extra = (process.argv[2] ?? '06173,06708,09271').split(',');
 const csv = fs.readFileSync(path.join(root, 'data/raw/route_stops.csv'), 'utf8').split('\n');
 for (const a of extra) if (!stops.has(a)) {

@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # 서버 + Cloudflare 임시 터널을 재시작하고, GitHub Pages 의 config.json(apiBase)을 새 터널 주소로 갱신한다.
-# 사용: scripts/restart-tunnel.sh            (재시작 + Pages config 갱신)
-#       scripts/restart-tunnel.sh --no-publish (Pages 갱신 생략)
+# (예전 방식) 지금 공개 서버는 Render(https://busan-bus-transfer.onrender.com)라 Pages config 는 건드리지 않는 게 기본.
+# 사용: scripts/restart-tunnel.sh             (서버+터널 재시작만)
+#       scripts/restart-tunnel.sh --publish   (Pages config.json 을 터널 주소로 덮어씀 — Render 주소를 버릴 때만)
 set -euo pipefail
 cd "$(dirname "$0")/.."
 REPO="${PAGES_REPO:-dowonact12/busan-bus-transfer}"
@@ -38,7 +39,7 @@ done
 echo "$URL" > .run/tunnel.url
 echo "tunnel: $URL"
 
-if [ "${1:-}" != "--no-publish" ]; then
+if [ "${1:-}" = "--publish" ]; then
   CONTENT=$(printf '{ "apiBase": "%s" }\n' "$URL" | base64 -w0)
   SHA=$(gh api "repos/$REPO/contents/config.json?ref=gh-pages" --jq .sha 2>/dev/null || true)
   gh api -X PUT "repos/$REPO/contents/config.json" -f message="config: tunnel $URL" -f content="$CONTENT" -f branch=gh-pages ${SHA:+-f sha="$SHA"} --jq .commit.sha >/dev/null

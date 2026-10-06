@@ -29,6 +29,16 @@
   "verifiedAt": "2026-10-06T09:11:45.922Z",
   "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
  },
+ "13151": {
+  "bstopid": "193360501",
+  "apiName": "연산역",
+  "officialName": "연산역",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T14:20:21.318Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
  "13162": {
   "bstopid": "193730201",
   "apiName": "연산교차로",
@@ -47,6 +57,16 @@
   "nameMatch": true,
   "verified": true,
   "verifiedAt": "2026-10-06T09:11:45.922Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "13707": {
+  "bstopid": "505950000",
+  "apiName": "연산역.연제초교",
+  "officialName": "연산역.연제초교",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T14:20:21.318Z",
   "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
  },
  "09273": {
@@ -208,5 +228,120 @@
   "verified": true,
   "verifiedAt": "2026-10-06T09:11:45.922Z",
   "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "09272": {
+  "bstopid": "184710201",
+  "apiName": "무정초등학교",
+  "officialName": "무정초등학교",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T14:20:21.318Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "06163": {
+  "bstopid": "166450301",
+  "apiName": "우성아파트",
+  "officialName": "우성아파트",
+  "distanceM": 5,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T14:20:21.318Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "06162": {
+  "bstopid": "166430201",
+  "apiName": "동래봉생병원",
+  "officialName": "동래봉생병원",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T14:21:15.058Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "09301": {
+  "bstopid": "185040301",
+  "apiName": "무정삼거리",
+  "officialName": "무정삼거리",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T14:20:21.318Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "09274": {
+  "bstopid": "187640301",
+  "apiName": "왕자맨션",
+  "officialName": "왕자맨션",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T14:20:21.318Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "09198": {
+  "bstopid": "187590202",
+  "apiName": "한화꿈에그린아파트",
+  "officialName": "한화꿈에그린아파트",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T14:20:21.318Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "09192": {
+  "bstopid": "184230301",
+  "apiName": "원동IC교차로",
+  "officialName": "원동IC교차로",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T14:20:21.318Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "06703": {
+  "bstopid": "166070203",
+  "apiName": "안락뜨란채삼거리",
+  "officialName": "안락뜨란채삼거리",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T14:20:21.318Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "06709": {
+  "bstopid": "502440000",
+  "apiName": "낙민역.동래고등학교",
+  "officialName": "낙민역.동래고등학교",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T14:20:21.318Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "06707": {
+  "bstopid": "166390302",
+  "apiName": "안락동우체국.동해선안락역",
+  "officialName": "안락동우체국.동해선안락역",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T14:20:21.318Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "09701": {
+  "bstopid": "184600301",
+  "apiName": "원동IC교차로",
+  "officialName": "원동IC교차로",
+  "distanceM": 0,
+  "nameMatch": true,
+  "verified": true,
+  "verifiedAt": "2026-10-06T14:20:21.318Z",
+  "evidence": "busStopList arsno 단일 일치 + 공식 다운로드 좌표·이름 대조"
+ },
+ "": {
+  "bstopid": null,
+  "reason": "busStopList 00 hits=0",
+  "verifiedAt": "2026-10-06T14:21:50.895Z"
  }
 }

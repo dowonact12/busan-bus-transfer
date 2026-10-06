@@ -2,6 +2,8 @@
 import type { ArrivalBoard, CandidateRoute, Sec } from './types';
 
 export type RealtimeMode = 'live' | 'sample' | 'live_degraded';
+/** forward = 가는 길(중앙대로 1067 → 반여로 67), reverse = 오는 길(반여로 67 → 중앙대로 1067) */
+export type TripId = 'forward' | 'reverse';
 
 export interface StopVerification {
   ars: string;
@@ -32,9 +34,12 @@ export interface Snapshot {
   routeInfo: RouteServiceInfo[];
   callsToday: number;
   ttlSec: number;
+  /** 이 스냅샷이 다루는 방향. 옛 서버 응답엔 없음(= 가는 길만 지원) */
+  trip?: TripId;
 }
 
 export interface CandidatesPayload {
+  trip?: TripId;
   generatedAt: string;
   source: { name: string; note: string; fetchedAt: string };
   origin: { lat: number; lon: number; label: string; approx: boolean };
