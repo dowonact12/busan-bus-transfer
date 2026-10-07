@@ -382,7 +382,7 @@ function PinnedCard(p: CardProps) {
       {!journeyText && a.kind === 'relax' && a.leaveAt != null && <p className="pin-sub">{hhmm(a.leaveAt)}쯤 나가면 돼요</p>}
       {!journeyText && a.kind === 'now' && a.tight && <p className="pin-sub">조금 빠듯해요, 서둘러요!</p>}
       {!journeyText && a.kind === 'tight_miss' && <p className="pin-sub">{where1 === 'not_departed' ? '다음 차는 아직 기점 출발 전이에요' : where1 === 'at_origin' ? '다음 차는 기점에서 대기 중이에요' : '다음 차는 아직 안 보여요'}</p>}
-      {pb && <p className="pin-planb">😢 놓쳤어요 → {pb.next ? <>다음 {pb.missed.routeNo}번 <b>{hhmm(pb.next.etaAt)}</b>{pb.newArrivalAt != null && <>, 도착 <b>{hhmm(pb.newArrivalAt)}</b></>}</> : '다음 차 정보 아직 없음'}</p>}
+      {pb && <p className="pin-planb">😢 놓쳤어요 → {pb.next ? <>다음 {pb.missed.routeNo}번 <b>{hhmm(pb.next.etaAt)}</b>{pb.newArrivalAt != null && <>, 도착 <b>{ev.tier === 'estimate' ? '~' : ''}{hhmm(pb.newArrivalAt)}</b></>}</> : '다음 차 정보 아직 없음'}</p>}
       <div className="pin-arrive">
         <span className="pin-arrive-label">{arriveAt != null ? '도착' : '도착 시간'}</span>
         <b className={`pin-arrive-time${arriveAt == null ? ' unknown' : ''}`}>{arriveAt != null ? `${ev.tier === 'estimate' ? '~' : ''}${hhmm(arriveAt)}` : '확인 중'}</b>
