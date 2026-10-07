@@ -19,6 +19,15 @@ export interface Recommendation {
   notices: string[];
   others: ItineraryEvaluation[]; // 나머지(미확정·연결 불가 등) — 상세 목록용
   all: ItineraryEvaluation[];
+  /** 평소 경로 ID(연결 가능 여부와 무관하게 식별용). 없으면 null */
+  preferredCandidateId: string | null;
+  /** 추천이 평소 경로인 경우 true */
+  recommendedIsPreferred: boolean;
+}
+
+export interface RecommendOptions {
+  /** 평소 타는 후보 ID. 비슷한 도착 그룹 안에서만 1순위 우선. 연결 불가면 1순위로 올리지 않음 */
+  preferredCandidateId?: string | null;
 }
 
 const transfersOf = (e: ItineraryEvaluation) => e.constituentRoutes.length - 1;
@@ -65,7 +74,8 @@ export function diffLabels(alt: ItineraryEvaluation, rec: ItineraryEvaluation | 
   return out;
 }
 
-function reasonFor(rec: ItineraryEvaluation, group: ItineraryEvaluation[], evaluable: ItineraryEvaluation[]): string {
+function reasonFor(rec: ItineraryEvaluation, group: ItineraryEvaluation[], evaluable: ItineraryEvaluation[], preferred: boolean): string {
+  if (preferred) return '평소 타는 길이에요. 비슷하게 도착하는 다른 경로보다 익숙한 노선·자리를 우선했어요.';
   const others = group.filter((e) => e.candidateId !== rec.candidateId);
   const fastest = evaluable.reduce((a, b) => (destOf(a) <= destOf(b) ? a : b));
   if (others.length === 0) return fastest.candidateId === rec.candidateId ? '확인된 후보 중 가장 빨리 도착할 것으로 예상돼요.' : '여유 있는 후보 중 가장 빨리 도착할 것으로 예상돼요.';
@@ -75,7 +85,8 @@ function reasonFor(rec: ItineraryEvaluation, group: ItineraryEvaluation[], evalu
   return '비슷하게 도착하는 경로 중 가장 빨라요.';
 }
 
-export function recommend(candidates: CandidateRoute[], ctx: EvalContext): Recommendation {
+export function recommend(candidates: CandidateRoute[], ctx: EvalContext, opts: RecommendOptions = {}): Recommendation {
+  const preferredId = opts.preferredCandidateId ?? null;
   const all = candidates.map((c) => evaluateCandidate(c, ctx));
   const notices: string[] = [];
   // 1) 진행 상태와 맞지 않는 후보 제거, 2) 연결 불가·확실히 놓치는 후보 제거
@@ -99,11 +110,15 @@ export function recommend(candidates: CandidateRoute[], ctx: EvalContext): Recom
     notices.push('여유 있게 환승할 수 있는 경로가 없어요. 아래는 촉박한 선택이에요.');
     recommendedIsTight = true;
   }
+  let recommendedIsPreferred = false;
   if (pool.length > 0) {
     const g = similarGroup(pool, ctx.settings.similarWindowSec);
     tMin = g.tMin;
     group = [...g.group].sort(compareInGroup);
-    recommended = group[0];
+    // 비슷한 도착 그룹 안에 평소 경로가 있으면 그걸 1순위(연결 가능한 경우만 — pool 이 이미 comfortable|tight)
+    const prefInGroup = preferredId ? group.find((e) => e.candidateId === preferredId) : undefined;
+    recommended = prefInGroup ?? group[0];
+    recommendedIsPreferred = !!prefInGroup;
   } else if (estimated.length > 0) {
     notices.push('실제 관측된 차량으로 만든 경로가 없어요. 배차 추정 경로만 있어요.');
   }
@@ -111,12 +126,15 @@ export function recommend(candidates: CandidateRoute[], ctx: EvalContext): Recom
   // 대안: 의미가 다른 것 최대 2개. 같은 노선 조합 중복 제외. 촉박·추정은 위험 표시.
   const alternatives: Alternative[] = [];
   const usedSig = new Set<string>(recommended ? [routeSig(recommended)] : []);
-  const take = (e: ItineraryEvaluation | undefined) => {
+  const take = (e: ItineraryEvaluation | undefined, extraLabels: string[] = []) => {
     if (!e || alternatives.length >= 2 || usedSig.has(routeSig(e)) || e.candidateId === recommended?.candidateId) return;
     usedSig.add(routeSig(e));
-    alternatives.push({ evaluation: e, diffLabels: diffLabels(e, recommended), risk: e.feasibility === 'tight' || e.tier === 'estimate' });
+    alternatives.push({ evaluation: e, diffLabels: [...extraLabels, ...diffLabels(e, recommended)], risk: e.feasibility === 'tight' || e.tier === 'estimate' });
   };
   const byDest = (xs: ItineraryEvaluation[]) => [...xs].sort((a, b) => destOf(a) - destOf(b) || compareInGroup(a, b));
+  // 평소 경로가 연결 가능한데 비슷한 그룹 밖이면 첫 대안으로 올려 '평소 타는 길' 표시 (1순위로 올리진 않음)
+  const preferredEval = preferredId ? evaluable.find((e) => e.candidateId === preferredId) : undefined;
+  if (preferredEval && preferredEval.candidateId !== recommended?.candidateId) take(preferredEval, ['평소 타는 길']);
   // 추천보다 빠른 촉박 후보 → 다른 환승 수(직통/환승) → 나머지 빠른 순 → 배차 추정
   if (recommended) {
     take(byDest(tight).find((e) => destOf(e) < destOf(recommended!)));
@@ -126,11 +144,14 @@ export function recommend(candidates: CandidateRoute[], ctx: EvalContext): Recom
   for (const e of byDest(estimated)) take(e);
 
   const shown = new Set([recommended?.candidateId, ...alternatives.map((a) => a.evaluation.candidateId)]);
-  const others = applicable.filter((e) => !shown.has(e.candidateId));
+  // 평소 경로는 '다른 후보'에서도 맨 위에 (연결 불·미확인이어도 찾아보기 쉽게)
+  const others = applicable.filter((e) => !shown.has(e.candidateId))
+    .sort((a, b) => Number(b.candidateId === preferredId) - Number(a.candidateId === preferredId));
   return {
     evaluatedAt: ctx.now, recommended, recommendedIsTight,
-    reason: recommended ? reasonFor(recommended, group, pool) : null,
+    reason: recommended ? reasonFor(recommended, group, pool, recommendedIsPreferred) : null,
     alternatives, similarGroupIds: group.map((e) => e.candidateId), tMin, notices, others, all,
+    preferredCandidateId: preferredId, recommendedIsPreferred,
   };
 }
 

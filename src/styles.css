@@ -59,6 +59,8 @@ button { font: inherit; color: inherit; }
 .badge-rec { background: var(--peach); color: #a2443b; }
 .badge-alt { background: var(--lav); color: #5b4a99; }
 .badge-risk { background: var(--risk); color: var(--risk-ink); }
+.badge-usual { background: #ffe9a8; color: #7a5a00; }
+.usual-note { margin: 0.15rem 0 0.35rem; font-size: 0.84rem; color: #7a5a00; font-weight: 600; word-break: keep-all; }
 .badge-sample { background: var(--butter); color: var(--warn-ink); }
 .hero-action { font-size: 1.02rem; font-weight: 700; line-height: 1.5; margin: 0.2rem 0 0.6rem; word-break: keep-all; }
 .eta-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 0.5rem; }
