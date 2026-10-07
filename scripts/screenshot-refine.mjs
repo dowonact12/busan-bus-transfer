@@ -27,18 +27,22 @@ for (const trip of ['forward', 'reverse']) {
   await page.close();
 }
 
-// 2) 모의: 배차 몰림(각 정류장 둘째 차를 첫 차 2분 뒤로)
-{
-  const page = await newPage('reverse');
+// 2) 모의: 배차 몰림(추천 카드가 노리는 차 바로 뒤 관측 차를 2분 뒤로 당김)
+for (const trip of ['forward', 'reverse']) {
+  const page = await newPage(trip);
+  let target = null;
   await page.route('**/api/snapshot**', async (route) => {
     const r = await route.fetch(); const j = await r.json();
-    for (const b of j.boards) { const o = b.observations.filter((x) => x.etaAt != null).sort((a, c) => a.etaAt - c.etaAt); if (o.length >= 2) { o[1].etaAt = o[0].etaAt + 120; if (o[0].remainingStops != null) o[1].remainingStops = o[0].remainingStops + 1; } }
+    if (target) for (const b of j.boards) { const o = b.observations.filter((x) => x.etaAt != null).sort((a, c) => a.etaAt - c.etaAt); const i = o.findIndex((x) => x.vehicleReference === target); if (i >= 0 && o[i + 1]) { o[i + 1].etaAt = o[i].etaAt + 120; if (o[i].remainingStops != null) o[i + 1].remainingStops = o[i].remainingStops + 1; } }
     await route.fulfill({ response: r, json: j });
   });
   await ready(page);
-  console.log('MOCK bunching:', await page.$$eval('.bunch-line', (e) => e.map((x) => x.textContent)));
-  await label(page, '🧪 모의 상태: 실제 데이터의 둘째 차를 첫 차 2분 뒤로 옮김(배차 몰림 강제)');
-  await page.screenshot({ path: out('mock-bunching') });
+  target = await page.locator('.card.hero').first().getAttribute('data-veh');
+  await page.click('header button[aria-label="새로고침"]');
+  await page.waitForTimeout(3500);
+  console.log(trip, 'MOCK bunching (target', target + '):', await page.$$eval('.card.hero .bunch-line', (e) => e.map((x) => x.textContent)));
+  await label(page, '🧪 모의 상태: 노리는 차 바로 뒤 차를 2분 뒤로 당김(배차 몰림 강제)');
+  await page.screenshot({ path: out(`${trip}-mock-bunching`) });
   await page.close();
 }
 
