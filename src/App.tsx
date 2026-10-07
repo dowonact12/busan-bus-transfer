@@ -3,7 +3,8 @@ import { preferredFor } from '../shared/preferences';
 import { calibratedSettings, DOOR_CALIBRATION, defaultPrefs, MEASURED_LABEL, migratePrefs, RULE_OF_THUMB, stopsAwayAtLeave, type UserPrefsV2 } from '../shared/calibration';
 import { detectBunching, detectMiss, planB, seatHint, secondBusOutcome, targetOf, type PlanB, type SeatHint, type Target } from '../shared/insights';
 import { HISTORY_KEY, learnedDoorToStop, learnedRide, parseHistory, upsertRecord, type Blended, type TripRecord } from '../shared/history';
-import { leaveDeadlineOf, mainLayout, nearestSeen, pinnedAction, stripDots } from '../shared/pinned';
+import { leaveDeadlineOf, mainLayout, nearestSeen, pinnedAction, stopTimeText, stripDots } from '../shared/pinned';
+import { augmentBoards, nextBusWhere } from '../shared/positionEta';
 import { recommend, stabilize, type StabilityState } from '../shared/recommender';
 import { seatLabel } from '../shared/normalizer';
 import { crowdDisplay } from '../shared/crowd';
@@ -104,9 +105,21 @@ function TripApp({ trip, setTrip }: { trip: TripId; setTrip: (t: TripId) => void
   }, [baseSettings, history, hourKey, trip, cands]);
   const rideFor = (candId: string, modelSec: number) => learnedRide(history, trip, now, candId, modelSec);
   const boards = snap?.boards ?? [];
-  const lookup = (ars: string, routeNo: string): ArrivalBoard | undefined => boards.find((b) => b.stopArs === ars && b.routeNo === routeNo);
   const candList = cands?.candidates ?? [];
   const candById = (id: string) => candList.find((c) => c.id === id)!;
+  // 버스 위치(GPS): 평소 경로 + 펼친 다른 길 + 더 빠른 길. BIMS 도착 목록(다음 2대) 밖 차량의 위치 기반 추정에도 사용
+  const [extraRoutes, setExtraRoutes] = useState<string[]>([]);
+  const prefCand0 = candList.find((c) => c.id === preferredFor(trip).candidateId);
+  const visibleRoutes = [
+    ...(prefCand0?.routes ?? []),
+    ...(sheet === 'others' && othersOpen && candList.some((c) => c.id === othersOpen) ? candById(othersOpen).routes : []),
+    ...extraRoutes,
+  ];
+  const vehicles = useVehicles([...new Set(visibleRoutes)].slice(0, 6), !!liveSnap && connection === 'ok', demo, Object.fromEntries(Object.entries(routeStops).map(([k, v]) => [k, v.length])));
+  const boardsAug = useMemo(() => (snap?.mode === 'live' || snap?.mode === 'live_degraded' ? augmentBoards(boards, candList, vehicles, now) : boards),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [boards, cands, vehicles, now, snap?.mode]);
+  const lookup = (ars: string, routeNo: string): ArrivalBoard | undefined => boardsAug.find((b) => b.stopArs === ars && b.routeNo === routeNo);
   // 저장된 진행 상태가 지금 후보에 없으면(후보 갱신 등) 처음부터
   const journeyValid = journeyRaw.phase === 'before' || !journeyRaw.candidateId || (!!cands && candList.some((c) => c.id === journeyRaw.candidateId));
   const journey: JourneyState = useMemo(() => (journeyValid ? journeyRaw : { phase: 'before' }), [journeyValid, journeyRaw]);
@@ -131,7 +144,7 @@ function TripApp({ trip, setTrip }: { trip: TripId; setTrip: (t: TripId) => void
   const preferred = preferredFor(trip);
   const rec = useMemo(() => (snap && cands ? recommend(cands.candidates, { now, settings, lookup, journey }, { preferredCandidateId: preferred.candidateId }) : null),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [snap, cands, now, settings, journey, preferred.candidateId]);
+    [snap, cands, now, settings, journey, preferred.candidateId, boardsAug]);
   const shownRec = useMemo(() => {
     if (!rec) return null;
     const s = stabilize(stab.current, rec);
@@ -162,12 +175,8 @@ function TripApp({ trip, setTrip }: { trip: TripId; setTrip: (t: TripId) => void
   }, [rec]);
   const planBShown = planBState && planBState.missed.candidateId === pinned?.candidateId && now - planBState.at < 10 * 60 && journey.phase !== 'on_first_bus' && journey.phase !== 'on_second_bus' && journey.phase !== 'arrived' ? planBState : null;
 
-  const visibleRoutes = [
-    ...(pinnedCand ? pinnedCand.routes : []),
-    ...(sheet === 'others' && othersOpen && candList.some((c) => c.id === othersOpen) ? candById(othersOpen).routes : []),
-    ...(better ? better.evaluation.constituentRoutes : []),
-  ];
-  const vehicles = useVehicles([...new Set(visibleRoutes)].slice(0, 6), !!liveSnap && connection === 'ok', demo, Object.fromEntries(Object.entries(routeStops).map(([k, v]) => [k, v.length])));
+  const extraKey = [...(pinnedCand?.routes ?? []), ...(better ? better.evaluation.constituentRoutes : [])].join(',');
+  useEffect(() => { setExtraRoutes((old) => (old.join(',') === extraKey ? old : extraKey ? extraKey.split(',') : [])); }, [extraKey]);
   const sample = snap?.mode === 'sample';
   const oldestAge = boards.length ? Math.max(...boards.filter((b) => b.fetchedAt).map((b) => now - (b.fetchedAt ?? now))) : null;
   const statusPill = tripUnsupported && !demo && connection === 'ok' ? { cls: 'pill-stale', text: '실시간 준비 중' } : demo ? { cls: 'pill-sample', text: '예시 모드' } : connection === 'waking' ? { cls: 'pill-wait', text: '서버 깨우는 중' } : connection === 'lost' ? { cls: 'pill-off', text: '연결 끊김' } : !snap ? { cls: 'pill-wait', text: '불러오는 중' } : sample ? { cls: 'pill-sample', text: '예시 모드' } : oldestAge != null && oldestAge > 120 ? { cls: 'pill-stale', text: '갱신 필요' } : snap.mode === 'live_degraded' ? { cls: 'pill-stale', text: '일부만 실시간' } : { cls: 'pill-live', text: '실시간' };
@@ -336,7 +345,9 @@ function PinnedCard(p: CardProps) {
   const board1 = p.lookup(leg1.board.ars, leg1.routeNo);
   const seen1 = ev.firstVehicle ? null : nearestSeen(board1?.observations, now);
   const a = pinnedAction(ev, cand, now, settings, 8, seen1);
-  const dots = stripDots(ev, cand, now, seen1);
+  const where1 = ev.firstVehicle ? null : nextBusWhere(board1, leg1.board.routeStopSequence, p.vehicles[leg1.routeNo], now);
+  const where2 = leg2 && !ev.secondVehicle ? nextBusWhere(p.lookup(leg2.board.ars, leg2.routeNo), leg2.board.routeStopSequence, p.vehicles[leg2.routeNo], now) : null;
+  const dots = stripDots(ev, cand, now, seen1, settings, { first: where1, second: where2 });
   const realtime1 = ev.firstBoardingEstimate?.evidenceKind === 'realtime_prediction';
   const hint = ev.firstVehicle && realtime1 ? seatHintFor(ev.firstVehicle, board1, leg1, p.vehicles[leg1.routeNo], now) : null;
   const bunch = detectBunching(board1);
@@ -370,11 +381,11 @@ function PinnedCard(p: CardProps) {
       <p className={`pin-action act-${journeyText ? 'journey' : a.kind}`} aria-live="polite">{journeyText ?? a.text}</p>
       {!journeyText && a.kind === 'relax' && a.leaveAt != null && <p className="pin-sub">{hhmm(a.leaveAt)}쯤 나가면 돼요</p>}
       {!journeyText && a.kind === 'now' && a.tight && <p className="pin-sub">조금 빠듯해요, 서둘러요!</p>}
-      {!journeyText && a.kind === 'tight_miss' && <p className="pin-sub">다음 차는 아직 안 보여요</p>}
+      {!journeyText && a.kind === 'tight_miss' && <p className="pin-sub">{where1 === 'not_departed' ? '다음 차는 아직 기점 출발 전이에요' : where1 === 'at_origin' ? '다음 차는 기점에서 대기 중이에요' : '다음 차는 아직 안 보여요'}</p>}
       {pb && <p className="pin-planb">😢 놓쳤어요 → {pb.next ? <>다음 {pb.missed.routeNo}번 <b>{hhmm(pb.next.etaAt)}</b>{pb.newArrivalAt != null && <>, 도착 <b>{hhmm(pb.newArrivalAt)}</b></>}</> : '다음 차 정보 아직 없음'}</p>}
       <div className="pin-arrive">
         <span className="pin-arrive-label">{arriveAt != null ? '도착' : '도착 시간'}</span>
-        <b className={`pin-arrive-time${arriveAt == null ? ' unknown' : ''}`}>{arriveAt != null ? hhmm(arriveAt) : '확인 중'}</b>
+        <b className={`pin-arrive-time${arriveAt == null ? ' unknown' : ''}`}>{arriveAt != null ? `${ev.tier === 'estimate' ? '~' : ''}${hhmm(arriveAt)}` : '확인 중'}</b>
       </div>
       {status && <p className="pin-status">{status}</p>}
       <DotStrip dots={dots} />
@@ -402,6 +413,9 @@ function DotStrip({ dots }: { dots: import('../shared/pinned').StripDot[] }) {
           <i className="ds-mark" aria-hidden />
           <b className="ds-role">{d.role}</b>
           <span className="ds-name">{d.name}</span>
+          <span className="ds-times">{d.times.map((t) => (
+            <span key={t.label} className={`ds-time${t.est ? ' is-est' : ''}`}>{d.role === '도착' ? <><b>{stopTimeText(t, hhmm)}</b> 도착</> : <>{t.label} <b>{stopTimeText(t, hhmm)}</b></>}</span>
+          ))}</span>
         </li>
       ))}
     </ol>
@@ -436,10 +450,14 @@ function RouteDetails(p: CardProps & { hint: SeatHint | null; bunchHere: ReturnT
     <div className="details pin-details">
       <div className="card-top">
         <span className="badge badge-alt">{FEAS[ev.feasibility]}</span>
-        {ev.tier === 'estimate' && <span className="badge badge-risk">배차 추정</span>}
+        {ev.tier === 'estimate' && <span className="badge badge-risk">{[ev.firstBoardingEstimate, ev.transferBoardingEstimate].some((e) => e?.evidenceKind === 'position_estimate') ? '위치 기반 추정' : '배차 추정'}</span>}
         {ev.destinationConditional && <span className="badge badge-alt">이 차를 타면 기준</span>}
       </div>
       {p.preferred && <p className="usual-note">💺 {p.preferred.note}</p>}
+      <p className="fine legend">⏱ 정류장 시각에 <b>~</b> 붙은 건 추정이에요(나머지는 실시간 예측).</p>
+      {[ev.firstVehicle, ev.secondVehicle].filter((o) => o?.estimate === 'position').map((o) => (
+        <p key={o!.routeNo + o!.stopArs} className="fine pos-note">📍 {o!.routeNo}번은 버스 도착 정보가 다음 2대까지만 나와서, GPS로 보이는 차(지금 {o!.remainingStops}정거장 전)로 어림했어요 <em className="tag tag-est">위치 기반 추정</em></p>
+      ))}
       <LeaveByStops ev={ev} cand={cand} now={now} trip={p.trip} settings={settings} />
       {segs.length > 0 && (
         <>

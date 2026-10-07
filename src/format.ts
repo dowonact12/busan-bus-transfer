@@ -22,6 +22,7 @@ export function evidenceLabel(kind: EvidenceKind, origin: DataOrigin): string {
     case 'realtime_prediction': return '실시간 예측';
     case 'static_duration': return '추정';
     case 'headway_estimate': return '배차 기준 추정';
+    case 'position_estimate': return '위치 기반 추정';
     case 'user_confirmed': return '탑승 확인';
     case 'user_measured': return '직접 측정(사용자)';
     default: return '확인 불가';

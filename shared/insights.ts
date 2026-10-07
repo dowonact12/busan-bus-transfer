@@ -75,7 +75,8 @@ export interface Bunching { first: ArrivalObservation; second: ArrivalObservatio
 
 export function detectBunching(board: ArrivalBoard | undefined, maxStops = 2, maxSec = 180): Bunching | null {
   if (!board) return null;
-  const o = board.observations.filter((x) => x.etaAt != null).sort((a, b) => a.etaAt! - b.etaAt!);
+  // BIMS가 준 차량끼리만(위치 기반 추정은 제외)
+  const o = board.observations.filter((x) => x.etaAt != null && !x.estimate).sort((a, b) => a.etaAt! - b.etaAt!);
   if (o.length < 2) return null;
   const [first, second] = o;
   const gapSec = second.etaAt! - first.etaAt!;

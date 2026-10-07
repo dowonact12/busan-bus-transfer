@@ -77,6 +77,14 @@ function pickVehicle(board: ArrivalBoard | undefined, requiredAt: Sec, ctx: Eval
 }
 
 function vehicleEstimate(o: ArrivalObservation, s: Settings): TimeEstimate {
+  if (o.estimate === 'position') {
+    return est({
+      nominalAt: o.etaAt, earliestAt: o.etaLowAt ?? o.etaAt! - s.realtimeRangeSec, latestAt: o.etaHighAt ?? o.etaAt! + s.realtimeRangeSec,
+      evidenceKind: 'position_estimate', rangeKind: 'assumed', origin: o.origin,
+      basedOnObservations: [`${o.routeNo}@${o.stopArs}#${o.vehicleReference ?? '?'}(GPS)`],
+      assumptions: [`GPS 위치 ${o.remainingStops}정거장 전 × 관측 정거장당 속도`, 'BIMS 도착 목록(다음 2대) 밖 차량 — 추정'],
+    });
+  }
   return est({
     nominalAt: o.etaAt, earliestAt: o.etaAt! - s.realtimeRangeSec, latestAt: o.etaAt! + s.realtimeRangeSec,
     evidenceKind: 'realtime_prediction', rangeKind: 'assumed', origin: o.origin,
@@ -84,6 +92,10 @@ function vehicleEstimate(o: ArrivalObservation, s: Settings): TimeEstimate {
     assumptions: ['분 단위 원본 · 수신시각 기준 근사', `±${Math.round(s.realtimeRangeSec / 60)}분 가정 범위`],
   });
 }
+const kindOf = (o: ArrivalObservation): TimeEstimate['evidenceKind'] => (o.estimate === 'position' ? 'position_estimate' : 'realtime_prediction');
+const noteOf = (o: ArrivalObservation) => (o.estimate === 'position' ? `위치 기반 추정(GPS ${o.remainingStops}정거장 전)` : `${originLabel(o.origin)} 예측`);
+/** 추정 계열(배차·위치) — 등급 'estimate', 도착은 조건부 */
+const isEst = (k: TimeEstimate['evidenceKind']) => k === 'headway_estimate' || k === 'position_estimate';
 
 const add = (e: TimeEstimate, nominal: number, low: number, high: number, kind?: TimeEstimate['evidenceKind']): TimeEstimate => ({
   ...e,
@@ -181,7 +193,7 @@ export function evaluateCandidate(c: CandidateRoute, ctx: EvalContext): Itinerar
       firstVehicle = p.obs;
       firstBoarding = vehicleEstimate(p.obs, s);
       if (atStop && p.obs.etaAt! - now < 60) warnings.push('곧 도착 — 탑승 여유 적음');
-      evidence.push({ segment: 'first_arrival', evidenceKind: 'realtime_prediction', origin: p.obs.origin, note: `첫 버스 도착: ${originLabel(p.obs.origin)} 예측` });
+      evidence.push({ segment: 'first_arrival', evidenceKind: kindOf(p.obs), origin: p.obs.origin, note: `첫 버스 도착: ${noteOf(p.obs)}` });
     } else {
       firstBoarding = p.estimate;
       evidence.push({ segment: 'first_arrival', evidenceKind: 'headway_estimate', origin: p.estimate.origin, note: '첫 버스 도착: 배차 기준 추정' });
@@ -205,7 +217,7 @@ export function evaluateCandidate(c: CandidateRoute, ctx: EvalContext): Itinerar
     leg1End = vehicleEstimate(dm.match, s);
     evidence.push({ segment: 'first_ride', evidenceKind: 'realtime_prediction', origin: dm.match.origin, note: `${leg1.alight.name} 도착: 같은 차량의 하류 정류장 ${originLabel(dm.match.origin)} 예측(정황 일치, 확정 아님)` });
   } else {
-    leg1End = add(firstBoarding, leg1.ride.nominalSec, leg1.ride.lowSec, leg1.ride.highSec, firstBoarding.evidenceKind === 'headway_estimate' ? 'headway_estimate' : 'static_duration');
+    leg1End = add(firstBoarding, leg1.ride.nominalSec, leg1.ride.lowSec, leg1.ride.highSec, isEst(firstBoarding.evidenceKind) ? firstBoarding.evidenceKind : 'static_duration');
     leg1End.assumptions = [...leg1End.assumptions, `주행 ${leg1.ride.hops}정거장 정적 추정(평균 15km/h 가정, 범위 11~20km/h)`];
     evidence.push({ segment: 'first_ride', evidenceKind: 'static_duration', origin: 'static', note: `${leg1.routeNo}번 주행 ${Math.round(leg1.ride.nominalSec / 60)}분: 정적 추정` });
   }
@@ -214,10 +226,10 @@ export function evaluateCandidate(c: CandidateRoute, ctx: EvalContext): Itinerar
   const leaveAt = leaveDeadline != null ? Math.max(now, leaveDeadline) : now;
   const indoorWaitSec = leaveDeadline != null ? leaveAt - now : 0;
   const outdoorFirstWait = firstBoarding.nominalAt != null && firstReadyAt != null ? Math.max(0, firstBoarding.nominalAt - (firstReadyAt + indoorWaitSec)) : 0;
-  const tierOf = (...e: TimeEstimate[]) => (e.some((x) => x.evidenceKind === 'headway_estimate') ? 'estimate' : 'observed') as 'estimate' | 'observed';
+  const tierOf = (...e: TimeEstimate[]) => (e.some((x) => isEst(x.evidenceKind)) ? 'estimate' : 'observed') as 'estimate' | 'observed';
   const leaveAdvice = (realtimeFresh: boolean): LeaveAdvice => {
     if (leaveDeadline == null) return { kind: 'none' };
-    if (!realtimeFresh || firstBoarding.evidenceKind !== 'realtime_prediction') return { kind: 'conservative_now' };
+    if (!realtimeFresh || (firstBoarding.evidenceKind !== 'realtime_prediction' && firstBoarding.evidenceKind !== 'position_estimate')) return { kind: 'conservative_now' };
     if (leaveDeadline < now) return { kind: 'leave_now_tight' };
     if (leaveDeadline - now >= 60) return { kind: 'leave_in', atSec: leaveDeadline, minutes: Math.floor((leaveDeadline - now) / 60) };
     return { kind: 'leave_now' };
@@ -262,7 +274,7 @@ export function evaluateCandidate(c: CandidateRoute, ctx: EvalContext): Itinerar
       secondVehicle = p2.obs;
       nextAfter = p2.nextObserved;
       second = vehicleEstimate(p2.obs, s);
-      evidence.push({ segment: 'second_arrival', evidenceKind: 'realtime_prediction', origin: p2.obs.origin, note: `환승 버스 도착: ${originLabel(p2.obs.origin)} 예측` });
+      evidence.push({ segment: 'second_arrival', evidenceKind: kindOf(p2.obs), origin: p2.obs.origin, note: `환승 버스 도착: ${noteOf(p2.obs)}` });
     } else {
       second = p2.estimate;
       evidence.push({ segment: 'second_arrival', evidenceKind: 'headway_estimate', origin: p2.estimate.origin, note: '환승 버스 도착: 배차 기준 추정' });
@@ -277,15 +289,16 @@ export function evaluateCandidate(c: CandidateRoute, ctx: EvalContext): Itinerar
   if (status === 'infeasible') {
     return { ...base, feasibility: 'infeasible', firstVehicle, secondVehicle, firstReadyAt, firstBoardingEstimate: firstBoarding, transferArrivalEstimate: leg1End, transferReadyEstimate: readyT, transferRequiredAt: requiredAt, transferBoardingEstimate: second, transferWaitSec, transferSlackSec, dataAgeSec: worstAge, warnings: [...warnings, '현재 계산상 환승 연결 어려움'] };
   }
-  const evidenceKind2 = second.evidenceKind === 'headway_estimate' ? 'headway_estimate' : 'static_duration';
+  const evidenceKind2 = isEst(second.evidenceKind) ? second.evidenceKind : 'static_duration';
   let dest = add(second, leg2.ride.nominalSec + wF, leg2.ride.lowSec + wF, leg2.ride.highSec + wFHigh, evidenceKind2);
   evidence.push({ segment: 'second_ride', evidenceKind: 'static_duration', origin: 'static', note: `${leg2.routeNo}번 주행 ${Math.round(leg2.ride.nominalSec / 60)}분: 정적 추정` });
   let ifMissed: TimeEstimate | null = null;
-  const conditional = status === 'tight' || second.evidenceKind === 'headway_estimate';
+  const conditional = status === 'tight' || isEst(second.evidenceKind);
   if (status === 'tight') {
     warnings.push('환승 촉박 — 아래 도착은 선택 차량에 탔을 때의 값');
     if (nextAfter) {
-      ifMissed = add(vehicleEstimate(nextAfter, s), leg2.ride.nominalSec + wF, leg2.ride.lowSec + wF, leg2.ride.highSec + wFHigh, 'static_duration');
+      const nx = vehicleEstimate(nextAfter, s);
+      ifMissed = add(nx, leg2.ride.nominalSec + wF, leg2.ride.lowSec + wF, leg2.ride.highSec + wFHigh, isEst(nx.evidenceKind) ? nx.evidenceKind : 'static_duration');
       dest = { ...dest, latestAt: ifMissed.latestAt }; // 놓쳤을 때까지 포함한 상한
     } else {
       dest = { ...dest, latestAt: null }; // 다음 차량 미관측 → 지연 시 상한 미확정

@@ -1,7 +1,7 @@
 // 내부 모델. 외부 API 스키마와 분리한다. 모든 시각은 UTC epoch 초(Sec), 기간은 초.
 export type Sec = number;
 
-export type EvidenceKind = 'realtime_prediction' | 'static_duration' | 'headway_estimate' | 'user_confirmed' | 'user_measured' | 'unknown';
+export type EvidenceKind = 'realtime_prediction' | 'position_estimate' | 'static_duration' | 'headway_estimate' | 'user_confirmed' | 'user_measured' | 'unknown';
 export type RangeKind = 'provider' | 'assumed' | 'calibrated' | 'none';
 /** live=실제 BIMS 응답, sample=예시 모드 가짜값, recorded=녹화 응답, static=공식 정적자료 기반 추정, test=단위테스트 */
 export type DataOrigin = 'live' | 'sample' | 'recorded' | 'static' | 'test';
@@ -54,6 +54,10 @@ export interface ArrivalObservation {
   expiryAt: Sec;
   origin: DataOrigin;
   order: number; // 공급자가 준 1/2 순번. 동일 차량 판단에 쓰지 않음
+  /** 'position' = BIMS 도착 목록 밖, GPS 위치 × 정거장당 속도로 추정(라벨 필수) */
+  estimate?: 'position';
+  etaLowAt?: Sec;
+  etaHighAt?: Sec;
 }
 
 export type BoardStatus = 'ok' | 'empty' | 'error' | 'no_key' | 'rate_limited' | 'not_mapped';

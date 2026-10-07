@@ -1,0 +1,5674 @@
+[
+ {
+  "t": 1791336982,
+  "kst": "10:36:22",
+  "ars": "06712",
+  "route": "43",
+  "trip": "forward",
+  "tIdx": 104,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arrKeys": [
+   "arsno",
+   "bstopid",
+   "lineno",
+   "nodenm",
+   "bstopidx",
+   "carno1",
+   "min1",
+   "station1",
+   "lowplate1",
+   "seat1",
+   "carno2",
+   "min2",
+   "station2",
+   "lowplate2",
+   "seat2",
+   "gpsx",
+   "gpsy",
+   "bustype",
+   "lineid"
+  ],
+  "arr": {
+   "min1": "7",
+   "st1": "6",
+   "car1": "2030",
+   "min2": "21",
+   "st2": "12",
+   "car2": "2110"
+  },
+  "lineArr": {
+   "min1": "7",
+   "st1": "6",
+   "car1": "2030",
+   "min2": "21",
+   "st2": "12",
+   "car2": "2110",
+   "n": 1,
+   "keys": [
+    "bstopid",
+    "lineno",
+    "nodenm",
+    "bstopidx",
+    "carno1",
+    "min1",
+    "station1",
+    "lowplate1",
+    "seat1",
+    "carno2",
+    "min2",
+    "station2",
+    "lowplate2",
+    "seat2",
+    "gpsx",
+    "gpsy",
+    "bustype",
+    "lineid"
+   ]
+  },
+  "upstream": [
+   {
+    "car": "2030",
+    "idx": 98,
+    "gps": "103627",
+    "left": 6
+   },
+   {
+    "car": "2110",
+    "idx": 92,
+    "gps": "103517",
+    "left": 12
+   },
+   {
+    "car": "2116",
+    "idx": 88,
+    "gps": "103600",
+    "left": 16
+   },
+   {
+    "car": "2113",
+    "idx": 76,
+    "gps": "103551",
+    "left": 28
+   },
+   {
+    "car": "3206",
+    "idx": 68,
+    "gps": "103545",
+    "left": 36
+   },
+   {
+    "car": "5809",
+    "idx": 60,
+    "gps": "103610",
+    "left": 44
+   },
+   {
+    "car": "2106",
+    "idx": 48,
+    "gps": "103616",
+    "left": 56
+   },
+   {
+    "car": "2115",
+    "idx": 43,
+    "gps": "103311",
+    "left": 61
+   },
+   {
+    "car": "2073",
+    "idx": 35,
+    "gps": "103605",
+    "left": 69
+   },
+   {
+    "car": "2096",
+    "idx": 28,
+    "gps": "103628",
+    "left": 76
+   },
+   {
+    "car": "2707",
+    "idx": 18,
+    "gps": "103632",
+    "left": 86
+   },
+   {
+    "car": "2761",
+    "idx": 8,
+    "gps": "103627",
+    "left": 96
+   }
+  ],
+  "totalVeh": 16,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 8,
+     "st": 6,
+     "car": "2030",
+     "state": "8"
+    },
+    {
+     "eta": 21,
+     "st": 12,
+     "car": "2110",
+     "state": "21"
+    }
+   ],
+   "fetchedAgo": 1,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791336982,
+  "kst": "10:36:22",
+  "ars": "06707",
+  "route": "29",
+  "trip": "reverse",
+  "tIdx": 49,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arrKeys": [
+   "arsno",
+   "bstopid",
+   "lineno",
+   "nodenm",
+   "bstopidx",
+   "carno1",
+   "min1",
+   "station1",
+   "lowplate1",
+   "seat1",
+   "carno2",
+   "min2",
+   "station2",
+   "lowplate2",
+   "seat2",
+   "gpsx",
+   "gpsy",
+   "bustype",
+   "lineid"
+  ],
+  "arr": {
+   "min1": "1",
+   "st1": "1",
+   "car1": "3106",
+   "min2": "9",
+   "st2": "6",
+   "car2": "3192"
+  },
+  "lineArr": {
+   "min1": "1",
+   "st1": "1",
+   "car1": "3106",
+   "min2": "9",
+   "st2": "6",
+   "car2": "3192",
+   "n": 1,
+   "keys": [
+    "bstopid",
+    "lineno",
+    "nodenm",
+    "bstopidx",
+    "carno1",
+    "min1",
+    "station1",
+    "lowplate1",
+    "seat1",
+    "carno2",
+    "min2",
+    "station2",
+    "lowplate2",
+    "seat2",
+    "gpsx",
+    "gpsy",
+    "bustype",
+    "lineid"
+   ]
+  },
+  "upstream": [
+   {
+    "car": "3106",
+    "idx": 48,
+    "gps": "103522",
+    "left": 1
+   },
+   {
+    "car": "3192",
+    "idx": 43,
+    "gps": "103604",
+    "left": 6
+   },
+   {
+    "car": "2933",
+    "idx": 34,
+    "gps": "103613",
+    "left": 15
+   },
+   {
+    "car": "3172",
+    "idx": 25,
+    "gps": "103613",
+    "left": 24
+   },
+   {
+    "car": "3118",
+    "idx": 16,
+    "gps": "103542",
+    "left": 33
+   },
+   {
+    "car": "3161",
+    "idx": 9,
+    "gps": "103617",
+    "left": 40
+   },
+   {
+    "car": "3142",
+    "idx": 2,
+    "gps": "103605",
+    "left": 47
+   }
+  ],
+  "totalVeh": 23,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 1,
+     "st": 1,
+     "car": "3106",
+     "state": "1"
+    },
+    {
+     "eta": 9,
+     "st": 6,
+     "car": "3192",
+     "state": "9"
+    }
+   ],
+   "fetchedAgo": 0,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791336982,
+  "kst": "10:36:22",
+  "ars": "13706",
+  "route": "29",
+  "trip": "forward",
+  "tIdx": 91,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arrKeys": [
+   "arsno",
+   "bstopid",
+   "lineno",
+   "nodenm",
+   "bstopidx",
+   "carno1",
+   "min1",
+   "station1",
+   "lowplate1",
+   "seat1",
+   "carno2",
+   "min2",
+   "station2",
+   "lowplate2",
+   "seat2",
+   "gpsx",
+   "gpsy",
+   "bustype",
+   "lineid"
+  ],
+  "arr": {
+   "min1": "5",
+   "st1": "3",
+   "car1": "3102",
+   "min2": "20",
+   "st2": "10",
+   "car2": "3121"
+  },
+  "lineArr": {
+   "min1": "5",
+   "st1": "3",
+   "car1": "3102",
+   "min2": "20",
+   "st2": "10",
+   "car2": "3121",
+   "n": 1,
+   "keys": [
+    "bstopid",
+    "lineno",
+    "nodenm",
+    "bstopidx",
+    "carno1",
+    "min1",
+    "station1",
+    "lowplate1",
+    "seat1",
+    "carno2",
+    "min2",
+    "station2",
+    "lowplate2",
+    "seat2",
+    "gpsx",
+    "gpsy",
+    "bustype",
+    "lineid"
+   ]
+  },
+  "upstream": [
+   {
+    "car": "3102",
+    "idx": 88,
+    "gps": "103517",
+    "left": 3
+   },
+   {
+    "car": "3121",
+    "idx": 81,
+    "gps": "103424",
+    "left": 10
+   },
+   {
+    "car": "3223",
+    "idx": 75,
+    "gps": "103629",
+    "left": 16
+   },
+   {
+    "car": "3204",
+    "idx": 68,
+    "gps": "103632",
+    "left": 23
+   },
+   {
+    "car": "3151",
+    "idx": 62,
+    "gps": "103602",
+    "left": 29
+   },
+   {
+    "car": "3168",
+    "idx": 56,
+    "gps": "103632",
+    "left": 35
+   },
+   {
+    "car": "3106",
+    "idx": 48,
+    "gps": "103522",
+    "left": 43
+   },
+   {
+    "car": "3192",
+    "idx": 43,
+    "gps": "103604",
+    "left": 48
+   },
+   {
+    "car": "2933",
+    "idx": 34,
+    "gps": "103613",
+    "left": 57
+   },
+   {
+    "car": "3172",
+    "idx": 25,
+    "gps": "103613",
+    "left": 66
+   },
+   {
+    "car": "3118",
+    "idx": 16,
+    "gps": "103542",
+    "left": 75
+   },
+   {
+    "car": "3161",
+    "idx": 9,
+    "gps": "103617",
+    "left": 82
+   },
+   {
+    "car": "3142",
+    "idx": 2,
+    "gps": "103605",
+    "left": 89
+   }
+  ],
+  "totalVeh": 23,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 5,
+     "st": 3,
+     "car": "3102",
+     "state": "5"
+    },
+    {
+     "eta": 20,
+     "st": 10,
+     "car": "3121",
+     "state": "20"
+    }
+   ],
+   "fetchedAgo": 2,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791336982,
+  "kst": "10:36:22",
+  "ars": "09198",
+  "route": "43",
+  "trip": "reverse",
+  "tIdx": 16,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arrKeys": [
+   "arsno",
+   "bstopid",
+   "lineno",
+   "nodenm",
+   "bstopidx",
+   "carno1",
+   "min1",
+   "station1",
+   "lowplate1",
+   "seat1",
+   "gpsx",
+   "gpsy",
+   "bustype",
+   "lineid"
+  ],
+  "arr": {
+   "min1": "10",
+   "st1": "8",
+   "car1": "2761"
+  },
+  "lineArr": {
+   "min1": "10",
+   "st1": "8",
+   "car1": "2761",
+   "n": 1,
+   "keys": [
+    "bstopid",
+    "lineno",
+    "nodenm",
+    "bstopidx",
+    "carno1",
+    "min1",
+    "station1",
+    "lowplate1",
+    "seat1",
+    "gpsx",
+    "gpsy",
+    "bustype",
+    "lineid"
+   ]
+  },
+  "upstream": [
+   {
+    "car": "2761",
+    "idx": 8,
+    "gps": "103627",
+    "left": 8
+   }
+  ],
+  "totalVeh": 16,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 10,
+     "st": 9,
+     "car": "2761",
+     "state": "10"
+    }
+   ],
+   "fetchedAgo": 1,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337027,
+  "kst": "10:37:07",
+  "ars": "06712",
+  "route": "43",
+  "trip": "forward",
+  "tIdx": 104,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arr": {
+   "min1": "7",
+   "st1": "5",
+   "car1": "2030",
+   "min2": "19",
+   "st2": "12",
+   "car2": "2110"
+  },
+  "lineArr": {
+   "min1": "7",
+   "st1": "5",
+   "car1": "2030",
+   "min2": "19",
+   "st2": "12",
+   "car2": "2110",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "2030",
+    "idx": 99,
+    "gps": "103700",
+    "left": 5
+   },
+   {
+    "car": "2110",
+    "idx": 92,
+    "gps": "103706",
+    "left": 12
+   },
+   {
+    "car": "2116",
+    "idx": 88,
+    "gps": "103600",
+    "left": 16
+   },
+   {
+    "car": "2113",
+    "idx": 76,
+    "gps": "103551",
+    "left": 28
+   },
+   {
+    "car": "3206",
+    "idx": 68,
+    "gps": "103545",
+    "left": 36
+   },
+   {
+    "car": "5809",
+    "idx": 61,
+    "gps": "103641",
+    "left": 43
+   },
+   {
+    "car": "2106",
+    "idx": 48,
+    "gps": "103616",
+    "left": 56
+   },
+   {
+    "car": "2115",
+    "idx": 43,
+    "gps": "103311",
+    "left": 61
+   },
+   {
+    "car": "2073",
+    "idx": 35,
+    "gps": "103605",
+    "left": 69
+   },
+   {
+    "car": "2096",
+    "idx": 29,
+    "gps": "103704",
+    "left": 75
+   },
+   {
+    "car": "2707",
+    "idx": 19,
+    "gps": "103644",
+    "left": 85
+   },
+   {
+    "car": "2761",
+    "idx": 8,
+    "gps": "103653",
+    "left": 96
+   }
+  ],
+  "totalVeh": 16,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 7,
+     "st": 5,
+     "car": "2030",
+     "state": "7"
+    },
+    {
+     "eta": 19,
+     "st": 12,
+     "car": "2110",
+     "state": "19"
+    }
+   ],
+   "fetchedAgo": 0,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337027,
+  "kst": "10:37:07",
+  "ars": "06707",
+  "route": "29",
+  "trip": "reverse",
+  "tIdx": 49,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arr": {
+   "min1": "1",
+   "st1": "1",
+   "car1": "3106",
+   "min2": "8",
+   "st2": "6",
+   "car2": "3192"
+  },
+  "lineArr": {
+   "min1": "1",
+   "st1": "1",
+   "car1": "3106",
+   "min2": "8",
+   "st2": "6",
+   "car2": "3192",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "3106",
+    "idx": 48,
+    "gps": "103522",
+    "left": 1
+   },
+   {
+    "car": "3192",
+    "idx": 43,
+    "gps": "103634",
+    "left": 6
+   },
+   {
+    "car": "2933",
+    "idx": 34,
+    "gps": "103702",
+    "left": 15
+   },
+   {
+    "car": "3172",
+    "idx": 26,
+    "gps": "103706",
+    "left": 23
+   },
+   {
+    "car": "3118",
+    "idx": 17,
+    "gps": "103637",
+    "left": 32
+   },
+   {
+    "car": "3161",
+    "idx": 9,
+    "gps": "103700",
+    "left": 40
+   },
+   {
+    "car": "3142",
+    "idx": 2,
+    "gps": "103650",
+    "left": 47
+   }
+  ],
+  "totalVeh": 23,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 1,
+     "st": 1,
+     "car": "3106",
+     "state": "1"
+    },
+    {
+     "eta": 8,
+     "st": 6,
+     "car": "3192",
+     "state": "8"
+    }
+   ],
+   "fetchedAgo": 0,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337027,
+  "kst": "10:37:07",
+  "ars": "13706",
+  "route": "29",
+  "trip": "forward",
+  "tIdx": 91,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arr": {
+   "min1": "4",
+   "st1": "2",
+   "car1": "3102",
+   "min2": "18",
+   "st2": "9",
+   "car2": "3121"
+  },
+  "lineArr": {
+   "min1": "4",
+   "st1": "2",
+   "car1": "3102",
+   "min2": "18",
+   "st2": "9",
+   "car2": "3121",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "3102",
+    "idx": 89,
+    "gps": "103656",
+    "left": 2
+   },
+   {
+    "car": "3121",
+    "idx": 82,
+    "gps": "103701",
+    "left": 9
+   },
+   {
+    "car": "3223",
+    "idx": 75,
+    "gps": "103629",
+    "left": 16
+   },
+   {
+    "car": "3204",
+    "idx": 69,
+    "gps": "103704",
+    "left": 22
+   },
+   {
+    "car": "3151",
+    "idx": 62,
+    "gps": "103602",
+    "left": 29
+   },
+   {
+    "car": "3168",
+    "idx": 56,
+    "gps": "103632",
+    "left": 35
+   },
+   {
+    "car": "3106",
+    "idx": 48,
+    "gps": "103522",
+    "left": 43
+   },
+   {
+    "car": "3192",
+    "idx": 43,
+    "gps": "103634",
+    "left": 48
+   },
+   {
+    "car": "2933",
+    "idx": 34,
+    "gps": "103702",
+    "left": 57
+   },
+   {
+    "car": "3172",
+    "idx": 26,
+    "gps": "103706",
+    "left": 65
+   },
+   {
+    "car": "3118",
+    "idx": 17,
+    "gps": "103637",
+    "left": 74
+   },
+   {
+    "car": "3161",
+    "idx": 9,
+    "gps": "103700",
+    "left": 82
+   },
+   {
+    "car": "3142",
+    "idx": 2,
+    "gps": "103650",
+    "left": 89
+   }
+  ],
+  "totalVeh": 23,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 4,
+     "st": 2,
+     "car": "3102",
+     "state": "4"
+    },
+    {
+     "eta": 18,
+     "st": 9,
+     "car": "3121",
+     "state": "18"
+    }
+   ],
+   "fetchedAgo": 1,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337027,
+  "kst": "10:37:07",
+  "ars": "09198",
+  "route": "43",
+  "trip": "reverse",
+  "tIdx": 16,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arr": {
+   "min1": "10",
+   "st1": "8",
+   "car1": "2761"
+  },
+  "lineArr": {
+   "min1": "10",
+   "st1": "8",
+   "car1": "2761",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "2761",
+    "idx": 8,
+    "gps": "103653",
+    "left": 8
+   }
+  ],
+  "totalVeh": 16,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 10,
+     "st": 8,
+     "car": "2761",
+     "state": "10"
+    }
+   ],
+   "fetchedAgo": 1,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337066,
+  "kst": "10:37:46",
+  "ars": "06712",
+  "route": "43",
+  "trip": "forward",
+  "tIdx": 104,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arr": {
+   "min1": "5",
+   "st1": "5",
+   "car1": "2030",
+   "min2": "19",
+   "st2": "11",
+   "car2": "2110"
+  },
+  "lineArr": {
+   "min1": "5",
+   "st1": "5",
+   "car1": "2030",
+   "min2": "19",
+   "st2": "11",
+   "car2": "2110",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "2030",
+    "idx": 99,
+    "gps": "103741",
+    "left": 5
+   },
+   {
+    "car": "2110",
+    "idx": 93,
+    "gps": "103745",
+    "left": 11
+   },
+   {
+    "car": "2116",
+    "idx": 89,
+    "gps": "103744",
+    "left": 15
+   },
+   {
+    "car": "2113",
+    "idx": 76,
+    "gps": "103743",
+    "left": 28
+   },
+   {
+    "car": "3206",
+    "idx": 69,
+    "gps": "103713",
+    "left": 35
+   },
+   {
+    "car": "5809",
+    "idx": 62,
+    "gps": "103747",
+    "left": 42
+   },
+   {
+    "car": "2106",
+    "idx": 49,
+    "gps": "103737",
+    "left": 55
+   },
+   {
+    "car": "2115",
+    "idx": 45,
+    "gps": "103734",
+    "left": 59
+   },
+   {
+    "car": "2073",
+    "idx": 36,
+    "gps": "103719",
+    "left": 68
+   },
+   {
+    "car": "2096",
+    "idx": 30,
+    "gps": "103747",
+    "left": 74
+   },
+   {
+    "car": "2707",
+    "idx": 19,
+    "gps": "103644",
+    "left": 85
+   },
+   {
+    "car": "2761",
+    "idx": 9,
+    "gps": "103729",
+    "left": 95
+   }
+  ],
+  "totalVeh": 16,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 5,
+     "st": 5,
+     "car": "2030",
+     "state": "5"
+    },
+    {
+     "eta": 19,
+     "st": 11,
+     "car": "2110",
+     "state": "19"
+    }
+   ],
+   "fetchedAgo": 0,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337066,
+  "kst": "10:37:46",
+  "ars": "06707",
+  "route": "29",
+  "trip": "reverse",
+  "tIdx": 49,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arr": {
+   "min1": "1",
+   "st1": "1",
+   "car1": "3106",
+   "min2": "8",
+   "st2": "5",
+   "car2": "3192"
+  },
+  "lineArr": {
+   "min1": "1",
+   "st1": "1",
+   "car1": "3106",
+   "min2": "8",
+   "st2": "5",
+   "car2": "3192",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "3106",
+    "idx": 48,
+    "gps": "103522",
+    "left": 1
+   },
+   {
+    "car": "3192",
+    "idx": 44,
+    "gps": "103744",
+    "left": 5
+   },
+   {
+    "car": "2933",
+    "idx": 36,
+    "gps": "103739",
+    "left": 13
+   },
+   {
+    "car": "3172",
+    "idx": 27,
+    "gps": "103735",
+    "left": 22
+   },
+   {
+    "car": "3118",
+    "idx": 17,
+    "gps": "103734",
+    "left": 32
+   },
+   {
+    "car": "3161",
+    "idx": 10,
+    "gps": "103736",
+    "left": 39
+   },
+   {
+    "car": "3142",
+    "idx": 2,
+    "gps": "103650",
+    "left": 47
+   }
+  ],
+  "totalVeh": 23,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 1,
+     "st": 1,
+     "car": "3106",
+     "state": "1"
+    },
+    {
+     "eta": 8,
+     "st": 5,
+     "car": "3192",
+     "state": "8"
+    }
+   ],
+   "fetchedAgo": 0,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337066,
+  "kst": "10:37:46",
+  "ars": "13706",
+  "route": "29",
+  "trip": "forward",
+  "tIdx": 91,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arr": {
+   "min1": "3",
+   "st1": "2",
+   "car1": "3102",
+   "min2": "17",
+   "st2": "9",
+   "car2": "3121"
+  },
+  "lineArr": {
+   "min1": "2",
+   "st1": "2",
+   "car1": "3102",
+   "min2": "17",
+   "st2": "9",
+   "car2": "3121",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "3102",
+    "idx": 89,
+    "gps": "103749",
+    "left": 2
+   },
+   {
+    "car": "3121",
+    "idx": 82,
+    "gps": "103721",
+    "left": 9
+   },
+   {
+    "car": "3223",
+    "idx": 76,
+    "gps": "103712",
+    "left": 15
+   },
+   {
+    "car": "3204",
+    "idx": 69,
+    "gps": "103704",
+    "left": 22
+   },
+   {
+    "car": "3151",
+    "idx": 62,
+    "gps": "103747",
+    "left": 29
+   },
+   {
+    "car": "3168",
+    "idx": 57,
+    "gps": "103752",
+    "left": 34
+   },
+   {
+    "car": "3106",
+    "idx": 48,
+    "gps": "103522",
+    "left": 43
+   },
+   {
+    "car": "3192",
+    "idx": 44,
+    "gps": "103744",
+    "left": 47
+   },
+   {
+    "car": "2933",
+    "idx": 36,
+    "gps": "103739",
+    "left": 55
+   },
+   {
+    "car": "3172",
+    "idx": 27,
+    "gps": "103735",
+    "left": 64
+   },
+   {
+    "car": "3118",
+    "idx": 17,
+    "gps": "103734",
+    "left": 74
+   },
+   {
+    "car": "3161",
+    "idx": 10,
+    "gps": "103736",
+    "left": 81
+   },
+   {
+    "car": "3142",
+    "idx": 2,
+    "gps": "103650",
+    "left": 89
+   }
+  ],
+  "totalVeh": 23,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 3,
+     "st": 2,
+     "car": "3102",
+     "state": "3"
+    },
+    {
+     "eta": 17,
+     "st": 9,
+     "car": "3121",
+     "state": "17"
+    }
+   ],
+   "fetchedAgo": 1,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337066,
+  "kst": "10:37:46",
+  "ars": "09198",
+  "route": "43",
+  "trip": "reverse",
+  "tIdx": 16,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arr": {
+   "min1": "9",
+   "st1": "7",
+   "car1": "2761"
+  },
+  "lineArr": {
+   "min1": "9",
+   "st1": "7",
+   "car1": "2761",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "2761",
+    "idx": 9,
+    "gps": "103729",
+    "left": 7
+   }
+  ],
+  "totalVeh": 16,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 9,
+     "st": 7,
+     "car": "2761",
+     "state": "9"
+    }
+   ],
+   "fetchedAgo": 0,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337105,
+  "kst": "10:38:25",
+  "ars": "06712",
+  "route": "43",
+  "trip": "forward",
+  "tIdx": 104,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arr": {
+   "min1": "5",
+   "st1": "5",
+   "car1": "2030",
+   "min2": "19",
+   "st2": "11",
+   "car2": "2110"
+  },
+  "lineArr": {
+   "min1": "5",
+   "st1": "5",
+   "car1": "2030",
+   "min2": "19",
+   "st2": "11",
+   "car2": "2110",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "2030",
+    "idx": 99,
+    "gps": "103741",
+    "left": 5
+   },
+   {
+    "car": "2110",
+    "idx": 93,
+    "gps": "103745",
+    "left": 11
+   },
+   {
+    "car": "2116",
+    "idx": 89,
+    "gps": "103819",
+    "left": 15
+   },
+   {
+    "car": "2113",
+    "idx": 76,
+    "gps": "103822",
+    "left": 28
+   },
+   {
+    "car": "3206",
+    "idx": 70,
+    "gps": "103827",
+    "left": 34
+   },
+   {
+    "car": "5809",
+    "idx": 62,
+    "gps": "103747",
+    "left": 42
+   },
+   {
+    "car": "2106",
+    "idx": 49,
+    "gps": "103737",
+    "left": 55
+   },
+   {
+    "car": "2115",
+    "idx": 45,
+    "gps": "103734",
+    "left": 59
+   },
+   {
+    "car": "2073",
+    "idx": 36,
+    "gps": "103719",
+    "left": 68
+   },
+   {
+    "car": "2096",
+    "idx": 31,
+    "gps": "103819",
+    "left": 73
+   },
+   {
+    "car": "2707",
+    "idx": 20,
+    "gps": "103829",
+    "left": 84
+   },
+   {
+    "car": "2761",
+    "idx": 10,
+    "gps": "103813",
+    "left": 94
+   }
+  ],
+  "totalVeh": 16,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 5,
+     "st": 5,
+     "car": "2030",
+     "state": "5"
+    },
+    {
+     "eta": 19,
+     "st": 11,
+     "car": "2110",
+     "state": "19"
+    }
+   ],
+   "fetchedAgo": 1,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337105,
+  "kst": "10:38:25",
+  "ars": "06707",
+  "route": "29",
+  "trip": "reverse",
+  "tIdx": 49,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arr": {
+   "min1": "1",
+   "st1": "1",
+   "car1": "3106",
+   "min2": "7",
+   "st2": "5",
+   "car2": "3192"
+  },
+  "lineArr": {
+   "min1": "1",
+   "st1": "1",
+   "car1": "3106",
+   "min2": "7",
+   "st2": "5",
+   "car2": "3192",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "3106",
+    "idx": 48,
+    "gps": "103814",
+    "left": 1
+   },
+   {
+    "car": "3192",
+    "idx": 44,
+    "gps": "103827",
+    "left": 5
+   },
+   {
+    "car": "2933",
+    "idx": 36,
+    "gps": "103739",
+    "left": 13
+   },
+   {
+    "car": "3172",
+    "idx": 28,
+    "gps": "103824",
+    "left": 21
+   },
+   {
+    "car": "3118",
+    "idx": 18,
+    "gps": "103827",
+    "left": 31
+   },
+   {
+    "car": "3161",
+    "idx": 10,
+    "gps": "103829",
+    "left": 39
+   },
+   {
+    "car": "3142",
+    "idx": 3,
+    "gps": "103824",
+    "left": 46
+   }
+  ],
+  "totalVeh": 23,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 1,
+     "st": 1,
+     "car": "3106",
+     "state": "1"
+    },
+    {
+     "eta": 7,
+     "st": 5,
+     "car": "3192",
+     "state": "7"
+    }
+   ],
+   "fetchedAgo": 0,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337105,
+  "kst": "10:38:25",
+  "ars": "13706",
+  "route": "29",
+  "trip": "forward",
+  "tIdx": 91,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arr": {
+   "min1": "2",
+   "st1": "1",
+   "car1": "3102",
+   "min2": "17",
+   "st2": "9",
+   "car2": "3121"
+  },
+  "lineArr": {
+   "min1": "2",
+   "st1": "1",
+   "car1": "3102",
+   "min2": "17",
+   "st2": "9",
+   "car2": "3121",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "3102",
+    "idx": 90,
+    "gps": "103826",
+    "left": 1
+   },
+   {
+    "car": "3121",
+    "idx": 82,
+    "gps": "103721",
+    "left": 9
+   },
+   {
+    "car": "3223",
+    "idx": 77,
+    "gps": "103825",
+    "left": 14
+   },
+   {
+    "car": "3204",
+    "idx": 71,
+    "gps": "103829",
+    "left": 20
+   },
+   {
+    "car": "3151",
+    "idx": 63,
+    "gps": "103809",
+    "left": 28
+   },
+   {
+    "car": "3168",
+    "idx": 57,
+    "gps": "103756",
+    "left": 34
+   },
+   {
+    "car": "3106",
+    "idx": 48,
+    "gps": "103814",
+    "left": 43
+   },
+   {
+    "car": "3192",
+    "idx": 44,
+    "gps": "103827",
+    "left": 47
+   },
+   {
+    "car": "2933",
+    "idx": 36,
+    "gps": "103739",
+    "left": 55
+   },
+   {
+    "car": "3172",
+    "idx": 28,
+    "gps": "103824",
+    "left": 63
+   },
+   {
+    "car": "3118",
+    "idx": 18,
+    "gps": "103827",
+    "left": 73
+   },
+   {
+    "car": "3161",
+    "idx": 10,
+    "gps": "103829",
+    "left": 81
+   },
+   {
+    "car": "3142",
+    "idx": 3,
+    "gps": "103824",
+    "left": 88
+   }
+  ],
+  "totalVeh": 23,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 2,
+     "st": 1,
+     "car": "3102",
+     "state": "2"
+    },
+    {
+     "eta": 17,
+     "st": 9,
+     "car": "3121",
+     "state": "17"
+    }
+   ],
+   "fetchedAgo": 2,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337105,
+  "kst": "10:38:25",
+  "ars": "09198",
+  "route": "43",
+  "trip": "reverse",
+  "tIdx": 16,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arr": {
+   "min1": "8",
+   "st1": "6",
+   "car1": "2761"
+  },
+  "lineArr": {
+   "min1": "8",
+   "st1": "6",
+   "car1": "2761",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "2761",
+    "idx": 10,
+    "gps": "103813",
+    "left": 6
+   }
+  ],
+  "totalVeh": 16,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 8,
+     "st": 6,
+     "car": "2761",
+     "state": "8"
+    }
+   ],
+   "fetchedAgo": 1,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337143,
+  "kst": "10:39:03",
+  "ars": "06712",
+  "route": "43",
+  "trip": "forward",
+  "tIdx": 104,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arr": {
+   "min1": "5",
+   "st1": "5",
+   "car1": "2030",
+   "min2": "18",
+   "st2": "11",
+   "car2": "2110"
+  },
+  "lineArr": {
+   "min1": "5",
+   "st1": "5",
+   "car1": "2030",
+   "min2": "18",
+   "st2": "11",
+   "car2": "2110",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "2030",
+    "idx": 99,
+    "gps": "103741",
+    "left": 5
+   },
+   {
+    "car": "2110",
+    "idx": 93,
+    "gps": "103859",
+    "left": 11
+   },
+   {
+    "car": "2116",
+    "idx": 89,
+    "gps": "103819",
+    "left": 15
+   },
+   {
+    "car": "2113",
+    "idx": 77,
+    "gps": "103832",
+    "left": 27
+   },
+   {
+    "car": "3206",
+    "idx": 70,
+    "gps": "103827",
+    "left": 34
+   },
+   {
+    "car": "5809",
+    "idx": 63,
+    "gps": "103837",
+    "left": 41
+   },
+   {
+    "car": "2106",
+    "idx": 50,
+    "gps": "103852",
+    "left": 54
+   },
+   {
+    "car": "2115",
+    "idx": 45,
+    "gps": "103832",
+    "left": 59
+   },
+   {
+    "car": "2073",
+    "idx": 36,
+    "gps": "103719",
+    "left": 68
+   },
+   {
+    "car": "2096",
+    "idx": 31,
+    "gps": "103829",
+    "left": 73
+   },
+   {
+    "car": "2707",
+    "idx": 21,
+    "gps": "103907",
+    "left": 83
+   },
+   {
+    "car": "2761",
+    "idx": 10,
+    "gps": "103905",
+    "left": 94
+   }
+  ],
+  "totalVeh": 15,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 5,
+     "st": 5,
+     "car": "2030",
+     "state": "5"
+    },
+    {
+     "eta": 18,
+     "st": 11,
+     "car": "2110",
+     "state": "18"
+    }
+   ],
+   "fetchedAgo": 1,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337143,
+  "kst": "10:39:03",
+  "ars": "06707",
+  "route": "29",
+  "trip": "reverse",
+  "tIdx": 49,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arr": {
+   "min1": "7",
+   "st1": "5",
+   "car1": "3192",
+   "min2": "15",
+   "st2": "12",
+   "car2": "2933"
+  },
+  "lineArr": {
+   "min1": "7",
+   "st1": "5",
+   "car1": "3192",
+   "min2": "15",
+   "st2": "12",
+   "car2": "2933",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "3106",
+    "idx": 49,
+    "gps": "103900",
+    "left": 0
+   },
+   {
+    "car": "3192",
+    "idx": 44,
+    "gps": "103827",
+    "left": 5
+   },
+   {
+    "car": "2933",
+    "idx": 37,
+    "gps": "103835",
+    "left": 12
+   },
+   {
+    "car": "3172",
+    "idx": 28,
+    "gps": "103859",
+    "left": 21
+   },
+   {
+    "car": "3118",
+    "idx": 18,
+    "gps": "103856",
+    "left": 31
+   },
+   {
+    "car": "3161",
+    "idx": 11,
+    "gps": "103857",
+    "left": 38
+   },
+   {
+    "car": "3142",
+    "idx": 3,
+    "gps": "103824",
+    "left": 46
+   }
+  ],
+  "totalVeh": 23,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 7,
+     "st": 5,
+     "car": "3192",
+     "state": "7"
+    },
+    {
+     "eta": 15,
+     "st": 12,
+     "car": "2933",
+     "state": "15"
+    }
+   ],
+   "fetchedAgo": 0,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337143,
+  "kst": "10:39:03",
+  "ars": "13706",
+  "route": "29",
+  "trip": "forward",
+  "tIdx": 91,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arr": {
+   "min1": "1",
+   "st1": "1",
+   "car1": "3102",
+   "min2": "17",
+   "st2": "8",
+   "car2": "3121"
+  },
+  "lineArr": {
+   "min1": "1",
+   "st1": "1",
+   "car1": "3102",
+   "min2": "17",
+   "st2": "8",
+   "car2": "3121",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "3102",
+    "idx": 90,
+    "gps": "103844",
+    "left": 1
+   },
+   {
+    "car": "3121",
+    "idx": 83,
+    "gps": "103845",
+    "left": 8
+   },
+   {
+    "car": "3223",
+    "idx": 78,
+    "gps": "103906",
+    "left": 13
+   },
+   {
+    "car": "3204",
+    "idx": 72,
+    "gps": "103845",
+    "left": 19
+   },
+   {
+    "car": "3151",
+    "idx": 63,
+    "gps": "103809",
+    "left": 28
+   },
+   {
+    "car": "3168",
+    "idx": 57,
+    "gps": "103848",
+    "left": 34
+   },
+   {
+    "car": "3106",
+    "idx": 49,
+    "gps": "103900",
+    "left": 42
+   },
+   {
+    "car": "3192",
+    "idx": 44,
+    "gps": "103827",
+    "left": 47
+   },
+   {
+    "car": "2933",
+    "idx": 37,
+    "gps": "103835",
+    "left": 54
+   },
+   {
+    "car": "3172",
+    "idx": 28,
+    "gps": "103859",
+    "left": 63
+   },
+   {
+    "car": "3118",
+    "idx": 18,
+    "gps": "103856",
+    "left": 73
+   },
+   {
+    "car": "3161",
+    "idx": 11,
+    "gps": "103857",
+    "left": 80
+   },
+   {
+    "car": "3142",
+    "idx": 3,
+    "gps": "103824",
+    "left": 88
+   }
+  ],
+  "totalVeh": 23,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 1,
+     "st": 1,
+     "car": "3102",
+     "state": "1"
+    },
+    {
+     "eta": 17,
+     "st": 8,
+     "car": "3121",
+     "state": "17"
+    }
+   ],
+   "fetchedAgo": 2,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337143,
+  "kst": "10:39:03",
+  "ars": "09198",
+  "route": "43",
+  "trip": "reverse",
+  "tIdx": 16,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arr": {
+   "min1": "7",
+   "st1": "6",
+   "car1": "2761"
+  },
+  "lineArr": {
+   "min1": "7",
+   "st1": "6",
+   "car1": "2761",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "2761",
+    "idx": 10,
+    "gps": "103905",
+    "left": 6
+   }
+  ],
+  "totalVeh": 15,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 7,
+     "st": 6,
+     "car": "2761",
+     "state": "7"
+    }
+   ],
+   "fetchedAgo": 0,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337182,
+  "kst": "10:39:42",
+  "ars": "06712",
+  "route": "43",
+  "trip": "forward",
+  "tIdx": 104,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arr": {
+   "min1": "5",
+   "st1": "4",
+   "car1": "2030",
+   "min2": "17",
+   "st2": "11",
+   "car2": "2110"
+  },
+  "lineArr": {
+   "min1": "5",
+   "st1": "4",
+   "car1": "2030",
+   "min2": "17",
+   "st2": "11",
+   "car2": "2110",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "2030",
+    "idx": 100,
+    "gps": "103945",
+    "left": 4
+   },
+   {
+    "car": "2110",
+    "idx": 93,
+    "gps": "103932",
+    "left": 11
+   },
+   {
+    "car": "2116",
+    "idx": 90,
+    "gps": "103913",
+    "left": 14
+   },
+   {
+    "car": "2113",
+    "idx": 78,
+    "gps": "103931",
+    "left": 26
+   },
+   {
+    "car": "3206",
+    "idx": 71,
+    "gps": "103924",
+    "left": 33
+   },
+   {
+    "car": "5809",
+    "idx": 63,
+    "gps": "103837",
+    "left": 41
+   },
+   {
+    "car": "2106",
+    "idx": 51,
+    "gps": "103927",
+    "left": 53
+   },
+   {
+    "car": "2115",
+    "idx": 45,
+    "gps": "103832",
+    "left": 59
+   },
+   {
+    "car": "2073",
+    "idx": 37,
+    "gps": "103938",
+    "left": 67
+   },
+   {
+    "car": "2096",
+    "idx": 31,
+    "gps": "103829",
+    "left": 73
+   },
+   {
+    "car": "2707",
+    "idx": 22,
+    "gps": "103935",
+    "left": 82
+   },
+   {
+    "car": "2761",
+    "idx": 11,
+    "gps": "103937",
+    "left": 93
+   }
+  ],
+  "totalVeh": 15,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 5,
+     "st": 4,
+     "car": "2030",
+     "state": "5"
+    },
+    {
+     "eta": 17,
+     "st": 11,
+     "car": "2110",
+     "state": "17"
+    }
+   ],
+   "fetchedAgo": 0,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337182,
+  "kst": "10:39:42",
+  "ars": "06707",
+  "route": "29",
+  "trip": "reverse",
+  "tIdx": 49,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arr": {
+   "min1": "6",
+   "st1": "5",
+   "car1": "3192",
+   "min2": "14",
+   "st2": "11",
+   "car2": "2933"
+  },
+  "lineArr": {
+   "min1": "6",
+   "st1": "5",
+   "car1": "3192",
+   "min2": "14",
+   "st2": "11",
+   "car2": "2933",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "3106",
+    "idx": 49,
+    "gps": "103930",
+    "left": 0
+   },
+   {
+    "car": "3192",
+    "idx": 44,
+    "gps": "103947",
+    "left": 5
+   },
+   {
+    "car": "2933",
+    "idx": 38,
+    "gps": "103943",
+    "left": 11
+   },
+   {
+    "car": "3172",
+    "idx": 29,
+    "gps": "103926",
+    "left": 20
+   },
+   {
+    "car": "3118",
+    "idx": 19,
+    "gps": "103948",
+    "left": 30
+   },
+   {
+    "car": "3161",
+    "idx": 12,
+    "gps": "103920",
+    "left": 37
+   },
+   {
+    "car": "3142",
+    "idx": 3,
+    "gps": "103928",
+    "left": 46
+   }
+  ],
+  "totalVeh": 23,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 7,
+     "st": 5,
+     "car": "3192",
+     "state": "7"
+    },
+    {
+     "eta": 14,
+     "st": 11,
+     "car": "2933",
+     "state": "14"
+    }
+   ],
+   "fetchedAgo": 0,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337182,
+  "kst": "10:39:42",
+  "ars": "13706",
+  "route": "29",
+  "trip": "forward",
+  "tIdx": 91,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arr": {
+   "min1": "16",
+   "st1": "8",
+   "car1": "3121",
+   "min2": "23",
+   "st2": "12",
+   "car2": "3223"
+  },
+  "lineArr": {
+   "min1": "16",
+   "st1": "8",
+   "car1": "3121",
+   "min2": "23",
+   "st2": "12",
+   "car2": "3223",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "3102",
+    "idx": 91,
+    "gps": "103943",
+    "left": 0
+   },
+   {
+    "car": "3121",
+    "idx": 83,
+    "gps": "103942",
+    "left": 8
+   },
+   {
+    "car": "3223",
+    "idx": 79,
+    "gps": "103948",
+    "left": 12
+   },
+   {
+    "car": "3204",
+    "idx": 73,
+    "gps": "103945",
+    "left": 18
+   },
+   {
+    "car": "3151",
+    "idx": 63,
+    "gps": "103946",
+    "left": 28
+   },
+   {
+    "car": "3168",
+    "idx": 58,
+    "gps": "103946",
+    "left": 33
+   },
+   {
+    "car": "3106",
+    "idx": 49,
+    "gps": "103930",
+    "left": 42
+   },
+   {
+    "car": "3192",
+    "idx": 44,
+    "gps": "103947",
+    "left": 47
+   },
+   {
+    "car": "2933",
+    "idx": 38,
+    "gps": "103943",
+    "left": 53
+   },
+   {
+    "car": "3172",
+    "idx": 29,
+    "gps": "103926",
+    "left": 62
+   },
+   {
+    "car": "3118",
+    "idx": 19,
+    "gps": "103948",
+    "left": 72
+   },
+   {
+    "car": "3161",
+    "idx": 12,
+    "gps": "103920",
+    "left": 79
+   },
+   {
+    "car": "3142",
+    "idx": 3,
+    "gps": "103928",
+    "left": 88
+   }
+  ],
+  "totalVeh": 23,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 1,
+     "st": 1,
+     "car": "3102",
+     "state": "1"
+    },
+    {
+     "eta": 16,
+     "st": 8,
+     "car": "3121",
+     "state": "16"
+    }
+   ],
+   "fetchedAgo": 1,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337182,
+  "kst": "10:39:42",
+  "ars": "09198",
+  "route": "43",
+  "trip": "reverse",
+  "tIdx": 16,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arr": {
+   "min1": "7",
+   "st1": "5",
+   "car1": "2761"
+  },
+  "lineArr": {
+   "min1": "7",
+   "st1": "5",
+   "car1": "2761",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "2761",
+    "idx": 11,
+    "gps": "103937",
+    "left": 5
+   }
+  ],
+  "totalVeh": 15,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 7,
+     "st": 5,
+     "car": "2761",
+     "state": "7"
+    }
+   ],
+   "fetchedAgo": 1,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337221,
+  "kst": "10:40:21",
+  "ars": "06712",
+  "route": "43",
+  "trip": "forward",
+  "tIdx": 104,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arr": {
+   "min1": "4",
+   "st1": "3",
+   "car1": "2030",
+   "min2": "16",
+   "st2": "10",
+   "car2": "2110"
+  },
+  "lineArr": {
+   "min1": "4",
+   "st1": "3",
+   "car1": "2030",
+   "min2": "16",
+   "st2": "10",
+   "car2": "2110",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "2030",
+    "idx": 101,
+    "gps": "104004",
+    "left": 3
+   },
+   {
+    "car": "2110",
+    "idx": 94,
+    "gps": "104012",
+    "left": 10
+   },
+   {
+    "car": "2116",
+    "idx": 90,
+    "gps": "104004",
+    "left": 14
+   },
+   {
+    "car": "2113",
+    "idx": 78,
+    "gps": "104004",
+    "left": 26
+   },
+   {
+    "car": "3206",
+    "idx": 72,
+    "gps": "104023",
+    "left": 32
+   },
+   {
+    "car": "5809",
+    "idx": 65,
+    "gps": "104014",
+    "left": 39
+   },
+   {
+    "car": "2106",
+    "idx": 52,
+    "gps": "103959",
+    "left": 52
+   },
+   {
+    "car": "2115",
+    "idx": 45,
+    "gps": "104020",
+    "left": 59
+   },
+   {
+    "car": "2073",
+    "idx": 37,
+    "gps": "103938",
+    "left": 67
+   },
+   {
+    "car": "2096",
+    "idx": 32,
+    "gps": "104000",
+    "left": 72
+   },
+   {
+    "car": "2707",
+    "idx": 22,
+    "gps": "103955",
+    "left": 82
+   },
+   {
+    "car": "2761",
+    "idx": 11,
+    "gps": "103937",
+    "left": 93
+   }
+  ],
+  "totalVeh": 16,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 4,
+     "st": 3,
+     "car": "2030",
+     "state": "4"
+    },
+    {
+     "eta": 16,
+     "st": 10,
+     "car": "2110",
+     "state": "16"
+    }
+   ],
+   "fetchedAgo": 0,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337221,
+  "kst": "10:40:21",
+  "ars": "06707",
+  "route": "29",
+  "trip": "reverse",
+  "tIdx": 49,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arr": {
+   "min1": "6",
+   "st1": "5",
+   "car1": "3192",
+   "min2": "14",
+   "st2": "10",
+   "car2": "2933"
+  },
+  "lineArr": {
+   "min1": "6",
+   "st1": "5",
+   "car1": "3192",
+   "min2": "14",
+   "st2": "10",
+   "car2": "2933",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "3106",
+    "idx": 49,
+    "gps": "103930",
+    "left": 0
+   },
+   {
+    "car": "3192",
+    "idx": 44,
+    "gps": "104027",
+    "left": 5
+   },
+   {
+    "car": "2933",
+    "idx": 39,
+    "gps": "104008",
+    "left": 10
+   },
+   {
+    "car": "3172",
+    "idx": 29,
+    "gps": "104014",
+    "left": 20
+   },
+   {
+    "car": "3118",
+    "idx": 19,
+    "gps": "104024",
+    "left": 30
+   },
+   {
+    "car": "3161",
+    "idx": 13,
+    "gps": "104017",
+    "left": 36
+   },
+   {
+    "car": "3142",
+    "idx": 4,
+    "gps": "104011",
+    "left": 45
+   }
+  ],
+  "totalVeh": 23,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 6,
+     "st": 5,
+     "car": "3192",
+     "state": "6"
+    },
+    {
+     "eta": 14,
+     "st": 10,
+     "car": "2933",
+     "state": "14"
+    }
+   ],
+   "fetchedAgo": 0,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337221,
+  "kst": "10:40:21",
+  "ars": "13706",
+  "route": "29",
+  "trip": "forward",
+  "tIdx": 91,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arr": {
+   "min1": "15",
+   "st1": "7",
+   "car1": "3121",
+   "min2": "23",
+   "st2": "12",
+   "car2": "3223"
+  },
+  "lineArr": {
+   "min1": "15",
+   "st1": "7",
+   "car1": "3121",
+   "min2": "23",
+   "st2": "12",
+   "car2": "3223",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "3102",
+    "idx": 91,
+    "gps": "104025",
+    "left": 0
+   },
+   {
+    "car": "3121",
+    "idx": 84,
+    "gps": "104013",
+    "left": 7
+   },
+   {
+    "car": "3223",
+    "idx": 79,
+    "gps": "104008",
+    "left": 12
+   },
+   {
+    "car": "3204",
+    "idx": 73,
+    "gps": "103951",
+    "left": 18
+   },
+   {
+    "car": "3151",
+    "idx": 64,
+    "gps": "104002",
+    "left": 27
+   },
+   {
+    "car": "3168",
+    "idx": 58,
+    "gps": "104020",
+    "left": 33
+   },
+   {
+    "car": "3106",
+    "idx": 49,
+    "gps": "103930",
+    "left": 42
+   },
+   {
+    "car": "3192",
+    "idx": 44,
+    "gps": "104027",
+    "left": 47
+   },
+   {
+    "car": "2933",
+    "idx": 39,
+    "gps": "104008",
+    "left": 52
+   },
+   {
+    "car": "3172",
+    "idx": 29,
+    "gps": "104014",
+    "left": 62
+   },
+   {
+    "car": "3118",
+    "idx": 19,
+    "gps": "104024",
+    "left": 72
+   },
+   {
+    "car": "3161",
+    "idx": 13,
+    "gps": "104017",
+    "left": 78
+   },
+   {
+    "car": "3142",
+    "idx": 4,
+    "gps": "104011",
+    "left": 87
+   }
+  ],
+  "totalVeh": 23,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 15,
+     "st": 7,
+     "car": "3121",
+     "state": "15"
+    },
+    {
+     "eta": 23,
+     "st": 12,
+     "car": "3223",
+     "state": "23"
+    }
+   ],
+   "fetchedAgo": 1,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337221,
+  "kst": "10:40:21",
+  "ars": "09198",
+  "route": "43",
+  "trip": "reverse",
+  "tIdx": 16,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arr": {
+   "min1": "7",
+   "st1": "5",
+   "car1": "2761"
+  },
+  "lineArr": {
+   "min1": "7",
+   "st1": "5",
+   "car1": "2761",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "2761",
+    "idx": 11,
+    "gps": "103937",
+    "left": 5
+   }
+  ],
+  "totalVeh": 16,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 7,
+     "st": 5,
+     "car": "2761",
+     "state": "7"
+    }
+   ],
+   "fetchedAgo": 0,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337260,
+  "kst": "10:41:00",
+  "ars": "06712",
+  "route": "43",
+  "trip": "forward",
+  "tIdx": 104,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arr": {
+   "min1": "4",
+   "st1": "3",
+   "car1": "2030",
+   "min2": "16",
+   "st2": "10",
+   "car2": "2110"
+  },
+  "lineArr": {
+   "min1": "4",
+   "st1": "3",
+   "car1": "2030",
+   "min2": "16",
+   "st2": "10",
+   "car2": "2110",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "2030",
+    "idx": 101,
+    "gps": "104004",
+    "left": 3
+   },
+   {
+    "car": "2110",
+    "idx": 94,
+    "gps": "104059",
+    "left": 10
+   },
+   {
+    "car": "2116",
+    "idx": 90,
+    "gps": "104004",
+    "left": 14
+   },
+   {
+    "car": "2113",
+    "idx": 79,
+    "gps": "104059",
+    "left": 25
+   },
+   {
+    "car": "3206",
+    "idx": 72,
+    "gps": "104023",
+    "left": 32
+   },
+   {
+    "car": "5809",
+    "idx": 66,
+    "gps": "104044",
+    "left": 38
+   },
+   {
+    "car": "2106",
+    "idx": 52,
+    "gps": "103959",
+    "left": 52
+   },
+   {
+    "car": "2115",
+    "idx": 46,
+    "gps": "104032",
+    "left": 58
+   },
+   {
+    "car": "2073",
+    "idx": 38,
+    "gps": "104100",
+    "left": 66
+   },
+   {
+    "car": "2096",
+    "idx": 32,
+    "gps": "104000",
+    "left": 72
+   },
+   {
+    "car": "2707",
+    "idx": 23,
+    "gps": "104049",
+    "left": 81
+   },
+   {
+    "car": "2761",
+    "idx": 12,
+    "gps": "104054",
+    "left": 92
+   }
+  ],
+  "totalVeh": 16,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 4,
+     "st": 3,
+     "car": "2030",
+     "state": "4"
+    },
+    {
+     "eta": 16,
+     "st": 10,
+     "car": "2110",
+     "state": "16"
+    }
+   ],
+   "fetchedAgo": 1,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337260,
+  "kst": "10:41:00",
+  "ars": "06707",
+  "route": "29",
+  "trip": "reverse",
+  "tIdx": 49,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arr": {
+   "min1": "6",
+   "st1": "5",
+   "car1": "3192",
+   "min2": "13",
+   "st2": "10",
+   "car2": "2933"
+  },
+  "lineArr": {
+   "min1": "6",
+   "st1": "5",
+   "car1": "3192",
+   "min2": "13",
+   "st2": "10",
+   "car2": "2933",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "3192",
+    "idx": 44,
+    "gps": "104027",
+    "left": 5
+   },
+   {
+    "car": "2933",
+    "idx": 39,
+    "gps": "104059",
+    "left": 10
+   },
+   {
+    "car": "3172",
+    "idx": 29,
+    "gps": "104014",
+    "left": 20
+   },
+   {
+    "car": "3118",
+    "idx": 20,
+    "gps": "104038",
+    "left": 29
+   },
+   {
+    "car": "3161",
+    "idx": 13,
+    "gps": "104017",
+    "left": 36
+   },
+   {
+    "car": "3142",
+    "idx": 5,
+    "gps": "104058",
+    "left": 44
+   }
+  ],
+  "totalVeh": 22,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 6,
+     "st": 5,
+     "car": "3192",
+     "state": "6"
+    },
+    {
+     "eta": 13,
+     "st": 10,
+     "car": "2933",
+     "state": "13"
+    }
+   ],
+   "fetchedAgo": 0,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337260,
+  "kst": "10:41:00",
+  "ars": "13706",
+  "route": "29",
+  "trip": "forward",
+  "tIdx": 91,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arr": {
+   "min1": "15",
+   "st1": "7",
+   "car1": "3121",
+   "min2": "22",
+   "st2": "11",
+   "car2": "3223"
+  },
+  "lineArr": {
+   "min1": "15",
+   "st1": "7",
+   "car1": "3121",
+   "min2": "22",
+   "st2": "11",
+   "car2": "3223",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "3102",
+    "idx": 91,
+    "gps": "104025",
+    "left": 0
+   },
+   {
+    "car": "3121",
+    "idx": 84,
+    "gps": "104035",
+    "left": 7
+   },
+   {
+    "car": "3223",
+    "idx": 80,
+    "gps": "104041",
+    "left": 11
+   },
+   {
+    "car": "3204",
+    "idx": 73,
+    "gps": "103951",
+    "left": 18
+   },
+   {
+    "car": "3151",
+    "idx": 64,
+    "gps": "104055",
+    "left": 27
+   },
+   {
+    "car": "3168",
+    "idx": 59,
+    "gps": "104037",
+    "left": 32
+   },
+   {
+    "car": "3106",
+    "idx": 50,
+    "gps": "104052",
+    "left": 41
+   },
+   {
+    "car": "3192",
+    "idx": 44,
+    "gps": "104027",
+    "left": 47
+   },
+   {
+    "car": "2933",
+    "idx": 39,
+    "gps": "104059",
+    "left": 52
+   },
+   {
+    "car": "3172",
+    "idx": 29,
+    "gps": "104014",
+    "left": 62
+   },
+   {
+    "car": "3118",
+    "idx": 20,
+    "gps": "104038",
+    "left": 71
+   },
+   {
+    "car": "3161",
+    "idx": 13,
+    "gps": "104017",
+    "left": 78
+   },
+   {
+    "car": "3142",
+    "idx": 5,
+    "gps": "104058",
+    "left": 86
+   }
+  ],
+  "totalVeh": 22,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 15,
+     "st": 7,
+     "car": "3121",
+     "state": "15"
+    },
+    {
+     "eta": 22,
+     "st": 11,
+     "car": "3223",
+     "state": "22"
+    }
+   ],
+   "fetchedAgo": 1,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337260,
+  "kst": "10:41:00",
+  "ars": "09198",
+  "route": "43",
+  "trip": "reverse",
+  "tIdx": 16,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arr": {
+   "min1": "6",
+   "st1": "4",
+   "car1": "2761"
+  },
+  "lineArr": {
+   "min1": "6",
+   "st1": "4",
+   "car1": "2761",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "2761",
+    "idx": 12,
+    "gps": "104054",
+    "left": 4
+   }
+  ],
+  "totalVeh": 16,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 6,
+     "st": 4,
+     "car": "2761",
+     "state": "6"
+    }
+   ],
+   "fetchedAgo": 0,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337298,
+  "kst": "10:41:38",
+  "ars": "06712",
+  "route": "43",
+  "trip": "forward",
+  "tIdx": 104,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arr": {
+   "min1": "3",
+   "st1": "3",
+   "car1": "2030",
+   "min2": "16",
+   "st2": "10",
+   "car2": "2110"
+  },
+  "lineArr": {
+   "min1": "3",
+   "st1": "3",
+   "car1": "2030",
+   "min2": "16",
+   "st2": "10",
+   "car2": "2110",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "2030",
+    "idx": 101,
+    "gps": "104120",
+    "left": 3
+   },
+   {
+    "car": "2110",
+    "idx": 94,
+    "gps": "104059",
+    "left": 10
+   },
+   {
+    "car": "2116",
+    "idx": 91,
+    "gps": "104113",
+    "left": 13
+   },
+   {
+    "car": "2113",
+    "idx": 80,
+    "gps": "104143",
+    "left": 24
+   },
+   {
+    "car": "3206",
+    "idx": 72,
+    "gps": "104023",
+    "left": 32
+   },
+   {
+    "car": "5809",
+    "idx": 66,
+    "gps": "104044",
+    "left": 38
+   },
+   {
+    "car": "2106",
+    "idx": 52,
+    "gps": "104137",
+    "left": 52
+   },
+   {
+    "car": "2115",
+    "idx": 46,
+    "gps": "104032",
+    "left": 58
+   },
+   {
+    "car": "2073",
+    "idx": 38,
+    "gps": "104100",
+    "left": 66
+   },
+   {
+    "car": "2096",
+    "idx": 33,
+    "gps": "104131",
+    "left": 71
+   },
+   {
+    "car": "2707",
+    "idx": 23,
+    "gps": "104049",
+    "left": 81
+   },
+   {
+    "car": "2761",
+    "idx": 12,
+    "gps": "104138",
+    "left": 92
+   }
+  ],
+  "totalVeh": 16,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 3,
+     "st": 3,
+     "car": "2030",
+     "state": "3"
+    },
+    {
+     "eta": 16,
+     "st": 10,
+     "car": "2110",
+     "state": "16"
+    }
+   ],
+   "fetchedAgo": 1,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337298,
+  "kst": "10:41:38",
+  "ars": "06707",
+  "route": "29",
+  "trip": "reverse",
+  "tIdx": 49,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arr": {
+   "min1": "5",
+   "st1": "4",
+   "car1": "3192",
+   "min2": "12",
+   "st2": "10",
+   "car2": "2933"
+  },
+  "lineArr": {
+   "min1": "5",
+   "st1": "4",
+   "car1": "3192",
+   "min2": "12",
+   "st2": "10",
+   "car2": "2933",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "3192",
+    "idx": 45,
+    "gps": "104135",
+    "left": 4
+   },
+   {
+    "car": "2933",
+    "idx": 39,
+    "gps": "104127",
+    "left": 10
+   },
+   {
+    "car": "3172",
+    "idx": 29,
+    "gps": "104115",
+    "left": 20
+   },
+   {
+    "car": "3118",
+    "idx": 20,
+    "gps": "104038",
+    "left": 29
+   },
+   {
+    "car": "3161",
+    "idx": 14,
+    "gps": "104127",
+    "left": 35
+   },
+   {
+    "car": "3142",
+    "idx": 5,
+    "gps": "104058",
+    "left": 44
+   },
+   {
+    "car": "3108",
+    "idx": 1,
+    "gps": "104124",
+    "left": 48
+   }
+  ],
+  "totalVeh": 23,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 5,
+     "st": 4,
+     "car": "3192",
+     "state": "5"
+    },
+    {
+     "eta": 12,
+     "st": 10,
+     "car": "2933",
+     "state": "12"
+    }
+   ],
+   "fetchedAgo": 0,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337298,
+  "kst": "10:41:38",
+  "ars": "13706",
+  "route": "29",
+  "trip": "forward",
+  "tIdx": 91,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arr": {
+   "min1": "14",
+   "st1": "7",
+   "car1": "3121",
+   "min2": "21",
+   "st2": "11",
+   "car2": "3223"
+  },
+  "lineArr": {
+   "min1": "14",
+   "st1": "7",
+   "car1": "3121",
+   "min2": "21",
+   "st2": "11",
+   "car2": "3223",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "3102",
+    "idx": 91,
+    "gps": "104025",
+    "left": 0
+   },
+   {
+    "car": "3121",
+    "idx": 84,
+    "gps": "104142",
+    "left": 7
+   },
+   {
+    "car": "3223",
+    "idx": 80,
+    "gps": "104121",
+    "left": 11
+   },
+   {
+    "car": "3204",
+    "idx": 73,
+    "gps": "103951",
+    "left": 18
+   },
+   {
+    "car": "3151",
+    "idx": 65,
+    "gps": "104115",
+    "left": 26
+   },
+   {
+    "car": "3168",
+    "idx": 59,
+    "gps": "104138",
+    "left": 32
+   },
+   {
+    "car": "3106",
+    "idx": 51,
+    "gps": "104141",
+    "left": 40
+   },
+   {
+    "car": "3192",
+    "idx": 45,
+    "gps": "104135",
+    "left": 46
+   },
+   {
+    "car": "2933",
+    "idx": 39,
+    "gps": "104127",
+    "left": 52
+   },
+   {
+    "car": "3172",
+    "idx": 29,
+    "gps": "104115",
+    "left": 62
+   },
+   {
+    "car": "3118",
+    "idx": 20,
+    "gps": "104038",
+    "left": 71
+   },
+   {
+    "car": "3161",
+    "idx": 14,
+    "gps": "104127",
+    "left": 77
+   },
+   {
+    "car": "3142",
+    "idx": 5,
+    "gps": "104058",
+    "left": 86
+   },
+   {
+    "car": "3108",
+    "idx": 1,
+    "gps": "104124",
+    "left": 90
+   }
+  ],
+  "totalVeh": 23,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 15,
+     "st": 7,
+     "car": "3121",
+     "state": "15"
+    },
+    {
+     "eta": 21,
+     "st": 11,
+     "car": "3223",
+     "state": "21"
+    }
+   ],
+   "fetchedAgo": 2,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337298,
+  "kst": "10:41:38",
+  "ars": "09198",
+  "route": "43",
+  "trip": "reverse",
+  "tIdx": 16,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arr": {
+   "min1": "5",
+   "st1": "4",
+   "car1": "2761"
+  },
+  "lineArr": {
+   "min1": "5",
+   "st1": "4",
+   "car1": "2761",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "2761",
+    "idx": 12,
+    "gps": "104138",
+    "left": 4
+   }
+  ],
+  "totalVeh": 16,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 5,
+     "st": 4,
+     "car": "2761",
+     "state": "5"
+    }
+   ],
+   "fetchedAgo": 1,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337338,
+  "kst": "10:42:18",
+  "ars": "06712",
+  "route": "43",
+  "trip": "forward",
+  "tIdx": 104,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arr": {
+   "min1": "3",
+   "st1": "2",
+   "car1": "2030",
+   "min2": "15",
+   "st2": "9",
+   "car2": "2110"
+  },
+  "lineArr": {
+   "min1": "3",
+   "st1": "2",
+   "car1": "2030",
+   "min2": "15",
+   "st2": "9",
+   "car2": "2110",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "2030",
+    "idx": 102,
+    "gps": "104150",
+    "left": 2
+   },
+   {
+    "car": "2110",
+    "idx": 95,
+    "gps": "104154",
+    "left": 9
+   },
+   {
+    "car": "2116",
+    "idx": 91,
+    "gps": "104154",
+    "left": 13
+   },
+   {
+    "car": "2113",
+    "idx": 80,
+    "gps": "104143",
+    "left": 24
+   },
+   {
+    "car": "3206",
+    "idx": 73,
+    "gps": "104215",
+    "left": 31
+   },
+   {
+    "car": "5809",
+    "idx": 66,
+    "gps": "104044",
+    "left": 38
+   },
+   {
+    "car": "2106",
+    "idx": 53,
+    "gps": "104216",
+    "left": 51
+   },
+   {
+    "car": "2115",
+    "idx": 47,
+    "gps": "104207",
+    "left": 57
+   },
+   {
+    "car": "2073",
+    "idx": 38,
+    "gps": "104100",
+    "left": 66
+   },
+   {
+    "car": "2096",
+    "idx": 33,
+    "gps": "104131",
+    "left": 71
+   },
+   {
+    "car": "2707",
+    "idx": 24,
+    "gps": "104145",
+    "left": 80
+   },
+   {
+    "car": "2761",
+    "idx": 13,
+    "gps": "104149",
+    "left": 91
+   },
+   {
+    "car": "2017",
+    "idx": 3,
+    "gps": "104221",
+    "left": 101
+   }
+  ],
+  "totalVeh": 16,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 3,
+     "st": 2,
+     "car": "2030",
+     "state": "3"
+    },
+    {
+     "eta": 15,
+     "st": 9,
+     "car": "2110",
+     "state": "15"
+    }
+   ],
+   "fetchedAgo": 1,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337338,
+  "kst": "10:42:18",
+  "ars": "06707",
+  "route": "29",
+  "trip": "reverse",
+  "tIdx": 49,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arr": {
+   "min1": "5",
+   "st1": "4",
+   "car1": "3192",
+   "min2": "12",
+   "st2": "9",
+   "car2": "2933"
+  },
+  "lineArr": {
+   "min1": "5",
+   "st1": "4",
+   "car1": "3192",
+   "min2": "12",
+   "st2": "9",
+   "car2": "2933",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "3192",
+    "idx": 45,
+    "gps": "104135",
+    "left": 4
+   },
+   {
+    "car": "2933",
+    "idx": 40,
+    "gps": "104154",
+    "left": 9
+   },
+   {
+    "car": "3172",
+    "idx": 30,
+    "gps": "104219",
+    "left": 19
+   },
+   {
+    "car": "3118",
+    "idx": 20,
+    "gps": "104038",
+    "left": 29
+   },
+   {
+    "car": "3161",
+    "idx": 14,
+    "gps": "104152",
+    "left": 35
+   },
+   {
+    "car": "3142",
+    "idx": 6,
+    "gps": "104152",
+    "left": 43
+   },
+   {
+    "car": "3108",
+    "idx": 1,
+    "gps": "104124",
+    "left": 48
+   }
+  ],
+  "totalVeh": 23,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 5,
+     "st": 4,
+     "car": "3192",
+     "state": "5"
+    },
+    {
+     "eta": 12,
+     "st": 9,
+     "car": "2933",
+     "state": "12"
+    }
+   ],
+   "fetchedAgo": 13,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337338,
+  "kst": "10:42:18",
+  "ars": "13706",
+  "route": "29",
+  "trip": "forward",
+  "tIdx": 91,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arr": {
+   "min1": "14",
+   "st1": "6",
+   "car1": "3121",
+   "min2": "21",
+   "st2": "11",
+   "car2": "3223"
+  },
+  "lineArr": {
+   "min1": "14",
+   "st1": "6",
+   "car1": "3121",
+   "min2": "21",
+   "st2": "11",
+   "car2": "3223",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "3121",
+    "idx": 85,
+    "gps": "104205",
+    "left": 6
+   },
+   {
+    "car": "3223",
+    "idx": 80,
+    "gps": "104121",
+    "left": 11
+   },
+   {
+    "car": "3204",
+    "idx": 73,
+    "gps": "103951",
+    "left": 18
+   },
+   {
+    "car": "3151",
+    "idx": 65,
+    "gps": "104157",
+    "left": 26
+   },
+   {
+    "car": "3168",
+    "idx": 59,
+    "gps": "104209",
+    "left": 32
+   },
+   {
+    "car": "3106",
+    "idx": 51,
+    "gps": "104141",
+    "left": 40
+   },
+   {
+    "car": "3192",
+    "idx": 45,
+    "gps": "104135",
+    "left": 46
+   },
+   {
+    "car": "2933",
+    "idx": 40,
+    "gps": "104154",
+    "left": 51
+   },
+   {
+    "car": "3172",
+    "idx": 30,
+    "gps": "104219",
+    "left": 61
+   },
+   {
+    "car": "3118",
+    "idx": 20,
+    "gps": "104038",
+    "left": 71
+   },
+   {
+    "car": "3161",
+    "idx": 14,
+    "gps": "104152",
+    "left": 77
+   },
+   {
+    "car": "3142",
+    "idx": 6,
+    "gps": "104152",
+    "left": 85
+   },
+   {
+    "car": "3108",
+    "idx": 1,
+    "gps": "104124",
+    "left": 90
+   }
+  ],
+  "totalVeh": 23,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 14,
+     "st": 6,
+     "car": "3121",
+     "state": "14"
+    },
+    {
+     "eta": 21,
+     "st": 11,
+     "car": "3223",
+     "state": "21"
+    }
+   ],
+   "fetchedAgo": 1,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337338,
+  "kst": "10:42:18",
+  "ars": "09198",
+  "route": "43",
+  "trip": "reverse",
+  "tIdx": 16,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arr": {
+   "min1": "5",
+   "st1": "3",
+   "car1": "2761",
+   "min2": "16",
+   "st2": "13",
+   "car2": "2017"
+  },
+  "lineArr": {
+   "min1": "5",
+   "st1": "3",
+   "car1": "2761",
+   "min2": "16",
+   "st2": "13",
+   "car2": "2017",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "2761",
+    "idx": 13,
+    "gps": "104149",
+    "left": 3
+   },
+   {
+    "car": "2017",
+    "idx": 3,
+    "gps": "104221",
+    "left": 13
+   }
+  ],
+  "totalVeh": 16,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 5,
+     "st": 3,
+     "car": "2761",
+     "state": "5"
+    }
+   ],
+   "fetchedAgo": 13,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337376,
+  "kst": "10:42:56",
+  "ars": "06712",
+  "route": "43",
+  "trip": "forward",
+  "tIdx": 104,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arr": {
+   "min1": "3",
+   "st1": "2",
+   "car1": "2030",
+   "min2": "14",
+   "st2": "9",
+   "car2": "2110"
+  },
+  "lineArr": {
+   "min1": "3",
+   "st1": "2",
+   "car1": "2030",
+   "min2": "14",
+   "st2": "9",
+   "car2": "2110",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "2030",
+    "idx": 102,
+    "gps": "104150",
+    "left": 2
+   },
+   {
+    "car": "2110",
+    "idx": 95,
+    "gps": "104243",
+    "left": 9
+   },
+   {
+    "car": "2116",
+    "idx": 91,
+    "gps": "104154",
+    "left": 13
+   },
+   {
+    "car": "2113",
+    "idx": 81,
+    "gps": "104259",
+    "left": 23
+   },
+   {
+    "car": "3206",
+    "idx": 74,
+    "gps": "104254",
+    "left": 30
+   },
+   {
+    "car": "5809",
+    "idx": 66,
+    "gps": "104044",
+    "left": 38
+   },
+   {
+    "car": "2106",
+    "idx": 53,
+    "gps": "104216",
+    "left": 51
+   },
+   {
+    "car": "2115",
+    "idx": 47,
+    "gps": "104225",
+    "left": 57
+   },
+   {
+    "car": "2073",
+    "idx": 38,
+    "gps": "104252",
+    "left": 66
+   },
+   {
+    "car": "2096",
+    "idx": 33,
+    "gps": "104131",
+    "left": 71
+   },
+   {
+    "car": "2707",
+    "idx": 24,
+    "gps": "104248",
+    "left": 80
+   },
+   {
+    "car": "2761",
+    "idx": 14,
+    "gps": "104249",
+    "left": 90
+   },
+   {
+    "car": "2017",
+    "idx": 3,
+    "gps": "104221",
+    "left": 101
+   }
+  ],
+  "totalVeh": 16,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 3,
+     "st": 2,
+     "car": "2030",
+     "state": "3"
+    },
+    {
+     "eta": 14,
+     "st": 9,
+     "car": "2110",
+     "state": "14"
+    }
+   ],
+   "fetchedAgo": 1,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337376,
+  "kst": "10:42:56",
+  "ars": "06707",
+  "route": "29",
+  "trip": "reverse",
+  "tIdx": 49,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arr": {
+   "min1": "5",
+   "st1": "3",
+   "car1": "3192",
+   "min2": "12",
+   "st2": "9",
+   "car2": "2933"
+  },
+  "lineArr": {
+   "min1": "5",
+   "st1": "3",
+   "car1": "3192",
+   "min2": "12",
+   "st2": "9",
+   "car2": "2933",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "3192",
+    "idx": 46,
+    "gps": "104227",
+    "left": 3
+   },
+   {
+    "car": "2933",
+    "idx": 40,
+    "gps": "104154",
+    "left": 9
+   },
+   {
+    "car": "3172",
+    "idx": 31,
+    "gps": "104251",
+    "left": 18
+   },
+   {
+    "car": "3118",
+    "idx": 20,
+    "gps": "104038",
+    "left": 29
+   },
+   {
+    "car": "3161",
+    "idx": 15,
+    "gps": "104231",
+    "left": 34
+   },
+   {
+    "car": "3142",
+    "idx": 7,
+    "gps": "104249",
+    "left": 42
+   },
+   {
+    "car": "3108",
+    "idx": 1,
+    "gps": "104259",
+    "left": 48
+   }
+  ],
+  "totalVeh": 23,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 5,
+     "st": 3,
+     "car": "3192",
+     "state": "5"
+    },
+    {
+     "eta": 12,
+     "st": 9,
+     "car": "2933",
+     "state": "12"
+    }
+   ],
+   "fetchedAgo": 0,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337376,
+  "kst": "10:42:56",
+  "ars": "13706",
+  "route": "29",
+  "trip": "forward",
+  "tIdx": 91,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arr": {
+   "min1": "14",
+   "st1": "6",
+   "car1": "3121",
+   "min2": "20",
+   "st2": "10",
+   "car2": "3223"
+  },
+  "lineArr": {
+   "min1": "14",
+   "st1": "6",
+   "car1": "3121",
+   "min2": "20",
+   "st2": "10",
+   "car2": "3223",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "3121",
+    "idx": 85,
+    "gps": "104205",
+    "left": 6
+   },
+   {
+    "car": "3223",
+    "idx": 81,
+    "gps": "104236",
+    "left": 10
+   },
+   {
+    "car": "3204",
+    "idx": 73,
+    "gps": "103951",
+    "left": 18
+   },
+   {
+    "car": "3151",
+    "idx": 65,
+    "gps": "104157",
+    "left": 26
+   },
+   {
+    "car": "3168",
+    "idx": 60,
+    "gps": "104239",
+    "left": 31
+   },
+   {
+    "car": "3106",
+    "idx": 51,
+    "gps": "104141",
+    "left": 40
+   },
+   {
+    "car": "3192",
+    "idx": 46,
+    "gps": "104227",
+    "left": 45
+   },
+   {
+    "car": "2933",
+    "idx": 40,
+    "gps": "104154",
+    "left": 51
+   },
+   {
+    "car": "3172",
+    "idx": 31,
+    "gps": "104251",
+    "left": 60
+   },
+   {
+    "car": "3118",
+    "idx": 20,
+    "gps": "104038",
+    "left": 71
+   },
+   {
+    "car": "3161",
+    "idx": 15,
+    "gps": "104231",
+    "left": 76
+   },
+   {
+    "car": "3142",
+    "idx": 7,
+    "gps": "104249",
+    "left": 84
+   },
+   {
+    "car": "3108",
+    "idx": 1,
+    "gps": "104259",
+    "left": 90
+   }
+  ],
+  "totalVeh": 23,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 14,
+     "st": 6,
+     "car": "3121",
+     "state": "14"
+    },
+    {
+     "eta": 20,
+     "st": 10,
+     "car": "3223",
+     "state": "20"
+    }
+   ],
+   "fetchedAgo": 2,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337376,
+  "kst": "10:42:56",
+  "ars": "09198",
+  "route": "43",
+  "trip": "reverse",
+  "tIdx": 16,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arr": {
+   "min1": "3",
+   "st1": "2",
+   "car1": "2761",
+   "min2": "16",
+   "st2": "13",
+   "car2": "2017"
+  },
+  "lineArr": {
+   "min1": "3",
+   "st1": "2",
+   "car1": "2761",
+   "min2": "16",
+   "st2": "13",
+   "car2": "2017",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "2761",
+    "idx": 14,
+    "gps": "104249",
+    "left": 2
+   },
+   {
+    "car": "2017",
+    "idx": 3,
+    "gps": "104221",
+    "left": 13
+   }
+  ],
+  "totalVeh": 16,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 3,
+     "st": 2,
+     "car": "2761",
+     "state": "3"
+    },
+    {
+     "eta": 16,
+     "st": 13,
+     "car": "2017",
+     "state": "16"
+    }
+   ],
+   "fetchedAgo": 1,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337415,
+  "kst": "10:43:35",
+  "ars": "06712",
+  "route": "43",
+  "trip": "forward",
+  "tIdx": 104,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arr": {
+   "min1": "1",
+   "st1": "1",
+   "car1": "2030",
+   "min2": "14",
+   "st2": "9",
+   "car2": "2110"
+  },
+  "lineArr": {
+   "min1": "1",
+   "st1": "1",
+   "car1": "2030",
+   "min2": "14",
+   "st2": "9",
+   "car2": "2110",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "2030",
+    "idx": 103,
+    "gps": "104302",
+    "left": 1
+   },
+   {
+    "car": "2110",
+    "idx": 95,
+    "gps": "104310",
+    "left": 9
+   },
+   {
+    "car": "2116",
+    "idx": 92,
+    "gps": "104321",
+    "left": 12
+   },
+   {
+    "car": "2113",
+    "idx": 81,
+    "gps": "104259",
+    "left": 23
+   },
+   {
+    "car": "3206",
+    "idx": 74,
+    "gps": "104254",
+    "left": 30
+   },
+   {
+    "car": "5809",
+    "idx": 66,
+    "gps": "104044",
+    "left": 38
+   },
+   {
+    "car": "2106",
+    "idx": 53,
+    "gps": "104216",
+    "left": 51
+   },
+   {
+    "car": "2115",
+    "idx": 47,
+    "gps": "104225",
+    "left": 57
+   },
+   {
+    "car": "2073",
+    "idx": 39,
+    "gps": "104326",
+    "left": 65
+   },
+   {
+    "car": "2096",
+    "idx": 33,
+    "gps": "104131",
+    "left": 71
+   },
+   {
+    "car": "2707",
+    "idx": 25,
+    "gps": "104337",
+    "left": 79
+   },
+   {
+    "car": "2761",
+    "idx": 14,
+    "gps": "104323",
+    "left": 90
+   },
+   {
+    "car": "2017",
+    "idx": 3,
+    "gps": "104221",
+    "left": 101
+   }
+  ],
+  "totalVeh": 16,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 1,
+     "st": 1,
+     "car": "2030",
+     "state": "1"
+    },
+    {
+     "eta": 14,
+     "st": 9,
+     "car": "2110",
+     "state": "14"
+    }
+   ],
+   "fetchedAgo": 0,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337415,
+  "kst": "10:43:35",
+  "ars": "06707",
+  "route": "29",
+  "trip": "reverse",
+  "tIdx": 49,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arr": {
+   "min1": "5",
+   "st1": "3",
+   "car1": "3192",
+   "min2": "12",
+   "st2": "9",
+   "car2": "2933"
+  },
+  "lineArr": {
+   "min1": "5",
+   "st1": "3",
+   "car1": "3192",
+   "min2": "12",
+   "st2": "9",
+   "car2": "2933",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "3192",
+    "idx": 46,
+    "gps": "104227",
+    "left": 3
+   },
+   {
+    "car": "2933",
+    "idx": 40,
+    "gps": "104154",
+    "left": 9
+   },
+   {
+    "car": "3172",
+    "idx": 31,
+    "gps": "104305",
+    "left": 18
+   },
+   {
+    "car": "3118",
+    "idx": 21,
+    "gps": "104341",
+    "left": 28
+   },
+   {
+    "car": "3161",
+    "idx": 16,
+    "gps": "104337",
+    "left": 33
+   },
+   {
+    "car": "3142",
+    "idx": 7,
+    "gps": "104249",
+    "left": 42
+   },
+   {
+    "car": "3108",
+    "idx": 1,
+    "gps": "104259",
+    "left": 48
+   }
+  ],
+  "totalVeh": 23,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 5,
+     "st": 3,
+     "car": "3192",
+     "state": "5"
+    },
+    {
+     "eta": 12,
+     "st": 9,
+     "car": "2933",
+     "state": "12"
+    }
+   ],
+   "fetchedAgo": 0,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337415,
+  "kst": "10:43:35",
+  "ars": "13706",
+  "route": "29",
+  "trip": "forward",
+  "tIdx": 91,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arr": {
+   "min1": "14",
+   "st1": "6",
+   "car1": "3121",
+   "min2": "20",
+   "st2": "10",
+   "car2": "3223"
+  },
+  "lineArr": {
+   "min1": "14",
+   "st1": "6",
+   "car1": "3121",
+   "min2": "20",
+   "st2": "10",
+   "car2": "3223",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "3121",
+    "idx": 85,
+    "gps": "104205",
+    "left": 6
+   },
+   {
+    "car": "3223",
+    "idx": 81,
+    "gps": "104236",
+    "left": 10
+   },
+   {
+    "car": "3204",
+    "idx": 73,
+    "gps": "103951",
+    "left": 18
+   },
+   {
+    "car": "3151",
+    "idx": 65,
+    "gps": "104157",
+    "left": 26
+   },
+   {
+    "car": "3168",
+    "idx": 60,
+    "gps": "104332",
+    "left": 31
+   },
+   {
+    "car": "3106",
+    "idx": 52,
+    "gps": "104327",
+    "left": 39
+   },
+   {
+    "car": "3192",
+    "idx": 46,
+    "gps": "104227",
+    "left": 45
+   },
+   {
+    "car": "2933",
+    "idx": 40,
+    "gps": "104154",
+    "left": 51
+   },
+   {
+    "car": "3172",
+    "idx": 31,
+    "gps": "104305",
+    "left": 60
+   },
+   {
+    "car": "3118",
+    "idx": 21,
+    "gps": "104341",
+    "left": 70
+   },
+   {
+    "car": "3161",
+    "idx": 16,
+    "gps": "104337",
+    "left": 75
+   },
+   {
+    "car": "3142",
+    "idx": 7,
+    "gps": "104249",
+    "left": 84
+   },
+   {
+    "car": "3108",
+    "idx": 1,
+    "gps": "104259",
+    "left": 90
+   }
+  ],
+  "totalVeh": 23,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 14,
+     "st": 6,
+     "car": "3121",
+     "state": "14"
+    },
+    {
+     "eta": 20,
+     "st": 10,
+     "car": "3223",
+     "state": "20"
+    }
+   ],
+   "fetchedAgo": 1,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337415,
+  "kst": "10:43:35",
+  "ars": "09198",
+  "route": "43",
+  "trip": "reverse",
+  "tIdx": 16,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arr": {
+   "min1": "3",
+   "st1": "2",
+   "car1": "2761",
+   "min2": "16",
+   "st2": "13",
+   "car2": "2017"
+  },
+  "lineArr": {
+   "min1": "3",
+   "st1": "2",
+   "car1": "2761",
+   "min2": "16",
+   "st2": "13",
+   "car2": "2017",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "2761",
+    "idx": 14,
+    "gps": "104323",
+    "left": 2
+   },
+   {
+    "car": "2017",
+    "idx": 3,
+    "gps": "104221",
+    "left": 13
+   }
+  ],
+  "totalVeh": 16,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 3,
+     "st": 2,
+     "car": "2761",
+     "state": "3"
+    },
+    {
+     "eta": 16,
+     "st": 13,
+     "car": "2017",
+     "state": "16"
+    }
+   ],
+   "fetchedAgo": 1,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337454,
+  "kst": "10:44:14",
+  "ars": "06712",
+  "route": "43",
+  "trip": "forward",
+  "tIdx": 104,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arr": {
+   "min1": "1",
+   "st1": "1",
+   "car1": "2030",
+   "min2": "13",
+   "st2": "8",
+   "car2": "2110"
+  },
+  "lineArr": {
+   "min1": "1",
+   "st1": "1",
+   "car1": "2030",
+   "min2": "13",
+   "st2": "8",
+   "car2": "2110",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "2030",
+    "idx": 103,
+    "gps": "104410",
+    "left": 1
+   },
+   {
+    "car": "2110",
+    "idx": 96,
+    "gps": "104345",
+    "left": 8
+   },
+   {
+    "car": "2116",
+    "idx": 92,
+    "gps": "104321",
+    "left": 12
+   },
+   {
+    "car": "2113",
+    "idx": 82,
+    "gps": "104404",
+    "left": 22
+   },
+   {
+    "car": "3206",
+    "idx": 74,
+    "gps": "104254",
+    "left": 30
+   },
+   {
+    "car": "5809",
+    "idx": 66,
+    "gps": "104044",
+    "left": 38
+   },
+   {
+    "car": "2106",
+    "idx": 53,
+    "gps": "104350",
+    "left": 51
+   },
+   {
+    "car": "2115",
+    "idx": 47,
+    "gps": "104225",
+    "left": 57
+   },
+   {
+    "car": "2073",
+    "idx": 39,
+    "gps": "104326",
+    "left": 65
+   },
+   {
+    "car": "2096",
+    "idx": 33,
+    "gps": "104416",
+    "left": 71
+   },
+   {
+    "car": "2707",
+    "idx": 26,
+    "gps": "104414",
+    "left": 78
+   },
+   {
+    "car": "2761",
+    "idx": 14,
+    "gps": "104323",
+    "left": 90
+   },
+   {
+    "car": "2017",
+    "idx": 3,
+    "gps": "104221",
+    "left": 101
+   }
+  ],
+  "totalVeh": 16,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 1,
+     "st": 1,
+     "car": "2030",
+     "state": "1"
+    },
+    {
+     "eta": 13,
+     "st": 8,
+     "car": "2110",
+     "state": "13"
+    }
+   ],
+   "fetchedAgo": 1,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337454,
+  "kst": "10:44:14",
+  "ars": "06707",
+  "route": "29",
+  "trip": "reverse",
+  "tIdx": 49,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arr": {
+   "min1": "3",
+   "st1": "2",
+   "car1": "3192",
+   "min2": "11",
+   "st2": "9",
+   "car2": "2933"
+  },
+  "lineArr": {
+   "min1": "3",
+   "st1": "2",
+   "car1": "3192",
+   "min2": "11",
+   "st2": "9",
+   "car2": "2933",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "3192",
+    "idx": 47,
+    "gps": "104410",
+    "left": 2
+   },
+   {
+    "car": "2933",
+    "idx": 40,
+    "gps": "104400",
+    "left": 9
+   },
+   {
+    "car": "3172",
+    "idx": 32,
+    "gps": "104357",
+    "left": 17
+   },
+   {
+    "car": "3118",
+    "idx": 22,
+    "gps": "104417",
+    "left": 27
+   },
+   {
+    "car": "3161",
+    "idx": 16,
+    "gps": "104337",
+    "left": 33
+   },
+   {
+    "car": "3142",
+    "idx": 8,
+    "gps": "104352",
+    "left": 41
+   },
+   {
+    "car": "3108",
+    "idx": 2,
+    "gps": "104400",
+    "left": 47
+   }
+  ],
+  "totalVeh": 23,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 3,
+     "st": 2,
+     "car": "3192",
+     "state": "3"
+    },
+    {
+     "eta": 11,
+     "st": 9,
+     "car": "2933",
+     "state": "11"
+    }
+   ],
+   "fetchedAgo": 0,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337454,
+  "kst": "10:44:14",
+  "ars": "13706",
+  "route": "29",
+  "trip": "forward",
+  "tIdx": 91,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arr": {
+   "min1": "12",
+   "st1": "6",
+   "car1": "3121",
+   "min2": "20",
+   "st2": "10",
+   "car2": "3223"
+  },
+  "lineArr": {
+   "min1": "12",
+   "st1": "6",
+   "car1": "3121",
+   "min2": "20",
+   "st2": "10",
+   "car2": "3223",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "3121",
+    "idx": 85,
+    "gps": "104411",
+    "left": 6
+   },
+   {
+    "car": "3223",
+    "idx": 81,
+    "gps": "104236",
+    "left": 10
+   },
+   {
+    "car": "3204",
+    "idx": 74,
+    "gps": "104420",
+    "left": 17
+   },
+   {
+    "car": "3151",
+    "idx": 65,
+    "gps": "104415",
+    "left": 26
+   },
+   {
+    "car": "3168",
+    "idx": 61,
+    "gps": "104347",
+    "left": 30
+   },
+   {
+    "car": "3106",
+    "idx": 52,
+    "gps": "104327",
+    "left": 39
+   },
+   {
+    "car": "3192",
+    "idx": 47,
+    "gps": "104410",
+    "left": 44
+   },
+   {
+    "car": "2933",
+    "idx": 40,
+    "gps": "104400",
+    "left": 51
+   },
+   {
+    "car": "3172",
+    "idx": 32,
+    "gps": "104357",
+    "left": 59
+   },
+   {
+    "car": "3118",
+    "idx": 22,
+    "gps": "104417",
+    "left": 69
+   },
+   {
+    "car": "3161",
+    "idx": 16,
+    "gps": "104337",
+    "left": 75
+   },
+   {
+    "car": "3142",
+    "idx": 8,
+    "gps": "104352",
+    "left": 83
+   },
+   {
+    "car": "3108",
+    "idx": 2,
+    "gps": "104400",
+    "left": 89
+   }
+  ],
+  "totalVeh": 23,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 12,
+     "st": 6,
+     "car": "3121",
+     "state": "12"
+    },
+    {
+     "eta": 20,
+     "st": 10,
+     "car": "3223",
+     "state": "20"
+    }
+   ],
+   "fetchedAgo": 2,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337454,
+  "kst": "10:44:14",
+  "ars": "09198",
+  "route": "43",
+  "trip": "reverse",
+  "tIdx": 16,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arr": {
+   "min1": "3",
+   "st1": "2",
+   "car1": "2761",
+   "min2": "16",
+   "st2": "13",
+   "car2": "2017"
+  },
+  "lineArr": {
+   "min1": "3",
+   "st1": "2",
+   "car1": "2761",
+   "min2": "16",
+   "st2": "13",
+   "car2": "2017",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "2761",
+    "idx": 14,
+    "gps": "104323",
+    "left": 2
+   },
+   {
+    "car": "2017",
+    "idx": 3,
+    "gps": "104221",
+    "left": 13
+   }
+  ],
+  "totalVeh": 16,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 3,
+     "st": 2,
+     "car": "2761",
+     "state": "3"
+    },
+    {
+     "eta": 16,
+     "st": 13,
+     "car": "2017",
+     "state": "16"
+    }
+   ],
+   "fetchedAgo": 1,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337493,
+  "kst": "10:44:53",
+  "ars": "06712",
+  "route": "43",
+  "trip": "forward",
+  "tIdx": 104,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arr": {
+   "min1": "1",
+   "st1": "1",
+   "car1": "2030",
+   "min2": "11",
+   "st2": "7",
+   "car2": "2110"
+  },
+  "lineArr": {
+   "min1": "1",
+   "st1": "1",
+   "car1": "2030",
+   "min2": "11",
+   "st2": "7",
+   "car2": "2110",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "2030",
+    "idx": 103,
+    "gps": "104410",
+    "left": 1
+   },
+   {
+    "car": "2110",
+    "idx": 97,
+    "gps": "104439",
+    "left": 7
+   },
+   {
+    "car": "2116",
+    "idx": 92,
+    "gps": "104440",
+    "left": 12
+   },
+   {
+    "car": "2113",
+    "idx": 82,
+    "gps": "104404",
+    "left": 22
+   },
+   {
+    "car": "3206",
+    "idx": 74,
+    "gps": "104254",
+    "left": 30
+   },
+   {
+    "car": "5809",
+    "idx": 66,
+    "gps": "104044",
+    "left": 38
+   },
+   {
+    "car": "2106",
+    "idx": 53,
+    "gps": "104350",
+    "left": 51
+   },
+   {
+    "car": "2115",
+    "idx": 47,
+    "gps": "104446",
+    "left": 57
+   },
+   {
+    "car": "2073",
+    "idx": 39,
+    "gps": "104443",
+    "left": 65
+   },
+   {
+    "car": "2096",
+    "idx": 34,
+    "gps": "104441",
+    "left": 70
+   },
+   {
+    "car": "2707",
+    "idx": 26,
+    "gps": "104450",
+    "left": 78
+   },
+   {
+    "car": "2761",
+    "idx": 14,
+    "gps": "104323",
+    "left": 90
+   },
+   {
+    "car": "2017",
+    "idx": 3,
+    "gps": "104221",
+    "left": 101
+   }
+  ],
+  "totalVeh": 16,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 1,
+     "st": 1,
+     "car": "2030",
+     "state": "1"
+    },
+    {
+     "eta": 11,
+     "st": 7,
+     "car": "2110",
+     "state": "11"
+    }
+   ],
+   "fetchedAgo": 0,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337493,
+  "kst": "10:44:53",
+  "ars": "06707",
+  "route": "29",
+  "trip": "reverse",
+  "tIdx": 49,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arr": {
+   "min1": "3",
+   "st1": "2",
+   "car1": "3192",
+   "min2": "10",
+   "st2": "8",
+   "car2": "2933"
+  },
+  "lineArr": {
+   "min1": "3",
+   "st1": "2",
+   "car1": "3192",
+   "min2": "10",
+   "st2": "8",
+   "car2": "2933",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "3192",
+    "idx": 47,
+    "gps": "104410",
+    "left": 2
+   },
+   {
+    "car": "2933",
+    "idx": 41,
+    "gps": "104433",
+    "left": 8
+   },
+   {
+    "car": "3172",
+    "idx": 32,
+    "gps": "104440",
+    "left": 17
+   },
+   {
+    "car": "3118",
+    "idx": 22,
+    "gps": "104436",
+    "left": 27
+   },
+   {
+    "car": "3161",
+    "idx": 17,
+    "gps": "104421",
+    "left": 32
+   },
+   {
+    "car": "3142",
+    "idx": 9,
+    "gps": "104443",
+    "left": 40
+   },
+   {
+    "car": "3108",
+    "idx": 2,
+    "gps": "104400",
+    "left": 47
+   }
+  ],
+  "totalVeh": 23,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 3,
+     "st": 2,
+     "car": "3192",
+     "state": "3"
+    },
+    {
+     "eta": 10,
+     "st": 8,
+     "car": "2933",
+     "state": "10"
+    }
+   ],
+   "fetchedAgo": 0,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337493,
+  "kst": "10:44:53",
+  "ars": "13706",
+  "route": "29",
+  "trip": "forward",
+  "tIdx": 91,
+  "routeLen": 143,
+  "turnIdx": 73,
+  "arrOk": true,
+  "arr": {
+   "min1": "11",
+   "st1": "5",
+   "car1": "3121",
+   "min2": "18",
+   "st2": "10",
+   "car2": "3223"
+  },
+  "lineArr": {
+   "min1": "11",
+   "st1": "5",
+   "car1": "3121",
+   "min2": "18",
+   "st2": "10",
+   "car2": "3223",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "3121",
+    "idx": 86,
+    "gps": "104449",
+    "left": 5
+   },
+   {
+    "car": "3223",
+    "idx": 81,
+    "gps": "104445",
+    "left": 10
+   },
+   {
+    "car": "3204",
+    "idx": 74,
+    "gps": "104458",
+    "left": 17
+   },
+   {
+    "car": "3151",
+    "idx": 66,
+    "gps": "104429",
+    "left": 25
+   },
+   {
+    "car": "3168",
+    "idx": 61,
+    "gps": "104347",
+    "left": 30
+   },
+   {
+    "car": "3106",
+    "idx": 52,
+    "gps": "104327",
+    "left": 39
+   },
+   {
+    "car": "3192",
+    "idx": 47,
+    "gps": "104410",
+    "left": 44
+   },
+   {
+    "car": "2933",
+    "idx": 41,
+    "gps": "104433",
+    "left": 50
+   },
+   {
+    "car": "3172",
+    "idx": 32,
+    "gps": "104440",
+    "left": 59
+   },
+   {
+    "car": "3118",
+    "idx": 22,
+    "gps": "104436",
+    "left": 69
+   },
+   {
+    "car": "3161",
+    "idx": 17,
+    "gps": "104421",
+    "left": 74
+   },
+   {
+    "car": "3142",
+    "idx": 9,
+    "gps": "104443",
+    "left": 82
+   },
+   {
+    "car": "3108",
+    "idx": 2,
+    "gps": "104400",
+    "left": 89
+   }
+  ],
+  "totalVeh": 23,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 11,
+     "st": 5,
+     "car": "3121",
+     "state": "11"
+    },
+    {
+     "eta": 18,
+     "st": 10,
+     "car": "3223",
+     "state": "18"
+    }
+   ],
+   "fetchedAgo": 1,
+   "mode": "live"
+  }
+ },
+ {
+  "t": 1791337493,
+  "kst": "10:44:53",
+  "ars": "09198",
+  "route": "43",
+  "trip": "reverse",
+  "tIdx": 16,
+  "routeLen": 126,
+  "turnIdx": 66,
+  "arrOk": true,
+  "arr": {
+   "min1": "3",
+   "st1": "2",
+   "car1": "2761",
+   "min2": "16",
+   "st2": "13",
+   "car2": "2017"
+  },
+  "lineArr": {
+   "min1": "3",
+   "st1": "2",
+   "car1": "2761",
+   "min2": "16",
+   "st2": "13",
+   "car2": "2017",
+   "n": 1
+  },
+  "upstream": [
+   {
+    "car": "2761",
+    "idx": 14,
+    "gps": "104323",
+    "left": 2
+   },
+   {
+    "car": "2017",
+    "idx": 3,
+    "gps": "104221",
+    "left": 13
+   }
+  ],
+  "totalVeh": 16,
+  "ours": {
+   "status": "ok",
+   "obs": [
+    {
+     "eta": 3,
+     "st": 2,
+     "car": "2761",
+     "state": "3"
+    },
+    {
+     "eta": 16,
+     "st": 13,
+     "car": "2017",
+     "state": "16"
+    }
+   ],
+   "fetchedAgo": 1,
+   "mode": "live"
+  }
+ }
+]
