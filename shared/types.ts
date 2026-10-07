@@ -1,7 +1,7 @@
 // 내부 모델. 외부 API 스키마와 분리한다. 모든 시각은 UTC epoch 초(Sec), 기간은 초.
 export type Sec = number;
 
-export type EvidenceKind = 'realtime_prediction' | 'static_duration' | 'headway_estimate' | 'user_confirmed' | 'unknown';
+export type EvidenceKind = 'realtime_prediction' | 'static_duration' | 'headway_estimate' | 'user_confirmed' | 'user_measured' | 'unknown';
 export type RangeKind = 'provider' | 'assumed' | 'calibrated' | 'none';
 /** live=실제 BIMS 응답, sample=예시 모드 가짜값, recorded=녹화 응답, static=공식 정적자료 기반 추정, test=단위테스트 */
 export type DataOrigin = 'live' | 'sample' | 'recorded' | 'static' | 'test';
@@ -104,7 +104,14 @@ export interface CandidateRoute {
   staticTotalSec: number;
 }
 
+/** 문(집·회사) → 정류장 실측 범위. 건물 나가기·신호 대기 포함한 전체 시간 */
+export interface DoorToStop { lowSec: number; nominalSec: number; highSec: number }
+
 export interface Settings {
+  /** 정류장별 실측 '문→정류장' 시간(있으면 건물 나가기+추정 보행 대신 사용, 걷기 속도 보정 미적용) */
+  doorToStop?: Record<string, DoorToStop>;
+  /** 실측 없는 정류장: 추정 보행에 더하는 문~큰길 시간(건물 나가기·신호). 실측 정류장에서 역산 */
+  doorOverheadSec?: number;
   buildingExitSec: number; // 3층 → 건물 밖 (초깃값 2분, 측정값 아님)
   buildingExitHighSec: number;
   walkMultiplier: number; // 사용자 걷기 보정
@@ -166,13 +173,17 @@ export type LeaveAdvice =
   | { kind: 'none' };
 
 export interface SegmentEvidence {
-  segment: 'first_arrival' | 'first_ride' | 'transfer_walk' | 'second_arrival' | 'second_ride' | 'walks';
+  segment: 'first_walk' | 'first_arrival' | 'first_ride' | 'transfer_walk' | 'second_arrival' | 'second_ride' | 'walks';
   evidenceKind: EvidenceKind;
   origin: DataOrigin;
   note: string;
 }
 
+export interface FirstWalkEstimate { lowSec: number; nominalSec: number; highSec: number; measured: boolean }
+
 export interface ItineraryEvaluation {
+  /** 문→첫 정류장(건물 나가기 포함 여부는 measured/설정에 따름) */
+  firstWalkEstimate?: FirstWalkEstimate;
   candidateId: string;
   kind: 'direct' | 'transfer';
   constituentRoutes: string[];

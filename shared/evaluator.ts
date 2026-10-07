@@ -99,8 +99,14 @@ const originLabel = (o: DataOrigin) => (o === 'sample' ? '예시값' : o === 'li
 export function evaluateCandidate(c: CandidateRoute, ctx: EvalContext): ItineraryEvaluation {
   const { now, settings: s, lookup, journey } = ctx;
   const wm = s.walkMultiplier;
-  const w1 = Math.round(c.firstWalk.sec * wm);
-  const w1High = Math.round(w1 * s.walkHighFactor);
+  // 첫 보행: 실측(문→정류장)이 있으면 그 범위를 그대로, 없으면 추정 보행 + 실측에서 역산한 문~큰길 시간
+  const measured = s.doorToStop?.[c.legs[0].board.ars];
+  const overhead = s.doorOverheadSec ?? 0;
+  const estW1 = Math.round(c.firstWalk.sec * wm);
+  const w1 = measured ? measured.nominalSec : estW1 + overhead;
+  const w1High = measured ? measured.highSec : Math.round(estW1 * s.walkHighFactor) + overhead + (overhead > 0 ? 60 : 0);
+  const w1Low = measured ? measured.lowSec : Math.max(0, estW1 + overhead - (overhead > 0 ? 60 : 0));
+  const firstWalkEstimate = { lowSec: w1Low, nominalSec: w1, highSec: w1High, measured: !!measured };
   const wT = c.transferWalk ? Math.round(c.transferWalk.sec * wm) : 0;
   const wTHigh = Math.round(wT * s.walkHighFactor);
   const wF = Math.round(c.finalWalk.sec * wm);
@@ -115,8 +121,10 @@ export function evaluateCandidate(c: CandidateRoute, ctx: EvalContext): Itinerar
     transferReadyEstimate: null, transferRequiredAt: null, transferBoardingEstimate: null, destinationEstimate: null,
     destinationConditional: false, destinationIfMissed: null, firstWaitSec: null, transferWaitSec: null, transferSlackSec: null,
     outdoorWaitSec: null, indoorWaitSec: null, walkSec: w1 + wT + wF, totalSec: null, recommendedLeaveAt: null,
-    leaveAdvice: { kind: 'none' }, evidence, warnings, dataAgeSec: null, evaluatedAt: now, expiresAt: null,
+    leaveAdvice: { kind: 'none' }, evidence, warnings, dataAgeSec: null, evaluatedAt: now, expiresAt: null, firstWalkEstimate,
   };
+  if (measured) evidence.push({ segment: 'first_walk', evidenceKind: 'user_measured', origin: 'static', note: `문→${c.legs[0].board.name} ${Math.round(measured.lowSec / 60)}~${Math.round(measured.highSec / 60)}분: 사용자 직접 측정(건물 나가기·신호 포함)` });
+  else if (overhead > 0) evidence.push({ segment: 'first_walk', evidenceKind: 'static_duration', origin: 'static', note: `문→${c.legs[0].board.name}: 추정 보행 + 문~큰길 ${Math.round(overhead / 60)}분(실측 정류장에서 역산)` });
   evidence.push({ segment: 'walks', evidenceKind: 'static_duration', origin: 'static', note: '보행: 직선거리 × 1.3 ÷ 1.2m/s 추정 (현장 미검증)' });
   if (c.transferWalk && !c.transferWalk.sameStop) {
     warnings.push(c.transferWalk.sameNameDifferentArs

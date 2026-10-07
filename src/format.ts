@@ -23,6 +23,7 @@ export function evidenceLabel(kind: EvidenceKind, origin: DataOrigin): string {
     case 'static_duration': return '추정';
     case 'headway_estimate': return '배차 기준 추정';
     case 'user_confirmed': return '탑승 확인';
+    case 'user_measured': return '직접 측정(사용자)';
     default: return '확인 불가';
   }
 }

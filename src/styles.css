@@ -251,3 +251,10 @@ button { font: inherit; color: inherit; }
 .map-bus { background: none; border: 0; }
 
 .tiles-soft { filter: grayscale(0.6) brightness(1.07) contrast(0.9) saturate(0.85); }
+
+.tag-measured { background:#e3f6e8; color:#1f6b3a; }
+.stops-helper { margin:8px 0 4px; padding:8px 10px; border-radius:12px; background:#fff6dc; border:1px dashed #f0c95a; }
+.stops-helper .stops-main { margin:0 0 2px; font-size:15px; }
+.stops-helper .muted { margin:0; }
+.range-steppers { display:flex; gap:12px; flex-wrap:wrap; margin:6px 0; }
+.range-steppers label { display:flex; align-items:center; gap:6px; }
