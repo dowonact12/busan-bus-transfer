@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # 화면을 GitHub Pages(gh-pages 브랜치)에 배포. 비밀키는 절대 포함되지 않는다(프런트는 키를 모름).
-# apiBase(서버 주소)는 지금 배포된 config.json 값을 그대로 유지한다(기본: Render).
+# apiBase(서버 주소)는 지금 배포된 config.json 값을 그대로 유지한다(기본: Vercel, 예비: Render).
 #   다른 주소로 바꾸려면: API_BASE=https://... scripts/deploy-pages.sh
 #   빈 값·임시 터널 주소(trycloudflare)는 거부한다.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 REPO="${PAGES_REPO:-dowonact12/busan-bus-transfer}"
 NAME="${REPO#*/}"
-DEFAULT_API_BASE="https://busan-bus-transfer.onrender.com"
+DEFAULT_API_BASE="https://busan-bus-transfer.vercel.app"
 TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
 git clone -q --depth 1 --branch gh-pages "https://github.com/$REPO.git" "$TMP" 2>/dev/null || { git init -q "$TMP"; git -C "$TMP" checkout -q -b gh-pages; git -C "$TMP" remote add origin "https://github.com/$REPO.git"; }

@@ -58,3 +58,12 @@ scripts/deploy-pages.sh      # 화면을 GitHub Pages에 배포
 - 실측 안 된 다른 정류장: 직선 추정 보행 + 문~큰길 시간(실측 6분 − 같은 정류장 추정 보행: forward 234초, reverse 111초).
 - 기기에 저장된 예전 설정 `{exitMin, walkMult}`은 v2 `{v:2, doorLowMin, doorHighMin, walkMult}`로 자동 이관(exitMin 버림, 걷기 속도 유지). 걷기 속도는 실측 구간엔 적용하지 않음.
 - 평소 경로 카드에 '🚏 n번이 k정거장 전일 때 나가면 돼요' — 실시간 남은 정거장·분을 같은 속도로 선형 어림. 정보 없으면 본인 규칙 '보통 8정거장 전에 출발'(갈 때 43번)을 라벨 붙여 표시.
+
+## 호스팅 (2026-10-07~)
+
+- **주 서버: Vercel** — https://busan-bus-transfer.vercel.app (Hobby, 함수 지역 서울 `icn1`, 잠들지 않음). GitHub `main`에 push하면 자동 배포.
+  - `npm run vercel-build` → `scripts/build-vercel.mjs`: 화면(vite) → `.vercel/output/static`(apiBase `''` 같은 오리진), `/api/*` → 단일 함수 `api.func`(esbuild 번들, `server/vercel.ts` → `server/app.ts`).
+  - 환경변수: `BUSAN_BIMS_SERVICE_KEY`(sensitive, production+preview), `BUSAN_BIMS_ALLOW_HTTP_FALLBACK=0`(HTTPS만). 30초 캐시·일일 한도는 인스턴스별 메모리(최선 노력).
+  - Vercel Authentication은 미리보기 배포에만(프로덕션 주소는 공개).
+- **GitHub Pages**: https://dowonact12.github.io/busan-bus-transfer/ — `config.json` apiBase = Vercel. `API_BASE=... scripts/deploy-pages.sh`로만 바꿈.
+- **예비: Render** — https://busan-bus-transfer.onrender.com (무료, 잠듦, 자동 배포 꺼짐). 그대로 둠. 같은 `server/app.ts`를 `server/index.ts`가 씀.
