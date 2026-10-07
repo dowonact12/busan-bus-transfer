@@ -153,6 +153,10 @@ export interface JourneyState {
     boardedAt: Sec;
   } | null;
   secondBoarded?: { routeNo: string; boardArs: string; boardedAt: Sec } | null;
+  /** '정류장 도착'을 누른 시각(내 기록용) */
+  atStopAt?: Sec | null;
+  /** 내 기록 id(기기 저장) */
+  recordId?: string | null;
 }
 
 export type Feasibility =

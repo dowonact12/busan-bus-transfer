@@ -258,3 +258,18 @@ button { font: inherit; color: inherit; }
 .stops-helper .muted { margin:0; }
 .range-steppers { display:flex; gap:12px; flex-wrap:wrap; margin:6px 0; }
 .range-steppers label { display:flex; align-items:center; gap:6px; }
+
+.hint-row { display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 2px; align-items:center; }
+.seat-chip { display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px; font-weight:700; }
+.seat-ok { background:#e3f6e8; color:#1f6b3a; }
+.seat-mid { background:#eef0ff; color:#4a4fa8; }
+.seat-busy { background:#ffe3e3; color:#a33a3a; }
+.bunch-line { font-size:13px; }
+.card-quick { display:flex; gap:8px; justify-content:flex-end; padding:0 14px 12px; flex-wrap:wrap; }
+.learned-line { font-size:13px; margin:4px 0; }
+.planb { border:2px solid #ffb4b4; background:#fff6f6; }
+.planb p { margin:4px 0; }
+.planb-title { font-weight:800; font-size:16px; }
+.seat-list { list-style:none; padding:0; margin:6px 0; }
+.seat-list li { margin-bottom:8px; }
+.seat-item { margin:4px 0 0 4px; font-size:14px; }

@@ -62,5 +62,7 @@ export interface RouteVehicles {
   origin: 'live' | 'sample';
   status: 'ok' | 'error' | 'no_key' | 'rate_limited' | 'unknown_line';
   vehicles: VehiclePosition[];
+  /** 회차지점 정류소 순번(busInfoByRouteId rpoint=1). 모르면 null/없음 */
+  turnIdx?: number | null;
 }
 export interface RouteStop { seq: number; name: string; ars: string; lat: number; lon: number }

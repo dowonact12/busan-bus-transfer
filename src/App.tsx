@@ -1,7 +1,9 @@
-import { lazy, Suspense, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { preferredFor } from '../shared/preferences';
 import { calibratedSettings, DOOR_CALIBRATION, defaultPrefs, MEASURED_LABEL, migratePrefs, RULE_OF_THUMB, stopsAwayAtLeave, type UserPrefsV2 } from '../shared/calibration';
 import { computeLeaveDeadline } from '../shared/evaluator';
+import { detectBunching, detectMiss, planB, seatHint, secondBusOutcome, targetOf, type PlanB, type SeatHint, type Target } from '../shared/insights';
+import { HISTORY_KEY, learnedDoorToStop, learnedRide, parseHistory, upsertRecord, type Blended, type TripRecord } from '../shared/history';
 import { recommend, stabilize, type StabilityState } from '../shared/recommender';
 import { seatLabel } from '../shared/normalizer';
 import { crowdDisplay } from '../shared/crowd';
@@ -25,6 +27,12 @@ const TRIP_KEY = 'bbt.trip';
 function loadTrip(): TripId { try { return localStorage.getItem(TRIP_KEY) === 'reverse' ? 'reverse' : 'forward'; } catch { return 'forward'; } }
 
 type UserPrefs = UserPrefsV2;
+/** 내 기록: 이 폰 localStorage에만 */
+function useHistory(): [TripRecord[], (f: (l: TripRecord[]) => TripRecord[]) => void] {
+  const [v, setV] = useState<TripRecord[]>(() => { try { return parseHistory(localStorage.getItem(HISTORY_KEY)); } catch { return []; } });
+  const update = (f: (l: TripRecord[]) => TripRecord[]) => setV((old) => { const n = f(old); try { localStorage.setItem(HISTORY_KEY, JSON.stringify(n)); } catch { /* ignore */ } return n; });
+  return [v, update];
+}
 /** 방향별 저장 설정. 예전 형식({exitMin:2, walkMult})은 v2로 옮기면서 exitMin을 버림(실측 문→정류장에 포함 → 이중 계산 방지) */
 function usePrefs(trip: TripId): [UserPrefs, (p: UserPrefs) => void] {
   const key = trip === 'forward' ? 'bbt.prefs' : 'bbt.prefs.reverse';
@@ -70,13 +78,31 @@ function TripApp({ trip, setTrip }: { trip: TripId; setTrip: (t: TripId) => void
   const snap = demo && cands ? clientSampleSnapshot(cands, now) : liveSnap;
   // 문→평소 정류장 실측 범위(건물 나가기·신호 포함)를 방향마다 따로 기억
   const [prefs, setPrefs] = usePrefs(trip);
-  const [journeyRaw, setJourney] = useLocal<JourneyState>(trip === 'forward' ? 'bbt.journey' : 'bbt.journey.reverse', { phase: 'before' });
+  const [journeyRaw, setJourneyRaw] = useLocal<JourneyState>(trip === 'forward' ? 'bbt.journey' : 'bbt.journey.reverse', { phase: 'before' });
   const [open, setOpen] = useState<string | null>(null); // 펼친 카드
   const [othersOpen, setOthersOpen] = useState<string | null>(null); // '다른 후보'에서 펼친 경로(버스 위치·지도)
   const [sheet, setSheet] = useState<null | 'settings' | 'others' | 'crowd' | 'info'>(null);
   const stab = useRef<StabilityState>({ currentId: null, challengerId: null, streak: 0 });
 
-  const settings: Settings = useMemo(() => calibratedSettings(trip, prefs, cands?.candidates ?? []), [trip, prefs, cands]);
+  const [history, setHistory] = useHistory();
+  const hourKey = Math.floor((now + 9 * 3600) / 3600);
+  const baseSettings: Settings = useMemo(() => calibratedSettings(trip, prefs, cands?.candidates ?? []), [trip, prefs, cands]);
+  // 내 기록(같은 방향·평일/주말·시간대 3회 이상) → 정류장별 문→정류장 시간에 섞기
+  const { settings, learnedWalk } = useMemo(() => {
+    const learnedWalk: Record<string, Blended> = {};
+    const door = { ...(baseSettings.doorToStop ?? {}) };
+    const t = hourKey * 3600 - 9 * 3600;
+    for (const c of cands?.candidates ?? []) {
+      const ars = c.legs[0].board.ars;
+      if (learnedWalk[ars]) continue;
+      const est = Math.round(c.firstWalk.sec * baseSettings.walkMultiplier) + (baseSettings.doorOverheadSec ?? 0);
+      const model = door[ars] ?? { lowSec: Math.max(60, est - 60), nominalSec: est, highSec: Math.round(c.firstWalk.sec * baseSettings.walkMultiplier * baseSettings.walkHighFactor) + (baseSettings.doorOverheadSec ?? 0) + 60 };
+      const r = learnedDoorToStop(history, trip, t, ars, model);
+      if (r.blended.learned) { learnedWalk[ars] = r.blended; door[ars] = r.range; }
+    }
+    return { settings: { ...baseSettings, doorToStop: door }, learnedWalk };
+  }, [baseSettings, history, hourKey, trip, cands]);
+  const rideFor = (candId: string, modelSec: number) => learnedRide(history, trip, now, candId, modelSec);
   const boards = snap?.boards ?? [];
   const lookup = (ars: string, routeNo: string): ArrivalBoard | undefined => boards.find((b) => b.stopArs === ars && b.routeNo === routeNo);
   const candList = cands?.candidates ?? [];
@@ -84,6 +110,23 @@ function TripApp({ trip, setTrip }: { trip: TripId; setTrip: (t: TripId) => void
   // 저장된 진행 상태가 지금 후보에 없으면(후보 갱신 등) 처음부터
   const journeyValid = journeyRaw.phase === 'before' || !journeyRaw.candidateId || (!!cands && candList.some((c) => c.id === journeyRaw.candidateId));
   const journey: JourneyState = useMemo(() => (journeyValid ? journeyRaw : { phase: 'before' }), [journeyValid, journeyRaw]);
+  // 진행 버튼 → 내 기록(정류장 도착·탔어요·도착했어요 시각)
+  const setJourney = (j: JourneyState) => {
+    const n: JourneyState = { ...j };
+    if (n.phase === 'at_stop' && journey.phase !== 'at_stop') n.atStopAt = now;
+    if (n.phase === 'on_first_bus' && n.boarded && !journey.boarded) {
+      const id = `${trip}-${n.boarded.boardedAt}`;
+      n.recordId = id;
+      n.atStopAt = n.atStopAt ?? journey.atStopAt ?? null;
+      const rec: TripRecord = { id, trip, candidateId: n.candidateId ?? '', routeNo: n.boarded.routeNo, boardArs: n.boarded.boardArs, vehicleRef: n.boarded.vehicleReference, leftAt: n.leftAt ?? null, atStopAt: n.atStopAt, boardedAt: n.boarded.boardedAt, arrivedAt: null };
+      setHistory((l) => upsertRecord(l, rec));
+    }
+    if (n.phase === 'arrived' && journey.phase !== 'arrived') {
+      const id = n.recordId ?? journey.recordId;
+      if (id) setHistory((l) => { const r = l.find((x) => x.id === id); return r ? upsertRecord(l, { ...r, arrivedAt: now }) : l; });
+    }
+    setJourneyRaw(n);
+  };
 
   const preferred = preferredFor(trip);
   const rec = useMemo(() => (snap && cands ? recommend(cands.candidates, { now, settings, lookup, journey }, { preferredCandidateId: preferred.candidateId }) : null),
@@ -99,6 +142,29 @@ function TripApp({ trip, setTrip }: { trip: TripId; setTrip: (t: TripId) => void
   // 추천이 없을 때(심야·미연결 등)에도 평소 경로는 숨기지 않고 카드로 보여 줌
   const preferredEv = rec && !shownRec ? rec.all.find((e) => e.candidateId === preferred.candidateId) : null;
   const preferredCand = preferredEv && candList.some((c) => c.id === preferred.candidateId) ? candById(preferred.candidateId) : null;
+
+  // 플랜 B: 추천·평소 경로가 노리던 차를 놓치면(평가가 더 늦은 차로 넘어감) 바로 다음 관측 차와 대안을 보여 줌
+  const targets = useRef<Record<string, Target>>({});
+  const [planBState, setPlanB] = useState<(PlanB & { at: number }) | null>(null);
+  useEffect(() => {
+    if (!rec || !cands || snap?.mode !== 'live') return;
+    if (!(journey.phase === 'before' || journey.phase === 'walking_to_stop' || journey.phase === 'at_stop')) return;
+    const watch = new Set([shownRec?.candidateId, preferred.candidateId].filter(Boolean) as string[]);
+    // 방금(90초 안) 보여 주던 경로도 확인: 노리던 차가 사라져 추천이 바뀐 경우
+    const recent = Object.values(targets.current).filter((t) => now - t.seenAt <= 90).map((t) => t.candidateId);
+    for (const id of new Set([...watch, ...recent])) {
+      const ev = rec.all.find((e) => e.candidateId === id);
+      const cand = candList.find((c) => c.id === id);
+      if (!ev || !cand) continue;
+      const prev = targets.current[id] ?? null;
+      const miss = detectMiss(prev, ev, lookup(cand.legs[0].board.ars, cand.legs[0].routeNo), now);
+      if (miss && prev) setPlanB({ ...planB(prev, miss, ev, rec.all), at: now });
+      const t = targetOf(ev, cand, now);
+      if (t && watch.has(id)) targets.current[id] = t; else if (miss || !watch.has(id)) delete targets.current[id];
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rec]);
+  const planBShown = planBState && now - planBState.at < 10 * 60 && journey.phase !== 'on_first_bus' && journey.phase !== 'on_second_bus' && journey.phase !== 'arrived' ? planBState : null;
 
   const visibleRoutes = [
     ...(sheet === 'others' && othersOpen && candList.some((c) => c.id === othersOpen) ? candById(othersOpen).routes : []),
@@ -136,6 +202,7 @@ function TripApp({ trip, setTrip }: { trip: TripId; setTrip: (t: TripId) => void
         {snap?.providerMessage && !sample && !demo && <div className="banner banner-warn" role="status">{snap.providerMessage}</div>}
         {!tripUnsupported && rec?.notices.map((n) => <div key={n} className="banner banner-warn" role="status">{n}</div>)}
 
+        {planBShown && <PlanBCard p={planBShown} candById={(id) => candList.find((c) => c.id === id)} destLabel={cands?.destination.label ?? meta.to} onClose={() => setPlanB(null)} onOpen={(id) => { setPlanB(null); if (rec?.all.some((e) => e.candidateId === id)) setOpen(id); }} />}
         {journey.phase !== 'before' && <JourneyBar journey={journey} setJourney={setJourney} now={now} cand={journey.candidateId ? candById(journey.candidateId) : undefined} ev={rec?.all.find((e) => e.candidateId === journey.candidateId) ?? null} />}
 
         {connection === 'waking' && !liveSnap && !demo ? (
@@ -162,7 +229,7 @@ function TripApp({ trip, setTrip }: { trip: TripId; setTrip: (t: TripId) => void
         ) : preferredEv && preferredCand ? (
           <>
             <div className="banner banner-sample" role="status">⭐ 지금은 바로 추천할 수 있는 경로가 없어 <b>평소 타는 길</b>을 먼저 보여드려요.</div>
-            <RouteCard trip={trip} key={preferredCand.id} hero ev={preferredEv} cand={preferredCand} reason={null}
+            <RouteCard trip={trip} learnedWalk={learnedWalk} rideFor={rideFor} onCrowd={() => setSheet('crowd')} key={preferredCand.id} hero ev={preferredEv} cand={preferredCand} reason={null}
               tight={preferredEv.feasibility === 'tight'} now={now} settings={settings} lookup={lookup} routeStops={routeStops} vehicles={vehicles} meta={meta} places={cands}
               preferred={preferred}
               expanded={open === preferredCand.id} onToggle={() => setOpen(open === preferredCand.id ? null : preferredCand.id)} journey={journey} setJourney={setJourney} />
@@ -170,7 +237,7 @@ function TripApp({ trip, setTrip }: { trip: TripId; setTrip: (t: TripId) => void
         ) : tripUnsupported && !shownRec ? (
           <div className="card hero empty-card"><BusBuddy size={64} mood="sleepy" /><p className="hero-action">오는 길 경로 {candList.length}개를 준비해 뒀어요.</p><p className="muted">실시간 도착 정보가 연결되면 여기서 바로 추천해 드릴게요.</p><button className="btn soft" onClick={() => setSheet('others')}>🗂 경로·버스 위치 보기</button></div>
         ) : shownRec ? (
-          <RouteCard trip={trip} key={shownRec.candidateId} hero ev={shownRec} cand={candById(shownRec.candidateId)} reason={shownRec.candidateId === rec?.recommended?.candidateId ? rec.reason : '방금 전 추천을 유지하고 있어요(작은 변화로 바꾸지 않아요).'}
+          <RouteCard trip={trip} learnedWalk={learnedWalk} rideFor={rideFor} onCrowd={() => setSheet('crowd')} key={shownRec.candidateId} hero ev={shownRec} cand={candById(shownRec.candidateId)} reason={shownRec.candidateId === rec?.recommended?.candidateId ? rec.reason : '방금 전 추천을 유지하고 있어요(작은 변화로 바꾸지 않아요).'}
             tight={shownRec.feasibility === 'tight'} now={now} settings={settings} lookup={lookup} routeStops={routeStops} vehicles={vehicles} meta={meta} places={cands}
             preferred={shownRec.candidateId === preferred.candidateId ? preferred : null}
             expanded={open === shownRec.candidateId} onToggle={() => setOpen(open === shownRec.candidateId ? null : shownRec.candidateId)} journey={journey} setJourney={setJourney} />
@@ -180,7 +247,7 @@ function TripApp({ trip, setTrip }: { trip: TripId; setTrip: (t: TripId) => void
 
         {alts.length > 0 && <h2 className="section-title">다른 선택 <span className="muted">· 눌러서 자세히</span></h2>}
         {alts.map((a) => (
-          <RouteCard trip={trip} key={a.evaluation.candidateId} ev={a.evaluation} cand={candById(a.evaluation.candidateId)} diff={a.diffLabels} risk={a.risk} tight={a.evaluation.feasibility === 'tight'} now={now} settings={settings} lookup={lookup}
+          <RouteCard trip={trip} learnedWalk={learnedWalk} rideFor={rideFor} onCrowd={() => setSheet('crowd')} key={a.evaluation.candidateId} ev={a.evaluation} cand={candById(a.evaluation.candidateId)} diff={a.diffLabels} risk={a.risk} tight={a.evaluation.feasibility === 'tight'} now={now} settings={settings} lookup={lookup}
             routeStops={routeStops} vehicles={vehicles} meta={meta} places={cands}
             preferred={a.evaluation.candidateId === preferred.candidateId ? preferred : null}
             expanded={open === a.evaluation.candidateId} onToggle={() => setOpen(open === a.evaluation.candidateId ? null : a.evaluation.candidateId)} journey={journey} setJourney={setJourney} />
@@ -195,9 +262,9 @@ function TripApp({ trip, setTrip }: { trip: TripId; setTrip: (t: TripId) => void
 
       {sheet && (
         <Sheet title={{ settings: `설정 · ${meta.tab}`, others: '다른 후보', crowd: '혼잡 정보', info: '데이터 정보' }[sheet]} onClose={() => setSheet(null)}>
-          {sheet === 'settings' && <SettingsView trip={trip} prefs={prefs} setPrefs={setPrefs} journey={journey} setJourney={setJourney} overheadSec={settings.doorOverheadSec ?? 0} />}
+          {sheet === 'settings' && <SettingsView trip={trip} prefs={prefs} setPrefs={setPrefs} journey={journey} setJourney={setJourney} overheadSec={settings.doorOverheadSec ?? 0} history={history} resetHistory={() => setHistory(() => [])} learnedCount={Object.keys(learnedWalk).length} />}
           {sheet === 'others' && rec && <OthersView evs={rec.others} candById={candById} openId={othersOpen} setOpenId={setOthersOpen} vehicles={vehicles} routeStops={routeStops} places={cands} now={now} preferred={preferred} trip={trip} settings={settings} />}
-          {sheet === 'crowd' && <CrowdView ev={shownRec} lookup={lookup} cand={shownRec ? candById(shownRec.candidateId) : undefined} now={now} />}
+          {sheet === 'crowd' && <CrowdView ev={shownRec ?? preferredEv ?? null} lookup={lookup} cands={[shownRec ? candById(shownRec.candidateId) : null, candList.find((c) => c.id === preferred.candidateId) ?? null].filter((c, i, a): c is CandidateRoute => !!c && a.findIndex((x) => x?.id === c.id) === i)} vehicles={vehicles} now={now} />}
           {sheet === 'info' && <InfoView snap={snap} cands={cands} now={now} />}
         </Sheet>
       )}
@@ -231,7 +298,7 @@ function Chips({ cand }: { cand: CandidateRoute }) {
 }
 
 interface Seg { key: string; icon: string; label: string; sec: number; kind: 'walk' | 'wait' | 'ride' | 'prep'; ev: string }
-function segments(ev: ItineraryEvaluation, cand: CandidateRoute, s: Settings, leaveAt: number): Seg[] {
+function segments(ev: ItineraryEvaluation, cand: CandidateRoute, s: Settings, leaveAt: number, learned?: Blended): Seg[] {
   const w = (x: number) => Math.round(x * s.walkMultiplier);
   const out: Seg[] = [];
   const firstB = ev.firstBoardingEstimate?.nominalAt;
@@ -240,7 +307,7 @@ function segments(ev: ItineraryEvaluation, cand: CandidateRoute, s: Settings, le
   if (ev.firstReadyAt != null) {
     if (s.buildingExitSec > 0) out.push({ key: 'prep', icon: '🏢', label: '건물 나가기', sec: s.buildingExitSec, kind: 'prep', ev: '설정값' });
     const fw = ev.firstWalkEstimate;
-    out.push({ key: 'w1', icon: '🚶', label: '문 → 정류장', sec: fw ? fw.nominalSec : w(cand.firstWalk.sec), kind: 'walk', ev: fw?.measured ? MEASURED_LABEL : '추정' });
+    out.push({ key: 'w1', icon: '🚶', label: '문 → 정류장', sec: fw ? fw.nominalSec : w(cand.firstWalk.sec), kind: 'walk', ev: learned?.learned ? `내 기록 기반 (${learned.n}회)` : fw?.measured ? MEASURED_LABEL : '추정' });
     if (atStop != null) out.push({ key: 'q1', icon: '⏳', label: '버스 기다림', sec: Math.max(0, firstB - atStop), kind: 'wait', ev: evidenceLabel(ev.firstBoardingEstimate!.evidenceKind, ev.firstBoardingEstimate!.origin) });
   }
   const t1 = ev.transferArrivalEstimate?.nominalAt;
@@ -262,12 +329,23 @@ function RouteCard(p: {
   meta: (typeof TRIP_META)[TripId]; places: import('../shared/api').CandidatesPayload | null;
   preferred?: import('../shared/preferences').PreferredRoute | null;
   trip: TripId;
+  learnedWalk: Record<string, Blended>;
+  rideFor: (candId: string, modelSec: number) => Blended;
+  onCrowd: () => void;
 }) {
   const { ev, cand, now, settings } = p;
   const leg1 = cand.legs[0], leg2 = cand.legs[1];
   const dest = ev.destinationEstimate;
   const leaveAt = ev.recommendedLeaveAt != null ? Math.max(now, ev.recommendedLeaveAt) : now;
-  const segs = segments(ev, cand, settings, leaveAt);
+  const learnedW = p.learnedWalk[leg1.board.ars];
+  const segs = segments(ev, cand, settings, leaveAt, learnedW);
+  const board1 = p.lookup(leg1.board.ars, leg1.routeNo);
+  const hint = ev.firstVehicle ? seatHintFor(ev.firstVehicle, board1, leg1, p.vehicles[leg1.routeNo], now) : null;
+  const bunch = detectBunching(board1);
+  const bunchHere = bunch && ev.firstVehicle && bunch.first.etaAt === ev.firstVehicle.etaAt && ev.firstBoardingEstimate?.evidenceKind === 'realtime_prediction' ? bunch : null;
+  const second = bunchHere ? secondBusOutcome(cand, { now, settings, lookup: p.lookup, journey: p.journey }, bunchHere.first, ev) : null;
+  const fbAt = ev.firstBoardingEstimate?.nominalAt ?? null;
+  const ride = fbAt != null && dest?.nominalAt != null ? p.rideFor(cand.id, dest.nominalAt - fbAt) : null;
   const tripSec = dest?.nominalAt != null ? dest.nominalAt - leaveAt : null;
   const totalBar = segs.reduce((a, s) => a + s.sec, 0) || 1;
   const sampleEv = ev.firstBoardingEstimate?.origin === 'sample';
@@ -280,7 +358,7 @@ function RouteCard(p: {
   const boarding = p.lookup(leg1.board.ars, leg1.routeNo);
 
   return (
-    <article className={`card ${p.hero ? 'hero' : 'alt'} ${p.tight ? 'is-tight' : ''}`}>
+    <article className={`card ${p.hero ? 'hero' : 'alt'} ${p.tight ? 'is-tight' : ''}`} data-cand={cand.id} data-board={leg1.board.ars} data-veh={ev.firstVehicle?.vehicleReference ?? ''}>
       <button className="card-tap" onClick={p.onToggle} aria-expanded={p.expanded}>
         <div className="card-top">
           <span className={`badge ${p.hero ? 'badge-rec' : 'badge-alt'}`}>{p.hero ? '💖 추천' : '다른 길'}</span>
@@ -304,6 +382,12 @@ function RouteCard(p: {
         </div>
         {rangeText(dest) && <div className="range">{rangeText(dest)}</div>}
         <Chips cand={cand} />
+        {(hint || bunchHere) && (
+          <div className="hint-row">
+            {hint && <span className={`seat-chip seat-${hint.level === '널널할 듯' ? 'ok' : hint.level === '붐빌 듯' ? 'busy' : 'mid'}`}>💺 {leg1.routeNo}번 {hint.level} <em className={`tag ${hint.tag === '실시간' ? 'tag-live' : 'tag-est'}`}>{hint.tag}</em></span>}
+            {bunchHere && <span className="bunch-line">🚌🚌 두 대가 붙어 와요, 뒤차가 더 한산할 수 있어요 <em className="tag tag-est">추정</em>{second && <span className="muted small"> · {second.text}</span>}</span>}
+          </div>
+        )}
         {p.diff && p.diff.length > 0 && <div className="diffs">{p.diff.map((d) => <span key={d} className={`diff ${/촉박|늦음|추가|추정|더 대기/.test(d) ? 'diff-bad' : 'diff-good'}`}>{d}</span>)}</div>}
         {/* 소요시간 막대 */}
         <div className="seg-bar" aria-hidden>
@@ -311,7 +395,7 @@ function RouteCard(p: {
         </div>
         <ul className="seg-list">
           {segs.map((s) => (
-            <li key={s.key}><span className="seg-ico">{s.icon}</span>{s.label} <b>{minText(s.sec)}</b> <em className={`tag ${s.ev === '실시간 예측' ? 'tag-live' : s.ev === '예시값' ? 'tag-sample' : s.ev === MEASURED_LABEL ? 'tag-measured' : 'tag-est'}`}>{s.ev}</em></li>
+            <li key={s.key}><span className="seg-ico">{s.icon}</span>{s.label} <b>{minText(s.sec)}</b> <em className={`tag ${s.ev === '실시간 예측' ? 'tag-live' : s.ev === '예시값' ? 'tag-sample' : s.ev === MEASURED_LABEL || s.ev.startsWith('내 기록') ? 'tag-measured' : 'tag-est'}`}>{s.ev}</em></li>
           ))}
         </ul>
         <div className="metrics">
@@ -320,10 +404,17 @@ function RouteCard(p: {
           <div><span>환승 대기</span><b>{cand.kind === 'direct' ? '없음' : minText(ev.transferWaitSec)}</b></div>
           <div><span>총 도보</span><b>{minText(ev.walkSec)}</b></div>
         </div>
+        {ride?.learned && fbAt != null && <p className="learned-line">🧾 내 기록으로는 탄 뒤 {Math.round(ride.sec / 60)}분 → {hhmm(fbAt + ride.sec)} 도착 <em className="tag tag-measured">내 기록 기반 ({ride.n}회)</em></p>}
         {p.reason && <p className="reason">✨ {p.reason}</p>}
         {ev.warnings.length > 0 && <ul className="warns">{ev.warnings.map((w) => <li key={w}>{w}</li>)}</ul>}
         <div className="more">{p.expanded ? '접기 ▲' : '자세히 · 버스 위치 보기 ▼'}</div>
       </button>
+      {(p.hero || p.preferred) && (p.journey.phase === 'before' || p.journey.phase === 'walking_to_stop' || p.journey.phase === 'at_stop') && ev.firstBoardingEstimate && (
+        <div className="card-quick">
+          {hint && <button className="btn tiny ghost" onClick={p.onCrowd}>💺 왜 {hint.level}?</button>}
+          <button className="btn tiny primary" onClick={() => p.setJourney({ phase: 'on_first_bus', candidateId: cand.id, leftAt: p.journey.leftAt ?? null, atStopAt: p.journey.atStopAt ?? null, boarded: { routeNo: leg1.routeNo, boardArs: leg1.board.ars, vehicleReference: ev.firstVehicle?.vehicleReference ?? null, vehicleConfirmed: false, boardedAt: now } })}>🚌 이 버스 탔어요</button>
+        </div>
+      )}
 
       {p.expanded && (
         <div className="details">
@@ -341,7 +432,7 @@ function RouteCard(p: {
             <RouteStrip leg={leg1} alightRole={leg2 ? '갈아타요' : '내려요'} stops={p.routeStops[leg1.routeNo]} vehicles={p.vehicles[leg1.routeNo]} boardArrivals={boarding?.observations ?? []} now={now} />
             {leg2 && <RouteStrip leg={leg2} alightRole="내려요" stops={p.routeStops[leg2.routeNo]} vehicles={p.vehicles[leg2.routeNo]} boardArrivals={p.lookup(leg2.board.ars, leg2.routeNo)?.observations ?? []} now={now} />}
           </details>
-          <Timeline ev={ev} cand={cand} settings={settings} now={now} meta={p.meta} destLabel={p.places?.destination.label ?? p.meta.to} />
+          <Timeline ev={ev} cand={cand} settings={settings} now={now} meta={p.meta} destLabel={p.places?.destination.label ?? p.meta.to} learnedLabel={learnedW?.learned ? `내 기록 기반 (${learnedW.n}회)` : null} />
           <div className="detail-actions">
             {p.journey.phase === 'before' && <button className="btn soft" onClick={() => p.setJourney({ phase: 'walking_to_stop', candidateId: cand.id, leftAt: now })}>🚪 출발했어요</button>}
             {(p.journey.phase === 'before' || ((p.journey.phase === 'walking_to_stop' || p.journey.phase === 'at_stop'))) && ev.firstBoardingEstimate && (
@@ -354,7 +445,7 @@ function RouteCard(p: {
   );
 }
 
-function Timeline({ ev, cand, settings, now, meta, destLabel }: { ev: ItineraryEvaluation; cand: CandidateRoute; settings: Settings; now: number; meta: (typeof TRIP_META)[TripId]; destLabel: string }) {
+function Timeline({ ev, cand, settings, now, meta, destLabel, learnedLabel }: { ev: ItineraryEvaluation; cand: CandidateRoute; settings: Settings; now: number; meta: (typeof TRIP_META)[TripId]; destLabel: string; learnedLabel?: string | null }) {
   const l1 = cand.legs[0], l2 = cand.legs[1];
   const fb = ev.firstBoardingEstimate, ta = ev.transferArrivalEstimate, sb = ev.transferBoardingEstimate, d = ev.destinationEstimate;
   const lbl = (e: typeof fb) => (e ? evidenceLabel(e.evidenceKind, e.origin) : '확인 불가');
@@ -365,7 +456,7 @@ function Timeline({ ev, cand, settings, now, meta, destLabel }: { ev: ItineraryE
   return (
     <ol className="timeline" aria-label="시간순 일정">
       <li><time>{hhmm(leave)}</time><div><b>출발</b>{settings.buildingExitSec > 0 && <> · {meta.exitLabel} {minText(settings.buildingExitSec)} <em className="tag tag-est">설정값</em></>}</div></li>
-      <li><time /><div>🚶 {fw ? (fw.measured ? `${Math.round(fw.lowSec / 60)}~${Math.round(fw.highSec / 60)}분` : minText(fw.nominalSec)) : w(cand.firstWalk.sec)} 걸어서 <b>{l1.board.name}</b> <span className="ars">{l1.board.ars}</span> {fw?.measured ? <em className="tag tag-measured">{MEASURED_LABEL}</em> : <em className="tag tag-est">추정</em>}<div className="muted small">{fw?.measured ? '문 나서서 정류장까지(건물 나가기·신호 포함)' : (settings.doorOverheadSec ?? 0) > 0 ? `걷기 추정 + 문~큰길 ${minText(settings.doorOverheadSec)}(실측 정류장 기준 보정)` : ''}</div>{l1.board.nextStopName && <div className="muted small">다음 정류장 {l1.board.nextStopName} 방면</div>}<a className="link" href={kakaoMap(l1.board.name, l1.board.lat, l1.board.lon)} target="_blank" rel="noreferrer">정류장 위치 열기</a></div></li>
+      <li><time /><div>🚶 {fw ? (fw.measured ? `${Math.round(fw.lowSec / 60)}~${Math.round(fw.highSec / 60)}분` : minText(fw.nominalSec)) : w(cand.firstWalk.sec)} 걸어서 <b>{l1.board.name}</b> <span className="ars">{l1.board.ars}</span> {fw?.measured ? <em className="tag tag-measured">{learnedLabel ?? MEASURED_LABEL}</em> : <em className="tag tag-est">추정</em>}<div className="muted small">{fw?.measured ? '문 나서서 정류장까지(건물 나가기·신호 포함)' : (settings.doorOverheadSec ?? 0) > 0 ? `걷기 추정 + 문~큰길 ${minText(settings.doorOverheadSec)}(실측 정류장 기준 보정)` : ''}</div>{l1.board.nextStopName && <div className="muted small">다음 정류장 {l1.board.nextStopName} 방면</div>}<a className="link" href={kakaoMap(l1.board.name, l1.board.lat, l1.board.lon)} target="_blank" rel="noreferrer">정류장 위치 열기</a></div></li>
       <li><time>{hhmm(fb?.nominalAt)}</time><div>🚌 <b>{l1.routeNo}번 승차</b> <em className={`tag ${fb?.origin === 'sample' ? 'tag-sample' : fb?.evidenceKind === 'realtime_prediction' ? 'tag-live' : 'tag-est'}`}>{lbl(fb)}</em>{ev.firstVehicle?.vehicleReference && <div className="muted small">차량 {ev.firstVehicle.vehicleReference}{ev.firstVehicle.remainingStops != null ? ` · ${ev.firstVehicle.remainingStops}정류장 전` : ''}</div>}{seat && <div className="muted small">{seat}</div>}</div></li>
       <li><time>{hhmm(ta?.nominalAt)}</time><div>{l1.ride.hops}정거장 이동 → <b>{l1.alight.name}</b> <span className="ars">{l1.alight.ars}</span> {l2 ? '하차' : '하차'} <em className={`tag ${ta?.evidenceKind === 'realtime_prediction' ? (ta.origin === 'sample' ? 'tag-sample' : 'tag-live') : 'tag-est'}`}>{lbl(ta)}</em></div></li>
       {l2 && (
@@ -406,7 +497,8 @@ function JourneyBar({ journey, setJourney, now, cand, ev }: { journey: JourneySt
   );
 }
 
-function SettingsView({ trip, prefs, setPrefs, journey, setJourney, overheadSec }: { trip: TripId; prefs: UserPrefs; setPrefs: (p: UserPrefs) => void; journey: JourneyState; setJourney: (j: JourneyState) => void; overheadSec: number }) {
+function SettingsView({ trip, prefs, setPrefs, journey, setJourney, overheadSec, history, resetHistory, learnedCount }: { trip: TripId; prefs: UserPrefs; setPrefs: (p: UserPrefs) => void; journey: JourneyState; setJourney: (j: JourneyState) => void; overheadSec: number; history: TripRecord[]; resetHistory: () => void; learnedCount: number }) {
+  const mine = history.filter((r) => r.trip === trip);
   const cal = DOOR_CALIBRATION[trip];
   const step = (k: 'doorLowMin' | 'doorHighMin', d: number) => {
     const n = { ...prefs, [k]: Math.min(30, Math.max(1, prefs[k] + d)) };
@@ -434,6 +526,9 @@ function SettingsView({ trip, prefs, setPrefs, journey, setJourney, overheadSec 
         </div>
       </div>
       <p className="fine">걷는 시간 추정은 직선거리 × 1.3 ÷ 1.2m/s예요. 첫 승차 여유 1분, 환승 여유 2분이 기본으로 들어가요.</p>
+      <div className="field"><span>🧾 내 기록 <b>{mine.length}회</b> <span className="muted small">(이 방향)</span></span></div>
+      <p className="fine">‘출발했어요 → 정류장 도착 → 이 버스 탔어요 → 도착했어요’를 누르면 시각만 이 폰에 저장돼요(서버로 안 보내요). 같은 평일/주말·시간대 기록이 3번 넘으면 그 중앙값을 계산에 섞고 ‘내 기록 기반 (n회)’로 표시해요.{learnedCount > 0 ? ` 지금 ${learnedCount}개 정류장에 반영 중이에요.` : ''}</p>
+      {history.length > 0 && <button className="btn tiny ghost" onClick={() => { if (confirm('내 기록을 모두 지울까요? (두 방향 모두)')) resetHistory(); }}>내 기록 지우기</button>}
       {journey.phase !== 'before' && <button className="btn ghost" onClick={() => setJourney({ phase: 'before' })}>진행 상태 초기화</button>}
     </div>
   );
@@ -499,17 +594,63 @@ function OthersView({ evs, candById, openId, setOpenId, vehicles, routeStops, pl
   );
 }
 
-function CrowdView({ ev, lookup, cand, now }: { ev: ItineraryEvaluation | null; lookup: (a: string, r: string) => ArrivalBoard | undefined; cand?: CandidateRoute; now: number }) {
+function CrowdView({ ev, lookup, cands, vehicles, now }: { ev: ItineraryEvaluation | null; lookup: (a: string, r: string) => ArrivalBoard | undefined; cands: CandidateRoute[]; vehicles: Record<string, import('../shared/api').RouteVehicles>; now: number }) {
   const seat = ev?.firstVehicle ? seatLabel(ev.firstVehicle.seats) : '탈 버스가 정해지면 보여드려요';
-  void lookup; void cand;
+  // 탈 정류장(첫 승차·환승 승차)별 관측 차량 자리 힌트
+  const rows = cands.flatMap((c) => c.legs.map((leg) => ({ leg, board: lookup(leg.board.ars, leg.routeNo) })))
+    .filter((r, i, a) => a.findIndex((x) => x.leg.routeNo === r.leg.routeNo && x.leg.board.ars === r.leg.board.ars) === i);
   const people = crowdDisplay(null, 'people_area', now);
   const road = crowdDisplay(null, 'road', now);
   return (
     <div className="crowd">
+      <div className="crowd-row"><b>💺 자리 힌트</b>
+        {rows.length === 0 && <p className="muted">탈 버스가 정해지면 보여드려요</p>}
+        <ul className="seat-list">{rows.map(({ leg, board }) => {
+          const obs = (board?.observations ?? []).filter((o) => o.etaAt != null).sort((a, b) => a.etaAt! - b.etaAt!);
+          return (
+            <li key={leg.routeNo + leg.board.ars}><b>{leg.routeNo}번 · {leg.board.name}</b> <span className="ars">{leg.board.ars}</span>
+              {obs.length === 0 ? <div className="muted small">지금 관측된 차가 없어요</div> : obs.map((o) => {
+                const h = seatHintFor(o, board, leg, vehicles[leg.routeNo], now);
+                return <div key={`${o.vehicleReference}-${o.etaAt}`} className="seat-item"><span className={`seat-chip seat-${h.level === '널널할 듯' ? 'ok' : h.level === '붐빌 듯' ? 'busy' : 'mid'}`}>{h.level}</span> {untilText(o.etaAt, now)}{o.vehicleReference ? ` · ${o.vehicleReference}` : ''} <em className={`tag ${h.tag === '실시간' ? 'tag-live' : 'tag-est'}`}>{h.tag}</em><div className="muted small">{h.reason}</div></div>;
+              })}
+            </li>
+          );
+        })}</ul>
+        <p className="fine">버스가 주는 잔여좌석(seat)은 지금 이 노선들에서 −1(미제공)이라, 기점·회차지점에서 몇 정거장째인지 + 앞차와의 간격 + 출퇴근 시간으로 어림한 <b>추정</b>이에요. 실제 자리 보장은 아니에요.</p>
+      </div>
       <div className="crowd-row"><b>🚌 버스 안</b><p>{seat}</p><p className="fine">부산 BIMS 잔여좌석(seat) 값이 −1이면 확인 불가로 표시해요. 0석은 ‘빈 좌석 없음’이지 만차라는 뜻은 아니에요.</p></div>
       <div className="crowd-row"><b>👥 주변 사람</b><p>{people.label}</p><p className="fine">이 경로의 정류장을 지금 측정하는 무료 공개 자료를 확인하지 못했어요. 행정동 월평균 같은 통계는 ‘지금 붐빔’으로 쓰지 않아요.</p></div>
       <div className="crowd-row"><b>🚗 도로 정체</b><p>{road.label}</p><p className="fine">버스 도착 예측에 이미 교통 상황이 들어가 있을 수 있어 따로 더하지 않아요. 지도 앱에서 직접 확인할 수 있어요.</p></div>
     </div>
+  );
+}
+
+/** 관측 차량 하나의 자리 힌트(같은 정류장 바로 앞 순번 차, 노선 차량 위치·회차지점 사용) */
+function seatHintFor(o: import('../shared/types').ArrivalObservation, board: ArrivalBoard | undefined, leg: CandidateRoute['legs'][number], rv: import('../shared/api').RouteVehicles | undefined, now: number): SeatHint {
+  const sorted = (board?.observations ?? []).filter((x) => x.etaAt != null).sort((a, b) => a.etaAt! - b.etaAt!);
+  const i = sorted.findIndex((x) => x.etaAt === o.etaAt && x.vehicleReference === o.vehicleReference);
+  const ahead = i > 0 ? sorted[i - 1] : null;
+  return seatHint({ obs: o, boardSeq: leg.board.routeStopSequence ?? null, turnIdx: rv?.turnIdx ?? null, aheadEtaAt: ahead?.etaAt ?? null, vehicles: rv?.status === 'ok' ? rv.vehicles : null, now });
+}
+
+function PlanBCard({ p, candById, destLabel, onClose, onOpen }: { p: PlanB; candById: (id: string) => CandidateRoute | undefined; destLabel: string; onClose: () => void; onOpen: (id: string) => void }) {
+  const m = p.missed;
+  const alt = p.alternative ? candById(p.alternative.candidateId) : null;
+  const diffMin = p.alternative ? Math.round(p.alternative.diffSec / 60) : 0;
+  return (
+    <section className="card planb" role="alert" aria-label="놓쳤을 때 플랜 B">
+      <p className="planb-title">😢 {m.routeNo}번{m.vehicleRef ? `(${m.vehicleRef})` : ''} 놓친 것 같아요</p>
+      <p className="muted small">{p.reason === 'leave_passed' ? '나갈 시각이 지나서 이 차는 못 탈 것 같아요' : '이 차가 도착 예정 목록에서 사라졌어요(지나간 듯)'}</p>
+      {p.next ? (
+        <p>👉 다음 {m.routeNo}번{p.next.vehicleRef ? `(${p.next.vehicleRef})` : ''} <b>{hhmm(p.next.etaAt)}</b> 도착 예측 <em className={`tag ${p.next.origin === 'sample' ? 'tag-sample' : 'tag-live'}`}>{p.next.origin === 'sample' ? '샘플' : '실시간'}</em>{p.newArrivalAt != null && <> → {destLabel} <b>{hhmm(p.newArrivalAt)}</b> 도착 예상</>}</p>
+      ) : (
+        <p>👉 다음 {m.routeNo}번: <b>다음 차 정보 아직 없음</b></p>
+      )}
+      {alt && p.alternative && (
+        <button className="btn tiny soft" onClick={() => onOpen(alt.id)}>💡 {alt.routes.join('→')}번 길이면 {hhmm(p.alternative.arrivalAt)} 도착 {p.newArrivalAt == null ? '' : diffMin < 0 ? `(${-diffMin}분 빨라요)` : diffMin === 0 ? '(비슷해요)' : `(${diffMin}분 늦어요)`}</button>
+      )}
+      <div><button className="btn tiny ghost" onClick={onClose}>알겠어요</button></div>
+    </section>
   );
 }
 

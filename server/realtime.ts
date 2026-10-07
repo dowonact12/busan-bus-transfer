@@ -151,7 +151,8 @@ export class RealtimeService {
         lat: i.lat ? Number(i.lat) : null, lon: i.lin ? Number(i.lin) : null,
         gpsAt: gpsymToEpoch(i.gpsym, t2), lowFloor: i.lowplate === '1' ? true : i.lowplate === '0' ? false : null,
       }));
-      const data: RouteVehicles = { routeNo, lineId, fetchedAt: t2, origin: 'live', status: 'ok', vehicles };
+      const turn = r.items.find((i) => i.rpoint === '1' && /^\d+$/.test(i.bstopidx ?? ''));
+      const data: RouteVehicles = { routeNo, lineId, fetchedAt: t2, origin: 'live', status: 'ok', vehicles, turnIdx: turn ? Number(turn.bstopidx) : null };
       this.vehCache.set(routeNo, { at: t2, data, retryAfter: 0, failures: 0 });
       return data;
     })().finally(() => this.vehInflight.delete(routeNo));
