@@ -3,7 +3,7 @@ import { preferredFor } from '../shared/preferences';
 import { calibratedSettings, DOOR_CALIBRATION, defaultPrefs, MEASURED_LABEL, migratePrefs, RULE_OF_THUMB, stopsAwayAtLeave, type UserPrefsV2 } from '../shared/calibration';
 import { detectBunching, detectMiss, planB, seatHint, secondBusOutcome, targetOf, type PlanB, type SeatHint, type Target } from '../shared/insights';
 import { HISTORY_KEY, learnedDoorToStop, learnedRide, parseHistory, upsertRecord, type Blended, type TripRecord } from '../shared/history';
-import { leaveDeadlineOf, mainLayout, nearestSeen, pinnedAction, stopTimeText, stripDots } from '../shared/pinned';
+import { leaveDeadlineOf, mainLayout, nearestSeen, pinnedAction, stopTimeText, stripDots, destPlace, doorTime } from '../shared/pinned';
 import { augmentBoards, nextBusWhere } from '../shared/positionEta';
 import { recommend, stabilize, type StabilityState } from '../shared/recommender';
 import { seatLabel } from '../shared/normalizer';
@@ -234,7 +234,7 @@ function TripApp({ trip, setTrip }: { trip: TripId; setTrip: (t: TripId) => void
               expanded={open === pinnedCand.id} onToggle={() => setOpen(open === pinnedCand.id ? null : pinnedCand.id)} journey={journey} setJourney={setJourney} />
             {better && betterCand && (
               <button className="better-line" onClick={() => { setOthersOpen(betterCand.id); setSheet('others'); }}>
-                <span>💡 {betterCand.routes.join('→')}번 타면 <b>{hhmm(better.evaluation.destinationEstimate?.nominalAt)}</b> 도착</span>
+                <span>💡 {betterCand.routes.join('→')}번 타면 {destPlace(trip)} <b>{doorTime(better.evaluation, hhmm)}</b> 도착</span>
                 <span className="better-gain">{better.savedSec != null ? `${Math.round(better.savedSec / 60)}분 빨라요` : '지금은 이게 확실해요'} ›</span>
               </button>
             )}
@@ -382,10 +382,10 @@ function PinnedCard(p: CardProps) {
       {!journeyText && a.kind === 'relax' && a.leaveAt != null && <p className="pin-sub">{hhmm(a.leaveAt)}쯤 나가면 돼요</p>}
       {!journeyText && a.kind === 'now' && a.tight && <p className="pin-sub">조금 빠듯해요, 서둘러요!</p>}
       {!journeyText && a.kind === 'tight_miss' && <p className="pin-sub">{where1 === 'not_departed' ? '다음 차는 아직 기점 출발 전이에요' : where1 === 'at_origin' ? '다음 차는 기점에서 대기 중이에요' : '다음 차는 아직 안 보여요'}</p>}
-      {pb && <p className="pin-planb">😢 놓쳤어요 → {pb.next ? <>다음 {pb.missed.routeNo}번 <b>{hhmm(pb.next.etaAt)}</b>{pb.newArrivalAt != null && <>, 도착 <b>{ev.tier === 'estimate' ? '~' : ''}{hhmm(pb.newArrivalAt)}</b></>}</> : '다음 차 정보 아직 없음'}</p>}
+      {pb && <p className="pin-planb">😢 놓쳤어요 → {pb.next ? <>다음 {pb.missed.routeNo}번 <b>{hhmm(pb.next.etaAt)}</b>{pb.newArrivalAt != null && <>, {destPlace(p.trip)} 도착 <b>{doorTime(ev, hhmm, pb.newArrivalAt)}</b></>}</> : '다음 차 정보 아직 없음'}</p>}
       <div className="pin-arrive">
-        <span className="pin-arrive-label">{arriveAt != null ? '도착' : '도착 시간'}</span>
-        <b className={`pin-arrive-time${arriveAt == null ? ' unknown' : ''}`}>{arriveAt != null ? `${ev.tier === 'estimate' ? '~' : ''}${hhmm(arriveAt)}` : '확인 중'}</b>
+        <span className="pin-arrive-label">{destPlace(p.trip)} 도착{arriveAt == null ? ' 시간' : ''}</span>
+        <b className={`pin-arrive-time${arriveAt == null ? ' unknown' : ''}`}>{doorTime(ev, hhmm) ?? '확인 중'}</b>
       </div>
       {status && <p className="pin-status">{status}</p>}
       <DotStrip dots={dots} />
@@ -414,7 +414,7 @@ function DotStrip({ dots }: { dots: import('../shared/pinned').StripDot[] }) {
           <b className="ds-role">{d.role}</b>
           <span className="ds-name">{d.name}</span>
           <span className="ds-times">{d.times.map((t) => (
-            <span key={t.label} className={`ds-time${t.est ? ' is-est' : ''}`}>{d.role === '도착' ? <><b>{stopTimeText(t, hhmm)}</b> 도착</> : <>{t.label} <b>{stopTimeText(t, hhmm)}</b></>}</span>
+            <span key={t.label} className={`ds-time${t.est ? ' is-est' : ''}`}>{d.role === '도착' ? <><b>{stopTimeText(t, hhmm)}</b> {t.label}</> : <>{t.label} <b>{stopTimeText(t, hhmm)}</b></>}</span>
           ))}</span>
         </li>
       ))}
@@ -454,7 +454,7 @@ function RouteDetails(p: CardProps & { hint: SeatHint | null; bunchHere: ReturnT
         {ev.destinationConditional && <span className="badge badge-alt">이 차를 타면 기준</span>}
       </div>
       {p.preferred && <p className="usual-note">💺 {p.preferred.note}</p>}
-      <p className="fine legend">⏱ 정류장 시각에 <b>~</b> 붙은 건 추정이에요(나머지는 실시간 예측).</p>
+      <p className="fine legend">⏱ 정류장 시각에 <b>~</b> 붙은 건 추정이에요(나머지는 실시간 예측). ‘하차’는 정류장, ‘{destPlace(p.trip)} 도착’은 걸어서 문 앞까지예요.</p>
       {[ev.firstVehicle, ev.secondVehicle].filter((o) => o?.estimate === 'position').map((o) => (
         <p key={o!.routeNo + o!.stopArs} className="fine pos-note">📍 {o!.routeNo}번은 버스 도착 정보가 다음 2대까지만 나와서, GPS로 보이는 차(지금 {o!.remainingStops}정거장 전)로 어림했어요 <em className="tag tag-est">위치 기반 추정</em></p>
       ))}

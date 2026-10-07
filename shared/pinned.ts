@@ -1,6 +1,7 @@
 // 첫 화면 단순화: 평소 경로는 항상 맨 위(연결 여부와 무관, 상태를 솔직하게), 추천은 3분 이상 빨리 도착할 때만 한 줄.
 import { computeLeaveDeadline } from './evaluator';
 import type { Recommendation } from './recommender';
+import type { TripId } from './api';
 import type { ArrivalObservation, CandidateRoute, ItineraryEvaluation, Sec, Settings, TimeEstimate } from './types';
 
 export interface MainLayout {
@@ -95,6 +96,14 @@ export function stripDots(ev: ItineraryEvaluation, cand: CandidateRoute, now: Se
   const last = (l2 ?? l1);
   // 직통이면 하차 = 첫 주행 끝(하류 실시간 일치 시 실시간), 환승이면 둘째 주행은 정적 추정이라 항상 '~'
   const stopAt = l2 ? (d?.nominalAt != null ? d.nominalAt - wF : null) : ta?.nominalAt ?? null;
-  dots.push({ role: '도착', name: last.alight.name, bus: null, times: [{ label: '도착', at: stopAt, est: l2 ? true : !live(ta) }] });
+  dots.push({ role: '도착', name: last.alight.name, bus: null, times: [{ label: '하차', at: stopAt, est: l2 ? true : !live(ta) }] });
   return dots;
+}
+
+/** 목적지 문 앞 도착(큰 숫자·추천 줄·놓쳤을 때 줄 공통). 점 띠의 '하차'는 정류장 시각이라 걷기만큼 이름 */
+export const destPlace = (trip: TripId): string => (trip === 'forward' ? '집' : '회사');
+/** '~11:36'(추정) / '11:36' / null. 모두 destinationEstimate(마지막 걷기 포함 = 문 앞) 기준 */
+export function doorTime(ev: ItineraryEvaluation | null | undefined, fmt: (t: Sec | null | undefined) => string, at: Sec | null | undefined = ev?.destinationEstimate?.nominalAt): string | null {
+  if (!ev || at == null) return null;
+  return `${ev.tier === 'estimate' ? '~' : ''}${fmt(at)}`;
 }

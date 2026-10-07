@@ -1,6 +1,7 @@
 // 평소 경로 고정 + 3분 이상 빠를 때만 추천 한 줄 + 한 줄 행동
 import { describe, expect, it } from 'vitest';
-import { mainLayout, nearestSeen, pinnedAction, stripDots } from '../shared/pinned';
+import { destPlace, doorTime, mainLayout, nearestSeen, pinnedAction, stripDots } from '../shared/pinned';
+import { planB } from '../shared/insights';
 import { recommend } from '../shared/recommender';
 import { evaluateCandidate } from '../shared/evaluator';
 import { at, board, directCand, lookupOf, NOW, obs, S0, transferCand } from './helpers';
@@ -73,5 +74,32 @@ describe('한 줄 행동', () => {
     expect(d[0].bus).toEqual({ routeNo: '29', text: '9정거장 전' });
     expect(d[1].bus!.routeNo).toBe('43');
     expect(d[2].bus).toBeNull();
+  });
+});
+
+describe('문 앞 도착 vs 정류장 하차(같은 숫자 두 개로 헷갈리지 않게)', () => {
+  const fmt = (t: number | null | undefined) => `${Math.round(((t ?? 0) - NOW) / 60)}m`;
+  it('큰 숫자는 목적지 이름(가는 길=집, 오는 길=회사), 도착 점은 하차', () => {
+    expect(destPlace('forward')).toBe('집');
+    expect(destPlace('reverse')).toBe('회사');
+    const e = evaluateCandidate(USUAL, { now: NOW, settings: S0, lookup: lookupOf(usualOk) });
+    const d = stripDots(e, USUAL, NOW, null, S0);
+    expect(d[2].times[0].label).toBe('하차');
+    // 하차(정류장) + 마지막 걷기 2분 = 문 앞 도착(큰 숫자)
+    expect(d[2].times[0].at! + 120).toBe(e.destinationEstimate!.nominalAt);
+    expect(doorTime(e, fmt)).toBe('34m');
+    expect(doorTime({ ...e, tier: 'estimate' }, fmt)).toBe('~34m');
+    expect(doorTime(null, fmt)).toBeNull();
+    expect(doorTime({ ...e, destinationEstimate: null }, fmt)).toBeNull();
+  });
+  it('추천 줄·놓쳤을 때 줄도 문 앞끼리 비교', () => {
+    const rec = run([...usualOk, board('36', 'O2', [6])], 10);
+    const l = mainLayout(rec, 'USUAL');
+    // FAST 문 앞 6+10+2=18분, 평소 문 앞 34분 → 16분 빠름(정류장 하차끼리가 아님)
+    expect(doorTime(l.better!.evaluation, fmt)).toBe('18m');
+    expect(l.better!.savedSec).toBe(l.pinned!.destinationEstimate!.nominalAt! - l.better!.evaluation.destinationEstimate!.nominalAt!);
+    const pb = planB({ candidateId: 'USUAL', routeNo: '29', boardArs: 'O1', vehicleRef: null, etaAt: NOW, leaveBy: null, seenAt: NOW }, 'bus_left', l.pinned!, rec!.all);
+    expect(pb.newArrivalAt).toBe(l.pinned!.destinationEstimate!.nominalAt);
+    expect(pb.alternative!.arrivalAt).toBe(l.better!.evaluation.destinationEstimate!.nominalAt);
   });
 });
