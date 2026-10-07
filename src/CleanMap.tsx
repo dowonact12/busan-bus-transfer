@@ -11,7 +11,7 @@ type Props = { cand: CandidateRoute; routeStops: Record<string, RouteStop[]>; bu
 /** 깔끔한 밝은 지도: OpenFreeMap positron(무료·키 없음) + MapLibre. 위성/항공사진 레이어 없음.
  *  우리 노선 선 + 출발·환승·도착 3곳 + 버스만. WebGL이 안 되면 OSM 회색 타일(Leaflet)로 대신. */
 const STYLE = 'https://tiles.openfreemap.org/styles/positron';
-const DROP = /^(building|highway-name-(path|minor)|highway-shield|road_shield|airport|aeroway|waterway_line_label|water_name_line_label|railway.*dashline|boundary)/;
+const DROP = /^(label_(city|city_capital|state|country_\d)|building|highway-name-(path|minor)|highway-shield|road_shield|airport|aeroway|waterway_line_label|water_name_line_label|railway.*dashline|boundary)/;
 const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
 
 function legLine(leg: CandidateRoute['legs'][number], stops: RouteStop[] | undefined): [number, number][] {
@@ -65,6 +65,7 @@ function GlMap({ cand, routeStops, buses, onFail }: Props & { onFail: () => void
         if (l2) pin(l1.alight.lon, l1.alight.lat, '환승', 'glp-mid', l1.alight.name);
         pin(last.lon, last.lat, '도착', 'glp-end', last.name);
       });
+      map.on('load', () => el.current?.querySelector('.maplibregl-ctrl-attrib')?.classList.remove('maplibregl-compact-show'));
       ref.current = { ml, map, markers: [], bounds };
       drawBuses();
     }).catch(onFail);
@@ -77,7 +78,11 @@ function GlMap({ cand, routeStops, buses, onFail }: Props & { onFail: () => void
     const m = ref.current;
     if (!m) return;
     m.markers.forEach((x) => x.remove());
-    m.markers = buses.filter((b) => b.lat != null && b.lon != null).map((b) => {
+    // 경로 근처(경로 범위 + 약 30%) 버스만: 멀리서 오는 차는 도식·정류장별 보기에서 확인
+    const sw = m.bounds.getSouthWest(), ne = m.bounds.getNorthEast();
+    const padLat = (ne.lat - sw.lat) * 0.3 + 0.002, padLon = (ne.lng - sw.lng) * 0.3 + 0.002;
+    const near = (b: SchematicBus) => b.lat! >= sw.lat - padLat && b.lat! <= ne.lat + padLat && b.lon! >= sw.lng - padLon && b.lon! <= ne.lng + padLon;
+    m.markers = buses.filter((b) => b.lat != null && b.lon != null && near(b)).map((b) => {
       const d = document.createElement('div');
       d.className = `gl-bus${b.stale ? ' bus-stale' : ''}`;
       d.style.background = routeColor(b.routeNo);
