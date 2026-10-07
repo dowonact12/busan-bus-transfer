@@ -6,3 +6,4 @@ dist
 .run
 server.log
 data/raw/*.html
+.vercel

@@ -9,7 +9,8 @@
     "build:data": "node scripts/build-candidates.mjs",
     "start": "node --import tsx server/index.ts",
     "test": "vitest run",
-    "screenshot": "node scripts/screenshot.mjs"
+    "screenshot": "node scripts/screenshot.mjs",
+    "vercel-build": "node scripts/build-vercel.mjs"
   },
   "dependencies": {
     "leaflet": "^1.9.4",
@@ -26,7 +27,8 @@
     "playwright-core": "^1.63.0",
     "typescript": "^7.0.2",
     "vite": "^8.3.3",
-    "vitest": "^5.0.3"
+    "vitest": "^5.0.3",
+    "esbuild": "^0.28.2"
   },
   "engines": {
     "node": ">=20.11"
