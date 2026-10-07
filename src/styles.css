@@ -285,6 +285,7 @@ button { font: inherit; color: inherit; }
 .pin-action.act-now { color: #d23f63; }
 .pin-action.act-in { color: #6a4fc0; }
 .pin-action.act-relax { color: var(--mint-ink); }
+.pin-action.act-tight_miss { color: var(--warn-ink); font-size: 1.7rem; }
 .pin-action.act-unknown { color: var(--muted); font-size: 1.35rem; }
 .pin-action.act-journey { color: #6a4fc0; font-size: 1.6rem; }
 .pin-sub { margin: 0.1rem 0 0; font-size: 1.05rem; font-weight: 700; color: var(--ink); }

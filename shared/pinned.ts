@@ -1,7 +1,7 @@
 // 첫 화면 단순화: 평소 경로는 항상 맨 위(연결 여부와 무관, 상태를 솔직하게), 추천은 3분 이상 빨리 도착할 때만 한 줄.
 import { computeLeaveDeadline } from './evaluator';
 import type { Recommendation } from './recommender';
-import type { CandidateRoute, ItineraryEvaluation, Sec, Settings } from './types';
+import type { ArrivalObservation, CandidateRoute, ItineraryEvaluation, Sec, Settings } from './types';
 
 export interface MainLayout {
   /** 맨 위 고정 카드(평소 경로). 후보에 없으면 추천으로 대신 */
@@ -31,7 +31,7 @@ export function mainLayout(rec: Recommendation | null, preferredId: string | nul
   return { pinned: pref, pinnedIsPreferred: true, better };
 }
 
-export type ActionKind = 'now' | 'in' | 'relax' | 'unknown';
+export type ActionKind = 'now' | 'in' | 'relax' | 'tight_miss' | 'unknown';
 export interface PinnedAction { kind: ActionKind; text: string; leaveAt: Sec | null; stopsAway: number | null; tight: boolean }
 
 /** 첫 버스 기준 출발 마감(환승 쪽이 미확인이어도 계산) */
@@ -43,10 +43,16 @@ export function leaveDeadlineOf(ev: ItineraryEvaluation, s: Settings): Sec | nul
 }
 
 /** 한 줄 행동: '지금 나가요!' / 'n분 뒤에 나가요' / '천천히, 아직 n정거장 전' */
-export function pinnedAction(ev: ItineraryEvaluation, cand: CandidateRoute, now: Sec, s: Settings, relaxMin = 8): PinnedAction {
+/** seen: 첫 정류장에 관측된 가장 가까운 차(평가가 '못 탈 차'로 건너뛴 경우 솔직하게 '빠듯'으로) */
+export function nearestSeen(observations: ArrivalObservation[] | undefined, now: Sec): ArrivalObservation | null {
+  return (observations ?? []).filter((o) => o.etaAt != null && o.etaAt >= now - 30).sort((a, b) => a.etaAt! - b.etaAt!)[0] ?? null;
+}
+
+export function pinnedAction(ev: ItineraryEvaluation, cand: CandidateRoute, now: Sec, s: Settings, relaxMin = 8, seen: ArrivalObservation | null = null): PinnedAction {
   const route = cand.legs[0].routeNo;
   const v = ev.firstVehicle;
   const realtime = ev.firstBoardingEstimate?.evidenceKind === 'realtime_prediction' && !!v;
+  if (!realtime && seen && ev.firstBoardingEstimate?.evidenceKind !== 'headway_estimate') return { kind: 'tight_miss', text: `이번 ${route}번은 빠듯해요`, leaveAt: null, stopsAway: seen.remainingStops ?? null, tight: true };
   if (!realtime) return { kind: 'unknown', text: `${route}번 오는 차가 아직 안 보여요`, leaveAt: null, stopsAway: null, tight: false };
   const leaveAt = leaveDeadlineOf(ev, s);
   const stopsAway = v!.remainingStops ?? null;
@@ -58,7 +64,7 @@ export function pinnedAction(ev: ItineraryEvaluation, cand: CandidateRoute, now:
 
 /** 3점 띠: 출발·환승·도착 + 각 점으로 오는 버스 */
 export interface StripDot { role: '출발' | '환승' | '도착'; name: string; bus: { routeNo: string; text: string } | null }
-export function stripDots(ev: ItineraryEvaluation, cand: CandidateRoute, now: Sec): StripDot[] {
+export function stripDots(ev: ItineraryEvaluation, cand: CandidateRoute, now: Sec, seen1: ArrivalObservation | null = null): StripDot[] {
   const l1 = cand.legs[0], l2 = cand.legs[1];
   const busText = (o: ItineraryEvaluation['firstVehicle'], where: string) => {
     if (!o || o.etaAt == null) return where ? '탈 차 아직 안 보여요' : '아직 안 보여요';
@@ -66,7 +72,8 @@ export function stripDots(ev: ItineraryEvaluation, cand: CandidateRoute, now: Se
     const m = Math.max(0, Math.round((o.etaAt - now) / 60));
     return m <= 0 ? `${where}곧 도착` : `${where}${m}분 뒤`;
   };
-  const dots: StripDot[] = [{ role: '출발', name: l1.board.name, bus: { routeNo: l1.routeNo, text: busText(ev.firstVehicle, '') } }];
+  const first = ev.firstVehicle ? busText(ev.firstVehicle, '') : seen1 ? `${busText(seen1, '')} · 빠듯` : busText(null, '');
+  const dots: StripDot[] = [{ role: '출발', name: l1.board.name, bus: { routeNo: l1.routeNo, text: first } }];
   if (l2) dots.push({ role: '환승', name: l1.alight.name, bus: { routeNo: l2.routeNo, text: busText(ev.secondVehicle, '환승지 ') } });
   dots.push({ role: '도착', name: (l2 ?? l1).alight.name, bus: null });
   return dots;

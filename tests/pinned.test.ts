@@ -1,6 +1,6 @@
 // 평소 경로 고정 + 3분 이상 빠를 때만 추천 한 줄 + 한 줄 행동
 import { describe, expect, it } from 'vitest';
-import { mainLayout, pinnedAction, stripDots } from '../shared/pinned';
+import { mainLayout, nearestSeen, pinnedAction, stripDots } from '../shared/pinned';
 import { recommend } from '../shared/recommender';
 import { evaluateCandidate } from '../shared/evaluator';
 import { at, board, directCand, lookupOf, NOW, obs, S0, transferCand } from './helpers';
@@ -56,6 +56,16 @@ describe('한 줄 행동', () => {
   });
   it('관측된 차가 없으면 솔직하게', () => {
     expect(pinnedAction(ev([]), USUAL, NOW, S0)).toMatchObject({ kind: 'unknown', text: '29번 오는 차가 아직 안 보여요' });
+  });
+  it('보이는 차가 있지만 못 탈 만큼 가까우면 \'빠듯\'(없다고 하지 않음)', () => {
+    // 3분 뒤 도착 · 마감(도착−5분) 이미 지남 → 평가는 그 차를 건너뜀
+    const e = ev([3]);
+    const board1 = { ...board('29', 'O1', []), observations: [obs('29', 'O1', 3, { order: 1, remainingStops: 2 })] };
+    const seen = nearestSeen(board1.observations, NOW);
+    expect(e.firstVehicle).toBeNull();
+    expect(pinnedAction(e, USUAL, NOW, S0, 8, seen)).toMatchObject({ kind: 'tight_miss', text: '이번 29번은 빠듯해요', stopsAway: 2 });
+    expect(stripDots(e, USUAL, NOW, seen)[0].bus!.text).toBe('2정거장 전 · 빠듯');
+    expect(nearestSeen([], NOW)).toBeNull();
   });
   it('3점 띠: 출발·환승·도착과 다가오는 버스', () => {
     const d = stripDots(ev([9]), USUAL, NOW);

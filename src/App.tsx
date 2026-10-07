@@ -3,7 +3,7 @@ import { preferredFor } from '../shared/preferences';
 import { calibratedSettings, DOOR_CALIBRATION, defaultPrefs, MEASURED_LABEL, migratePrefs, RULE_OF_THUMB, stopsAwayAtLeave, type UserPrefsV2 } from '../shared/calibration';
 import { detectBunching, detectMiss, planB, seatHint, secondBusOutcome, targetOf, type PlanB, type SeatHint, type Target } from '../shared/insights';
 import { HISTORY_KEY, learnedDoorToStop, learnedRide, parseHistory, upsertRecord, type Blended, type TripRecord } from '../shared/history';
-import { leaveDeadlineOf, mainLayout, pinnedAction, stripDots } from '../shared/pinned';
+import { leaveDeadlineOf, mainLayout, nearestSeen, pinnedAction, stripDots } from '../shared/pinned';
 import { recommend, stabilize, type StabilityState } from '../shared/recommender';
 import { seatLabel } from '../shared/normalizer';
 import { crowdDisplay } from '../shared/crowd';
@@ -333,9 +333,10 @@ type CardProps = {
 function PinnedCard(p: CardProps) {
   const { ev, cand, now, settings, journey } = p;
   const leg1 = cand.legs[0], leg2 = cand.legs[1];
-  const a = pinnedAction(ev, cand, now, settings);
-  const dots = stripDots(ev, cand, now);
   const board1 = p.lookup(leg1.board.ars, leg1.routeNo);
+  const seen1 = ev.firstVehicle ? null : nearestSeen(board1?.observations, now);
+  const a = pinnedAction(ev, cand, now, settings, 8, seen1);
+  const dots = stripDots(ev, cand, now, seen1);
   const realtime1 = ev.firstBoardingEstimate?.evidenceKind === 'realtime_prediction';
   const hint = ev.firstVehicle && realtime1 ? seatHintFor(ev.firstVehicle, board1, leg1, p.vehicles[leg1.routeNo], now) : null;
   const bunch = detectBunching(board1);
@@ -354,7 +355,7 @@ function PinnedCard(p: CardProps) {
   const lastLeg = journey.phase === 'on_second_bus' || (journey.phase === 'on_first_bus' && !leg2);
   // 버튼은 딱 하나(상황에 맞게): 탔어요 → (환승) n번 탔어요 → 도착했어요 → 처음부터
   const btn = !mine || journey.phase === 'walking_to_stop' || journey.phase === 'at_stop'
-    ? (ev.firstBoardingEstimate ? { t: '🚌 탔어요', f: () => p.setJourney({ phase: 'on_first_bus', candidateId: cand.id, leftAt: journey.leftAt ?? null, atStopAt: journey.atStopAt ?? null, boarded: { routeNo: leg1.routeNo, boardArs: leg1.board.ars, vehicleReference: ev.firstVehicle?.vehicleReference ?? null, vehicleConfirmed: false, boardedAt: now } }) } : null)
+    ? { t: '🚌 탔어요', f: () => p.setJourney({ phase: 'on_first_bus', candidateId: cand.id, leftAt: journey.leftAt ?? null, atStopAt: journey.atStopAt ?? null, boarded: { routeNo: leg1.routeNo, boardArs: leg1.board.ars, vehicleReference: (ev.firstVehicle ?? seen1)?.vehicleReference ?? null, vehicleConfirmed: false, boardedAt: now } }) }
     : lastLeg ? { t: '🏁 도착했어요', f: () => p.setJourney({ ...journey, phase: 'arrived' }) }
     : (journey.phase === 'on_first_bus' || journey.phase === 'at_transfer') && leg2 ? { t: `🚌 ${leg2.routeNo}번 탔어요`, f: () => p.setJourney({ ...journey, phase: 'on_second_bus', secondBoarded: { routeNo: leg2.routeNo, boardArs: leg2.board.ars, boardedAt: now } }) }
     : journey.phase === 'arrived' ? { t: '↺ 처음부터', f: () => p.setJourney({ phase: 'before' }) } : null;
@@ -369,6 +370,7 @@ function PinnedCard(p: CardProps) {
       <p className={`pin-action act-${journeyText ? 'journey' : a.kind}`} aria-live="polite">{journeyText ?? a.text}</p>
       {!journeyText && a.kind === 'relax' && a.leaveAt != null && <p className="pin-sub">{hhmm(a.leaveAt)}쯤 나가면 돼요</p>}
       {!journeyText && a.kind === 'now' && a.tight && <p className="pin-sub">조금 빠듯해요, 서둘러요!</p>}
+      {!journeyText && a.kind === 'tight_miss' && <p className="pin-sub">다음 차는 아직 안 보여요</p>}
       {pb && <p className="pin-planb">😢 놓쳤어요 → {pb.next ? <>다음 {pb.missed.routeNo}번 <b>{hhmm(pb.next.etaAt)}</b>{pb.newArrivalAt != null && <>, 도착 <b>{hhmm(pb.newArrivalAt)}</b></>}</> : '다음 차 정보 아직 없음'}</p>}
       <div className="pin-arrive">
         <span className="pin-arrive-label">{arriveAt != null ? '도착' : '도착 시간'}</span>
