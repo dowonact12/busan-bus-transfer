@@ -41,18 +41,8 @@ export function TripMap({ cand, routeStops, buses, origin, dest }: { cand: Candi
         L.polyline(line, { color: routeColor(leg.routeNo), weight: 6, opacity: 0.95 }).addTo(map);
         pts.push(...line);
       }
-      // 걷는 구간(직선 점선)
-      const walk = (a: [number, number], b: [number, number]) => L.polyline([a, b], { color: '#8a83a8', weight: 3, dashArray: '2 7', opacity: 0.9 }).addTo(map);
-      walk([origin.lat, origin.lon], [l1.board.lat, l1.board.lon]);
-      if (l2 && l2.board.ars !== l1.alight.ars) walk([l1.alight.lat, l1.alight.lon], [l2.board.lat, l2.board.lon]);
       const last = (l2 ?? l1).alight;
-      walk([last.lat, last.lon], [dest.lat, dest.lon]);
-      // 건물: 작은 표시 + '대략'
-      const bld = (p: Place) => {
-        L.marker([p.lat, p.lon], { icon: L.divIcon({ className: 'map-bld', html: `<em></em><span>🏢 ${esc(p.label)} <i>(대략)</i></span>`, iconSize: [0, 0] }), keyboard: false }).addTo(map);
-        pts.push([p.lat, p.lon]);
-      };
-      bld(origin); bld(dest);
+      void origin; void dest; // 단순화: 걷는 선·건물 표시는 빼고 노선·정류장 3곳·버스만
       // 큰 핀 3개
       const pin = (lat: number, lon: number, role: string, cls: string, name: string) => L.marker([lat, lon], {
         icon: L.divIcon({ className: 'map-pin-wrap', html: `<div class="map-pin ${cls}"><b>${role}</b><span>${esc(name)}</span></div>`, iconSize: [0, 0] }), zIndexOffset: 500,
@@ -88,7 +78,7 @@ export function TripMap({ cand, routeStops, buses, origin, dest }: { cand: Candi
     <div className="tripmap">
       <div ref={el} className="map" role="img" aria-label="경로 지도: 출발·환승·도착 정류장과 실시간 버스" />
       <div className="map-foot">
-        <p className="fine">색 선은 정류장을 순서대로 이은 선이라 실제 도로 모양과 달라요. 🏢 건물 위치는 대략이에요. 버스는 BIMS GPS 위치가 있을 때만 보여요.</p>
+        <p className="fine">선은 정류장을 이은 선이라 실제 도로와 조금 달라요. 버스는 GPS가 있을 때만 보여요.</p>
         <button className="btn tiny soft" onClick={() => mapRef.current?.map.fitBounds(mapRef.current.bounds, FIT)} aria-label="경로 전체 보기">↺ 전체</button>
       </div>
     </div>

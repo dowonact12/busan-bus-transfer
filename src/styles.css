@@ -250,7 +250,7 @@ button { font: inherit; color: inherit; }
 .map-bld i { font-style: normal; opacity: .8; }
 .map-bus { background: none; border: 0; }
 
-.tiles-soft { filter: grayscale(0.6) brightness(1.07) contrast(0.9) saturate(0.85); }
+.tiles-soft { filter: grayscale(1) brightness(1.12) contrast(0.82); }
 
 .tag-measured { background:#e3f6e8; color:#1f6b3a; }
 .stops-helper { margin:8px 0 4px; padding:8px 10px; border-radius:12px; background:#fff6dc; border:1px dashed #f0c95a; }
@@ -273,3 +273,64 @@ button { font: inherit; color: inherit; }
 .seat-list { list-style:none; padding:0; margin:6px 0; }
 .seat-list li { margin-bottom:8px; }
 .seat-item { margin:4px 0 0 4px; font-size:14px; }
+
+/* ===== 단순화: 맨 위 고정 카드 ===== */
+.card.pinned { border: 2px solid #ffd77a; padding: 1rem 1rem 0.8rem; }
+.card.pinned.is-off { border-color: #e4def3; }
+.pin-head { display: flex; align-items: center; gap: 0.45rem; flex-wrap: wrap; }
+.pin-routes { display: inline-flex; align-items: center; gap: 0.2rem; }
+.pin-routes .route-chip { font-size: 0.85rem; padding: 0.1rem 0.55rem; }
+.pin-routes .arrow { color: var(--muted); margin: 0 0.15rem; }
+.pin-action { font-size: 1.95rem; font-weight: 900; letter-spacing: -0.03em; line-height: 1.2; margin: 0.6rem 0 0.1rem; word-break: keep-all; }
+.pin-action.act-now { color: #d23f63; }
+.pin-action.act-in { color: #6a4fc0; }
+.pin-action.act-relax { color: var(--mint-ink); }
+.pin-action.act-unknown { color: var(--muted); font-size: 1.35rem; }
+.pin-action.act-journey { color: #6a4fc0; font-size: 1.6rem; }
+.pin-sub { margin: 0.1rem 0 0; font-size: 1.05rem; font-weight: 700; color: var(--ink); }
+.pin-planb { margin: 0.5rem 0 0; padding: 0.45rem 0.7rem; border-radius: 12px; background: var(--risk); color: var(--risk-ink); font-weight: 700; font-size: 0.95rem; }
+.pin-arrive { display: flex; align-items: baseline; gap: 0.5rem; margin: 0.7rem 0 0.1rem; }
+.pin-arrive-label { font-size: 1rem; font-weight: 800; color: var(--muted); }
+.pin-arrive-time.unknown { font-size: 1.5rem; color: var(--muted); }
+.pin-arrive-time { font-size: 3.2rem; font-weight: 900; letter-spacing: -0.03em; line-height: 1; color: var(--ink); }
+.pin-status { margin: 0.2rem 0 0; font-size: 0.95rem; font-weight: 700; color: var(--warn-ink); }
+.pin-chips { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.5rem; }
+.pin-actions { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-top: 0.7rem; }
+.ride-btn { font-size: 0.95rem; }
+.more-btn { color: var(--muted); }
+.pin-details { margin-top: 0.6rem; border-top: 1px dashed #ece7f7; padding-top: 0.7rem; }
+.mini-title { font-size: 0.92rem; font-weight: 800; margin: 0.9rem 0 0.3rem; }
+.map-toggle { width: 100%; margin: 0.5rem 0; min-height: 44px; }
+
+/* 출발 · 환승 · 도착 점 3개 */
+.ds { list-style: none; margin: 1rem 0 0.2rem; padding: 0; display: grid; position: relative; }
+.ds-3 { grid-template-columns: repeat(3, 1fr); }
+.ds-2 { grid-template-columns: repeat(2, 1fr); }
+.ds::before { content: ''; position: absolute; left: 16.6%; right: 16.6%; top: 54px; height: 4px; border-radius: 4px; background: linear-gradient(90deg, #f6a6b9, #b9a3ea 50%, #7fc9a5); }
+.ds-2::before { left: 25%; right: 25%; }
+.ds-item { display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; min-width: 0; }
+.ds-bus { height: 46px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 2px; }
+.ds-chip { font-size: 0.8rem; font-weight: 800; color: var(--ink); border-radius: 999px; padding: 0 0.5rem; border: 2px solid #fff; box-shadow: 0 1px 4px rgba(59,51,85,.2); white-space: nowrap; }
+.ds-text { font-size: 0.76rem; font-weight: 700; color: var(--ink); white-space: nowrap; }
+.ds-mark { display: block; width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 4px solid #b9a3ea; margin-top: 4px; z-index: 1; }
+.ds-start .ds-mark { border-color: #f6a6b9; }
+.ds-end .ds-mark { border-color: #3fa877; }
+.ds-role { font-size: 0.9rem; margin-top: 0.25rem; }
+.ds-name { font-size: 0.72rem; color: var(--muted); padding: 0 0.2rem; word-break: keep-all; line-height: 1.25; }
+
+/* 더 빠른 길 한 줄 */
+.better-line { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; width: 100%; min-height: 50px; margin-top: 0.7rem; padding: 0.55rem 0.9rem; border: 0; border-radius: 16px; background: #fff; box-shadow: var(--shadow); text-align: left; cursor: pointer; font-size: 0.95rem; }
+.better-gain { color: var(--mint-ink); font-weight: 800; white-space: nowrap; font-size: 0.85rem; }
+.quick.quick-2 { grid-template-columns: 2fr 1fr; margin-top: 0.8rem; }
+.other-line { margin: 0.25rem 0; }
+
+/* 깔끔한 지도(MapLibre) */
+.gl-map { height: 300px; }
+.glp { position: relative; width: 18px; height: 18px; pointer-events: none; }
+.glp i { position: absolute; inset: 0; border-radius: 50%; background: #fff; border: 4px solid #b9a3ea; box-shadow: 0 1px 4px rgba(0,0,0,.2); }
+.glp.glp-start i { border-color: #f6a6b9; }
+.glp.glp-end i { border-color: #3fa877; }
+.glp span { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,.95); border-radius: 8px; padding: 1px 6px; font-size: 11px; white-space: nowrap; box-shadow: 0 1px 3px rgba(0,0,0,.15); color: var(--ink); }
+.glp span b { color: #6a4fc0; margin-right: 2px; }
+.gl-bus { font-size: 12px; font-weight: 800; color: var(--ink); border-radius: 10px; padding: 2px 7px; border: 2px solid #fff; box-shadow: 0 2px 6px rgba(59,51,85,.25); white-space: nowrap; }
+.gl-bus.bus-stale { opacity: 0.55; }
