@@ -3,7 +3,7 @@ import { preferredFor } from '../shared/preferences';
 import { calibratedSettings, DOOR_CALIBRATION, defaultPrefs, MEASURED_LABEL, migratePrefs, RULE_OF_THUMB, stopsAwayAtLeave, type UserPrefsV2 } from '../shared/calibration';
 import { detectBunching, detectMiss, planB, seatHint, secondBusOutcome, targetOf, type PlanB, type SeatHint, type Target } from '../shared/insights';
 import { HISTORY_KEY, learnedDoorToStop, learnedRide, parseHistory, upsertRecord, type Blended, type TripRecord } from '../shared/history';
-import { leaveDeadlineOf, mainLayout, nearestSeen, pinnedAction, stopTimeText, stripDots, destPlace, doorTime } from '../shared/pinned';
+import { leaveDeadlineOf, mainLayout, nearestSeen, pinnedAction, stopTimeText, stripDots, destPlace, doorTime, betterRouteLabel } from '../shared/pinned';
 import { augmentBoards, nextBusWhere } from '../shared/positionEta';
 import { recommend, stabilize, type StabilityState } from '../shared/recommender';
 import { seatLabel } from '../shared/normalizer';
@@ -234,8 +234,8 @@ function TripApp({ trip, setTrip }: { trip: TripId; setTrip: (t: TripId) => void
               expanded={open === pinnedCand.id} onToggle={() => setOpen(open === pinnedCand.id ? null : pinnedCand.id)} journey={journey} setJourney={setJourney} />
             {better && betterCand && (
               <button className="better-line" onClick={() => { setOthersOpen(betterCand.id); setSheet('others'); }}>
-                <span>💡 {betterCand.routes.join('→')}번 타면 {destPlace(trip)} <b>{doorTime(better.evaluation, hhmm)}</b> 도착</span>
-                <span className="better-gain">{better.savedSec != null ? `${Math.round(better.savedSec / 60)}분 빨라요` : '지금은 이게 확실해요'} ›</span>
+                <span>💡 {betterRouteLabel(betterCand, pinnedCand)} 타면 {destPlace(trip)} <b>{doorTime(better.evaluation, hhmm)}</b> 도착</span>
+                <span className="better-gain">{better.savedSec != null ? `${Math.round(better.savedSec / 60)}분 빨라요` : better.evaluation.tier === 'estimate' ? '이 길은 연결돼요' : '지금은 이게 확실해요'} ›</span>
               </button>
             )}
           </>

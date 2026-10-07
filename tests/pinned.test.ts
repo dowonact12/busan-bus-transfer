@@ -1,6 +1,6 @@
 // 평소 경로 고정 + 3분 이상 빠를 때만 추천 한 줄 + 한 줄 행동
 import { describe, expect, it } from 'vitest';
-import { destPlace, doorTime, mainLayout, nearestSeen, pinnedAction, stripDots } from '../shared/pinned';
+import { betterRouteLabel, confidentlyEarlier, destPlace, doorTime, EST_NO_RANGE_MARGIN_SEC, mainLayout, nearestSeen, pinnedAction, stripDots } from '../shared/pinned';
 import { planB } from '../shared/insights';
 import { recommend } from '../shared/recommender';
 import { evaluateCandidate } from '../shared/evaluator';
@@ -101,5 +101,48 @@ describe('문 앞 도착 vs 정류장 하차(같은 숫자 두 개로 헷갈리�
     const pb = planB({ candidateId: 'USUAL', routeNo: '29', boardArs: 'O1', vehicleRef: null, etaAt: NOW, leaveBy: null, seenAt: NOW }, 'bus_left', l.pinned!, rec!.all);
     expect(pb.newArrivalAt).toBe(l.pinned!.destinationEstimate!.nominalAt);
     expect(pb.alternative!.arrivalAt).toBe(l.better!.evaluation.destinationEstimate!.nominalAt);
+  });
+});
+
+describe('추천 줄: 확실히 빠를 때만 + 같은 번호면 정류장 이름', () => {
+  const fake = (id: string, tier: 'observed' | 'estimate', min: number, latestMin: number | null = null, rangeKind: 'provider' | 'assumed' | 'none' = 'assumed') => ({
+    candidateId: id, tier, feasibility: 'comfortable',
+    destinationEstimate: { nominalAt: at(min), earliestAt: at(min), latestAt: latestMin == null ? null : at(latestMin), evidenceKind: 'position_estimate', rangeKind, origin: 'live', basedOnObservations: [], assumptions: [] },
+  }) as unknown as import('../shared/types').ItineraryEvaluation;
+  const lay = (pref: ReturnType<typeof fake>, other: ReturnType<typeof fake>) => mainLayout({ recommended: other, all: [pref, other] } as never, pref.candidateId);
+
+  it('둘 다 실시간(또는 둘 다 추정)이면 문 앞 3분+ 빠르면 표시', () => {
+    expect(lay(fake('U', 'observed', 40), fake('R', 'observed', 37)).better).toMatchObject({ savedSec: 180 });
+    expect(lay(fake('U', 'observed', 40), fake('R', 'observed', 38)).better).toBeNull();
+    expect(lay(fake('U', 'estimate', 40), fake('R', 'estimate', 37, 45)).better).not.toBeNull();
+  });
+  it('추천만 추정(~)이고 평소는 실시간: 늦은 쪽도 평소보다 빨라야', () => {
+    const U = fake('U', 'observed', 43);
+    expect(lay(U, fake('R', 'estimate', 38, 44)).better).toBeNull(); // 실제 화면 사례: ~11:38(늦으면 11:44) vs 11:43 → 숨김
+    expect(lay(U, fake('R', 'estimate', 38, 43)).better).toBeNull(); // 같으면 숨김(더 빠르다 할 수 없음)
+    expect(lay(U, fake('R', 'estimate', 36, 42)).better).toMatchObject({ savedSec: 7 * 60 });
+  });
+  it('범위가 없으면 5분+ 빨라야', () => {
+    const U = fake('U', 'observed', 43);
+    expect(EST_NO_RANGE_MARGIN_SEC).toBe(300);
+    expect(lay(U, fake('R', 'estimate', 39)).better).toBeNull(); // 4분
+    expect(lay(U, fake('R', 'estimate', 38)).better).not.toBeNull(); // 5분
+    expect(lay(U, fake('R', 'estimate', 39, 39)).better).toBeNull(); // 늦은 쪽 = 그대로 → 범위 없음
+    expect(lay(U, fake('R', 'estimate', 39, 41, 'none')).better).toBeNull();
+    expect(confidentlyEarlier(fake('R', 'estimate', 38), U, at(43))).toBe(true);
+  });
+  it('확신 못 하는 더 빠른 길은 건너뛰고, 확실한 다음 길을 보여 줌', () => {
+    const U = fake('U', 'observed', 43), R1 = fake('R1', 'estimate', 37, 46), R2 = fake('R2', 'observed', 39);
+    const l = mainLayout({ recommended: R1, all: [U, R1, R2] } as never, 'U');
+    expect(l.better!.evaluation.candidateId).toBe('R2');
+  });
+  it('버스 번호가 같으면 다른 정류장 이름을 붙임', () => {
+    const U = transferCand({ id: 'U', r1: '29', r2: '43', firstWalkMin: 2, ride1Min: 10, transferWalkMin: 1, ride2Min: 10, finalWalkMin: 2 });
+    const otherBoard = { ...U, id: 'B', legs: [{ ...U.legs[0], board: { ...U.legs[0].board, ars: 'O9', name: '연산교차로' } }, U.legs[1]] };
+    expect(betterRouteLabel(otherBoard, U)).toBe('연산교차로에서 29→43번');
+    const otherTransfer = transferCand({ id: 'B2', r1: '29', r2: '43', firstWalkMin: 2, ride1Min: 10, transferWalkMin: 1, ride2Min: 10, finalWalkMin: 2, tArs: ['T5', 'T5'], names: ['수안역', '수안역'] });
+    expect(betterRouteLabel(otherTransfer, U)).toBe('29→43번(수안역 환승)');
+    expect(betterRouteLabel(FAST(10), U)).toBe('36번'); // 번호가 다르면 그대로
+    expect(betterRouteLabel(U, null)).toBe('29→43번');
   });
 });

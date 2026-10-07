@@ -27,9 +27,39 @@ export function mainLayout(rec: Recommendation | null, preferredId: string | nul
   for (const r of pool) {
     const rAt = r.destinationEstimate!.nominalAt!;
     if (pAt == null) { better = { evaluation: r, savedSec: null }; break; } // 평소 경로는 지금 도착을 장담 못 함
-    if (rAt <= pAt - windowSec) { better = { evaluation: r, savedSec: pAt - rAt }; break; }
+    if (confidentlyEarlier(r, pref, pAt, windowSec)) { better = { evaluation: r, savedSec: pAt - rAt }; break; }
   }
   return { pinned: pref, pinnedIsPreferred: true, better };
+}
+
+/** 범위 없는 추정이 실시간 평소 경로를 이기려면 이만큼(5분) 빨라야 함 */
+export const EST_NO_RANGE_MARGIN_SEC = 300;
+
+/**
+ * 추천 줄은 '확실히 더 빠를 때만': 문 앞 도착이 windowSec(3분)+ 빨라야 하고,
+ * 추천이 추정(~)인데 평소 경로가 실시간이면 추천의 늦은 쪽(latestAt)도 평소 경로보다 빨라야 함(범위 없으면 5분+).
+ */
+export function confidentlyEarlier(r: ItineraryEvaluation, pref: ItineraryEvaluation, pAt: Sec, windowSec = 180): boolean {
+  const d = r.destinationEstimate;
+  const rAt = d?.nominalAt;
+  if (rAt == null || rAt > pAt - windowSec) return false;
+  if (r.tier === 'estimate' && pref.tier === 'observed') {
+    const hi = d!.latestAt;
+    const hasRange = hi != null && hi > rAt && d!.rangeKind !== 'none';
+    return hasRange ? hi! < pAt : rAt <= pAt - EST_NO_RANGE_MARGIN_SEC;
+  }
+  return true;
+}
+
+/** 추천 줄 노선 이름. 평소 경로와 버스 번호가 같으면 다른 정류장을 붙여 같은 길로 안 보이게 */
+export function betterRouteLabel(b: CandidateRoute, usual: CandidateRoute | null | undefined): string {
+  const routes = `${b.routes.join('→')}번`;
+  if (!usual || b.routes.join('|') !== usual.routes.join('|')) return routes;
+  if (b.legs[0].board.ars !== usual.legs[0].board.ars) return `${b.legs[0].board.name}에서 ${routes}`;
+  const b2 = b.legs[1], u2 = usual.legs[1];
+  if (b2 && u2 && b2.board.ars !== u2.board.ars) return `${routes}(${b2.board.name} 환승)`;
+  if (b2 && u2 && b.legs[0].alight.ars !== usual.legs[0].alight.ars) return `${routes}(${b.legs[0].alight.name}에서 내려 환승)`;
+  return routes;
 }
 
 export type ActionKind = 'now' | 'in' | 'relax' | 'tight_miss' | 'unknown';
